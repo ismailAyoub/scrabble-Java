@@ -38,9 +38,10 @@ public class Scrabble {
 
     public static void main(String[] args){
 
-        gameBoard board1 = new gameBoard();
+        GameBoard board1 = new GameBoard();
         board1.printBoard();
-        System.out.println();board1.getNode(0,0).getBounce();
+        System.out.println();
+		board1.getNode(0,0).getBounce();
         String words[] = {"cat","dog","house","car","bike"};
 
         Scanner input = new Scanner(System.in);

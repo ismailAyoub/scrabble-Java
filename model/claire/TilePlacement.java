@@ -9,21 +9,21 @@ public class TilePlacement
 	public TilePlacement(int row, int col, Tile tile)
 	{
 		this.row = row;
-		this.col = y;
-		this.tile = tile
+		this.col = col;
+		this.tile = tile;
 	}
 	
-	public getRow()
+	public int getRow()
 	{
 		return row;
 	}
 	
-	public getCol()
+	public int getCol()
 	{
 		return col;
 	}
 	
-	public getTile()
+	public Tile getTile()
 	{
 		return tile;
 	}

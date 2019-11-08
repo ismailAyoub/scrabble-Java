@@ -1,4 +1,5 @@
 package model.ismail;
+import model.claire.*;
 
 public class Node {
     private boolean empty = true;

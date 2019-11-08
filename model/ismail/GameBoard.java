@@ -1,10 +1,11 @@
 package model.ismail;
+import model.claire.*;
 
 public class GameBoard {
 
     private Node board[][] = new Node[15][15];
 
-    GameBoard(){
+    public GameBoard(){
         for(int i=0; i<15; i++){
 
             for(int j=0; j<15; j++) {
@@ -59,6 +60,16 @@ public class GameBoard {
             System.out.println();
         }
     }
+	
+	public void setTile(int i, int j, Tile t)
+	{
+		board[i][j].setTile(t);
+	}
+	
+	public Tile getTile(int i, int j)
+	{
+		return board[i][j].getTile();
+	}
 
     public void setLetter(int i, int j, char l){
         board[i][j].setLetter(l);
