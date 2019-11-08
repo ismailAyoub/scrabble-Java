@@ -1,3 +1,5 @@
+package model.ismail;
+
 import java.util.Scanner;
 
 public class Scrabble {

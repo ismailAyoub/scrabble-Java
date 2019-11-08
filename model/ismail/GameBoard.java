@@ -1,12 +1,14 @@
-public class gameBoard {
+package model.ismail;
 
-    private nodes board[][] = new nodes[15][15];
+public class GameBoard {
 
-    gameBoard(){
+    private Node board[][] = new Node[15][15];
+
+    GameBoard(){
         for(int i=0; i<15; i++){
 
             for(int j=0; j<15; j++) {
-                board[i][j] = new nodes();
+                board[i][j] = new Node();
                 if(i == 0) board[i][j].setTop(true);
                 if(i == 14) board[i][j].setBottom(true);
                 if(j == 0) board[i][j].setLeft(true);
@@ -19,7 +21,7 @@ public class gameBoard {
 
     }
 
-    private void setBonus(nodes n[][]){
+    private void setBonus(Node n[][]){
 
         n[0][0].setBounce("tw");
         n[0][3].setBounce("dl");
@@ -61,7 +63,7 @@ public class gameBoard {
     public void setLetter(int i, int j, char l){
         board[i][j].setLetter(l);
     }
-    public nodes getNode(int i,int j){
+    public Node getNode(int i,int j){
         return board[i][j];
     }
 

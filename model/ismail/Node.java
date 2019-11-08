@@ -1,17 +1,22 @@
-public class nodes {
+package model.ismail;
+
+public class Node {
     private boolean empty = true;
     private boolean left = false,right = false,top = false,bottom = false;
     private String bonus;
     private char letter;
-
-    nodes(){
+	private Tile tile;
+    Node(){
         letter = '_';
         bonus = "none";
     }
-    nodes(char i){
+    Node(char i){
         letter = i;
     }
-
+	Node(Tile t)
+	{
+		this.tile = t;
+	}
     public void setEmpty(boolean a){
         this.empty = a;
     }
@@ -33,6 +38,10 @@ public class nodes {
     public void setLetter(char g){
         this.letter = g;
     }
+	public void setTile(Tile t)
+	{
+		this.tile = t;
+	}
 
     public boolean isEmpty(){
         return empty;
@@ -55,5 +64,9 @@ public class nodes {
     public char getLetter(){
         return letter;
     }
+	public Tile getTile()
+	{
+		return tile;
+	}
 
 }
