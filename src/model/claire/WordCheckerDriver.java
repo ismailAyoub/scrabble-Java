@@ -22,9 +22,9 @@ public class WordCheckerDriver
 			while (loop.equals("yes")){
 				System.out.print("Enter the letter you want to place: ");
 				char l = input.next().charAt(0);
-				System.out.print("Enter position 'i' in array:");
+				System.out.print("Enter position 'i' (row) in array:");
 				int i = input.nextInt();
-				System.out.print("Enter position 'j' in array:");
+				System.out.print("Enter position 'j' (col) in array:");
 				int j = input.nextInt();
 				board1.setLetter(i,j,l);
 				board1.setTile(i, j, new Tile(1, l));
@@ -37,9 +37,12 @@ public class WordCheckerDriver
 				
 				System.out.println("Check word?");
 				String inp = input.nextLine();
+				inp = input.nextLine();
 				if (inp.equals("Y") || inp.equals("y"))
 				{
-					
+					System.out.println(w.validatePlacement() ? 
+								("Valid placement: " + w.getAlignment()) :
+								("Invalid placement.") );
 					w.reset();
 				}
 			}

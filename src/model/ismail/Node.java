@@ -10,13 +10,16 @@ public class Node {
     Node(){
         letter = '_';
         bonus = "none";
+		tile = null;
     }
     Node(char i){
         letter = i;
+		empty = false;
     }
 	Node(Tile t)
 	{
 		this.tile = t;
+		empty = false;
 	}
     public void setEmpty(boolean a){
         this.empty = a;
@@ -38,10 +41,12 @@ public class Node {
     }
     public void setLetter(char g){
         this.letter = g;
+		empty = false;
     }
 	public void setTile(Tile t)
 	{
 		this.tile = t;
+		empty = false;
 	}
 
     public boolean isEmpty(){
