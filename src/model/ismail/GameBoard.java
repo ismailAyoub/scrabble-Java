@@ -74,9 +74,9 @@ public class GameBoard {
     public void setLetter(int i, int j, char l){
         board[i][j].setLetter(l);
     }
+	
     public Node getNode(int i,int j){
         return board[i][j];
     }
-
 
 }

@@ -18,6 +18,7 @@ public class WordChecker
 		tilesPlaced = new ArrayList<TilePlacement>();
 		valid = false;
 		wordPoints = 0;
+		alignment = "no";
 	}
 	
 	public void reset()
@@ -100,7 +101,7 @@ public class WordChecker
 		switch (alignment) 
 		{
 			case "single":
-				Tile temp;
+				//Tile temp;
 				words.add(new ArrayList<Tile>());
 				words.add(new ArrayList<Tile>());
 				TilePlacement tilePlaced = tilesPlaced.get(0);
@@ -157,27 +158,145 @@ public class WordChecker
 					}
 				}
 				
-				if (words.get(1).size() == 1)
+				for (int i = 0; i < words.size(); i++)
 				{
-					words.get(1).clear();
+					if (words.get(i).size() == 1)
+					{
+						words.get(i).clear();
+						words.remove(i);
+					}
+					else if (trie.isWord(convertToString(words.get(i)), Difficulty.WORD))
+					{
+						valid = true;
+					}
 				}
-				if (trie.isWord(convertToString(words.get(0)), Difficulty.WORD))
-				{
-					valid = true;
-					return words;
-				}
-				
-				
 				break;
+				
 			case "horizontal":
+				sortTilesPlaced();
+				ArrayList<Tile> temp = new ArrayList<Tile>();
+				for (int i = 0 ; i < tilesPlaced.size(); i++)
+				{
+					temp.add(tilesPlaced.get(i).getTile());
+				}
+				
+				for (int j = tilesPlaced.get(0).getCol() - 1; j >= 0; j--)
+				{
+					if (!board.getNode(tilesPlaced.get(0).getRow(), j).isEmpty())
+					{
+						//If tiles adjacent to the left of placed tile, add to the beginning of the second ArrayList of tiles
+						temp.add(0, board.getTile(tilesPlaced.get(0).getRow(), j));
+					}
+					else
+					{
+						break;
+					}
+				}
+				for (int j = tilesPlaced.get(tilesPlaced.size() - 1).getCol() + 1; j <= 14; j++)
+				{
+					if (!board.getNode(tilesPlaced.get(0).getRow(), j).isEmpty())
+					{
+						//If tiles adjacent to the left of placed tile, add to the beginning of the second ArrayList of tiles
+						temp.add(0, board.getTile(tilesPlaced.get(0).getRow(), j));
+					}
+					else
+					{
+						break;
+					}
+				}
+				words.add(temp);
+				
+				for (int j = 0; j < tilesPlaced.size(); j++)
+				{
+					temp = new ArrayList<Tile>();
+					temp.add(tilesPlaced.get(j).getTile());
+					for (int i = tilesPlaced.get(j).getRow() - 1; i >= 0; i--)
+					{
+						if (!board.getNode(i, tilesPlaced.get(j).getRow()).isEmpty())
+						{
+							//If tiles adjacent to the left of placed tile, add to the beginning of the second ArrayList of tiles
+							temp.add(0, board.getTile(i, tilesPlaced.get(j).getRow()));
+						}
+						else
+						{
+							break;
+						}
+					}
+					for (int i = tilesPlaced.get(j).getRow() + 1; i <= 14; i++)
+					{
+						if (!board.getNode(i, tilesPlaced.get(j).getRow()).isEmpty())
+						{
+							//If tiles adjacent to the left of placed tile, add to the beginning of the second ArrayList of tiles
+							temp.add(board.getTile(i, tilesPlaced.get(j).getRow()));
+						}
+						else
+						{
+							break;
+						}
+					}
+					if (temp.size() > 1)
+					{
+						words.add(temp);
+					}
+				}
 				
 				break;
-			case "vertical":
 				
+			case "vertical":
+				//sortTilesPlaced();
 				break;
 		}
 		
-		return new ArrayList<ArrayList<Tile> >();
+		return words;
+	}
+	
+	private void sortTilesPlaced()
+	{
+		TilePlacement temp;
+		int min = 0;
+		int minIndex = 0;
+		for (int i = 0; i < tilesPlaced.size(); i++)
+		{
+			
+			minIndex = i;
+			if (alignment.equals("vertical"))
+			{
+				min = tilesPlaced.get(i).getRow();
+			}
+			else if (alignment.equals("horizontal"))
+			{
+				min = tilesPlaced.get(i).getCol();
+			}
+			
+			for (int i2 = i; i2 < tilesPlaced.size(); i2++)
+			{
+				if (alignment.equals("vertical"))
+				{
+					if (tilesPlaced.get(i2).getRow() < min)
+					{
+						minIndex = i2;
+						min = tilesPlaced.get(i2).getRow();
+					}
+				}
+				else if (alignment.equals("horizontal"))
+				{
+					if (tilesPlaced.get(i2).getCol() < min)
+					{
+						minIndex = i2;
+						min = tilesPlaced.get(i2).getCol();
+					}
+				}
+			}
+			temp = tilesPlaced.get(i);
+			tilesPlaced.set(i, tilesPlaced.get(minIndex));
+			tilesPlaced.set(minIndex, temp);
+			
+			for (TilePlacement ie : tilesPlaced)
+			{
+				System.out.print(ie.getTile().getLetter());
+			}
+			System.out.println("Out of sort method");
+		}
 	}
 	
 	public boolean isValid()

@@ -1,5 +1,6 @@
 package model.claire;
 import model.ismail.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class WordCheckerDriver
@@ -32,7 +33,7 @@ public class WordCheckerDriver
 				//System.out.print("Do you want to input another letter? 'yes' or 'no' ");
 				//loop = input.next();
 ///Note------End of stolen code/////////////////////////////////////////////////////////////
-				
+				ArrayList<ArrayList<Tile> > arr = new ArrayList<ArrayList<Tile> >();
 				w.addTilePlaced(new TilePlacement(i, j, new Tile(1, l)));
 				
 				System.out.println("Check word?");
@@ -43,6 +44,16 @@ public class WordCheckerDriver
 					System.out.println(w.validatePlacement() ? 
 								("Valid placement: " + w.getAlignment()) :
 								("Invalid placement.") );
+					arr = w.validateWord();
+					for (ArrayList<Tile> arr1 : arr)
+					{
+						for (Tile t : arr1)
+						{
+							System.out.print(t.getLetter());
+						}
+						System.out.print("\n");
+					}
+					System.out.print("\n");
 					w.reset();
 				}
 			}
