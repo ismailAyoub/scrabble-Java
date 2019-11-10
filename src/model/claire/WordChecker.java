@@ -175,8 +175,17 @@ public class WordChecker
 				
 			case "horizontal":
 				sortTilesPlaced();
-				ArrayList<Integer> horizontalGaps = new ArrayList<Integer>();	//Stores column indexes of tiles on the board that the user placed tiles around in the current turn
 				
+				
+				ArrayList<Tile> temp = new ArrayList<Tile>();	//Holds the word formed on the board as a series of Tile
+				
+				
+				
+				
+				//ArrayList<Integer> horizontalGaps = new ArrayList<Integer>();	//Stores column indexes of tiles on the board that the user placed tiles around in the current turn
+				
+				
+				/*
 				//Find the columns in the current "line" of tiles n the board that hold tiles from previous turns.
 				//These columns will not hold tiles placed in the current turn, but the user USED these tiles in these columns in order to form a word on the board.
 				for (int i = tilesPlaced.get(0).getCol(); i < tilesPlaced.get(tilesPlaced.size() - 1).getCol(); i++)
@@ -188,7 +197,7 @@ public class WordChecker
 				}
 				
 				
-				ArrayList<Tile> temp = new ArrayList<Tile>();	//Holds the word formed on the board as a series of Tiles
+				s
 				
 				//(gap = tile not placed in current turn in this space, but the space holds a tile from a previous turn)
 				//Merge the tilesPlaced and the tiles in the horizontal gaps on the board into the word formed by the user
@@ -219,7 +228,16 @@ public class WordChecker
 						i++;
 					}
 				}
-				*/
+				*/if (!board.getNode(tilesPlaced.get(0).getRow(), j).isEmpty())
+					{
+						//If tiles adjacent to the left of placed tile, add to the beginning of the second ArrayList of tiles
+						temp.add(0, board.getTile(tilesPlaced.get(0).getRow(), j));
+					}
+					else
+					{
+						break;
+					}
+				
 				
 				//Search to the right of the tiles placed to see if the tiles play off adjacent tiles to the left previously placed on the board.
 				for (int j = tilesPlaced.get(0).getCol() - 1; j >= 0; j--)
@@ -235,6 +253,18 @@ public class WordChecker
 					}
 				}
 				
+				for (int j = tilesPlaced.get(0).getCol(); j <= tilesPlaced.get(tilesPlaced.size() - 1).getCol(); j++)
+				{
+					if (!board.getNode(tilesPlaced.get(0).getRow(), j).isEmpty())
+					{
+						//If tiles adjacent to the left of placed tile, add to the beginning of the second ArrayList of tiles
+						temp.add(0, board.getTile(tilesPlaced.get(0).getRow(), j));
+					}
+					else
+					{
+						break;
+					}
+				}
 				
 				for (int j = tilesPlaced.get(tilesPlaced.size() - 1).getCol() + 1; j <= 14; j++)
 				{

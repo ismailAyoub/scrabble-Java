@@ -6,8 +6,6 @@ import java.util.Scanner;
 public class WordCheckerDriver
 {
 	
-
-
 	public static void main(String[] args)
 	{
 			GameBoard board1 = new GameBoard();
