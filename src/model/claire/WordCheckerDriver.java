@@ -10,9 +10,11 @@ public class WordCheckerDriver
 
 	public static void main(String[] args)
 	{
-			WordChecker w = new WordChecker(new ScrabbleTrie(), new GameBoard());
-////Note-----Code copy+pasted from model.ismail/////////////////////////////////////////////
 			GameBoard board1 = new GameBoard();
+			GameBoard dummyBoard = board1;
+			WordChecker w = new WordChecker(new ScrabbleTrie(), board1);
+////Note-----Code copy+pasted from model.ismail/////////////////////////////////////////////
+			
 			board1.printBoard();
 			System.out.println();
 			board1.getNode(0,0).getBounce();
@@ -27,9 +29,10 @@ public class WordCheckerDriver
 				int i = input.nextInt();
 				System.out.print("Enter position 'j' (col) in array:");
 				int j = input.nextInt();
-				board1.setLetter(i,j,l);
-				board1.setTile(i, j, new Tile(1, l));
-				board1.printBoard();
+				dummyBoard.setLetter(i,j,l);
+				dummyBoard.setTile(i, j, new Tile(1, l));
+				dummyBoard.getNode(i, j).setCurrent(true);
+				dummyBoard.printBoard();
 				//System.out.print("Do you want to input another letter? 'yes' or 'no' ");
 				//loop = input.next();
 ///Note------End of stolen code/////////////////////////////////////////////////////////////
@@ -45,15 +48,17 @@ public class WordCheckerDriver
 								("Valid placement: " + w.getAlignment()) :
 								("Invalid placement.") );
 					arr = w.validateWord();
-					for (ArrayList<Tile> arr1 : arr)
-					{
-						for (Tile t : arr1)
-						{
-							System.out.print(t.getLetter());
-						}
+					for (ArrayList<Tile> wordd : arr) {
+						String result = w.convertToString(wordd);
+						System.out.println("Word Placed: " + result);
 						System.out.print("\n");
 					}
-					System.out.print("\n");
+					
+					w.dumpTilesToBoard();
+					System.out.print("\n\n\nTHE BOARD: ");
+					board1.printBoard();
+					
+					System.out.print("\n\n--------------------------------------------------------------------------\n\n");
 					w.reset();
 				}
 			}

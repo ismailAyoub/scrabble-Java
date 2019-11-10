@@ -6,20 +6,24 @@ public class Node {
     private boolean left = false,right = false,top = false,bottom = false;
     private String bonus;
     private char letter;
+	private boolean current;
 	private Tile tile;
     Node(){
         letter = '_';
         bonus = "none";
 		tile = null;
+		current = false;
     }
     Node(char i){
         letter = i;
 		empty = false;
+		current = true;
     }
 	Node(Tile t)
 	{
 		this.tile = t;
 		empty = false;
+		current = true;
 	}
     public void setEmpty(boolean a){
         this.empty = a;
@@ -74,5 +78,12 @@ public class Node {
 	{
 		return tile;
 	}
-
+	public void setCurrent(boolean c)
+	{
+		current = false;
+	}
+	public boolean getCurrent()
+	{
+		return current;
+	}
 }

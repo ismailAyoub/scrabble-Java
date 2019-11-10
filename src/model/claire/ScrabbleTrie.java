@@ -65,6 +65,7 @@ public class ScrabbleTrie
 		}
 		scanner.close();
 	}
+	
 	public void addWord(String word, Difficulty difficulty)
 	{
 		TrieNode current = root;
@@ -79,6 +80,8 @@ public class ScrabbleTrie
 		//At end of word, set the marker in the TrieNode to indicate a valid word.
 		current.putValidMarker(difficulty, true);
 	}
+	
+	
 	public boolean isWord(String word, Difficulty difficulty)
 	{
 		word = word.toUpperCase();
@@ -98,6 +101,8 @@ public class ScrabbleTrie
 		}
 		return current.getValidMarker(difficulty);
 	}
+	
+	
 	public boolean isWord(String word)
 	{
 		return isWord(word, Difficulty.WORD);

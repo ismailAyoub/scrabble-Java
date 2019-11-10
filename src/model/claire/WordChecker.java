@@ -26,6 +26,7 @@ public class WordChecker
 		tilesPlaced.clear();
 		valid = false;
 		wordPoints = 0;
+		alignment = "invalid";
 	}
 	
 	public void addTilePlaced(TilePlacement tile)
@@ -174,12 +175,53 @@ public class WordChecker
 				
 			case "horizontal":
 				sortTilesPlaced();
-				ArrayList<Tile> temp = new ArrayList<Tile>();
-				for (int i = 0 ; i < tilesPlaced.size(); i++)
+				ArrayList<Integer> horizontalGaps = new ArrayList<Integer>();	//Stores column indexes of tiles on the board that the user placed tiles around in the current turn
+				
+				//Find the columns in the current "line" of tiles n the board that hold tiles from previous turns.
+				//These columns will not hold tiles placed in the current turn, but the user USED these tiles in these columns in order to form a word on the board.
+				for (int i = tilesPlaced.get(0).getCol(); i < tilesPlaced.get(tilesPlaced.size() - 1).getCol(); i++)
 				{
-					temp.add(tilesPlaced.get(i).getTile());
+					if (board.getTile(tilesPlaced.get(0).getRow(), i) != null)
+					{
+						horizontalGaps.add(i);
+					}
 				}
 				
+				
+				ArrayList<Tile> temp = new ArrayList<Tile>();	//Holds the word formed on the board as a series of Tiles
+				
+				//(gap = tile not placed in current turn in this space, but the space holds a tile from a previous turn)
+				//Merge the tilesPlaced and the tiles in the horizontal gaps on the board into the word formed by the user
+				int tilesPlacedIndex = 0;
+				for (int j = tilesPlaced.get(0).getCol(); j < tilesPlaced.get(tilesPlaced.size() - 1).getCol(); j++)
+				{
+					if (horizontalGaps.contains(j))
+					{
+						temp.add(board.getTile(tilesPlaced.get(0).getRow(), j));
+					}
+					else
+					{
+						temp.add(tilesPlaced.get(tilesPlacedIndex).getTile());
+						tilesPlaced++;
+					}
+				}
+				/*
+				for (int i = 0 ; i < tilesPlaced.size() + horizontalGaps.size(); )
+				{
+					if (horizontalGaps.contains(i))
+					{
+						temp.add(board.getTile(tilesPlaced.get(0).getRow(), horizontalGaps.get(hgapIndex)));
+						hgapIndex++;
+					}
+					else
+					{
+						temp.add(tilesPlaced.get(i).getTile());
+						i++;
+					}
+				}
+				*/
+				
+				//Search to the right of the tiles placed to see if the tiles play off adjacent tiles to the left previously placed on the board.
 				for (int j = tilesPlaced.get(0).getCol() - 1; j >= 0; j--)
 				{
 					if (!board.getNode(tilesPlaced.get(0).getRow(), j).isEmpty())
@@ -192,6 +234,8 @@ public class WordChecker
 						break;
 					}
 				}
+				
+				
 				for (int j = tilesPlaced.get(tilesPlaced.size() - 1).getCol() + 1; j <= 14; j++)
 				{
 					if (!board.getNode(tilesPlaced.get(0).getRow(), j).isEmpty())
@@ -204,18 +248,26 @@ public class WordChecker
 						break;
 					}
 				}
+				
 				words.add(temp);
 				
 				for (int j = 0; j < tilesPlaced.size(); j++)
 				{
 					temp = new ArrayList<Tile>();
+					System.out.println("Checking: " + tilesPlaced.get(j).getTile().getLetter());
 					temp.add(tilesPlaced.get(j).getTile());
+					Tile dummy = board.getTile(tilesPlaced.get(j).getRow() - 1, tilesPlaced.get(j).getCol());
+					System.out.println("Above: " + (dummy == null ? "No tile" : dummy.getLetter()));
 					for (int i = tilesPlaced.get(j).getRow() - 1; i >= 0; i--)
 					{
-						if (!board.getNode(i, tilesPlaced.get(j).getRow()).isEmpty())
+						//If row i, col j on board is NOT empty...
+						System.out.println("Looking at tile " + i + ", " + tilesPlaced.get(j).getCol());
+						System.out.println(board.getTile(i, tilesPlaced.get(j).getCol()));
+						if (board.getTile(i, tilesPlaced.get(j).getCol()) != null)
 						{
-							//If tiles adjacent to the left of placed tile, add to the beginning of the second ArrayList of tiles
-							temp.add(0, board.getTile(i, tilesPlaced.get(j).getRow()));
+							System.out.println("Above: " + board.getNode(i, tilesPlaced.get(j).getCol()).getTile().getLetter());
+							//If tiles adjacent to the top of placed tile, add to the beginning of the new ArrayList of tiles
+							temp.add(0, board.getTile(i, tilesPlaced.get(j).getCol()));
 						}
 						else
 						{
@@ -224,10 +276,10 @@ public class WordChecker
 					}
 					for (int i = tilesPlaced.get(j).getRow() + 1; i <= 14; i++)
 					{
-						if (!board.getNode(i, tilesPlaced.get(j).getRow()).isEmpty())
+						if (!board.getNode(i, tilesPlaced.get(j).getCol()).isEmpty())
 						{
 							//If tiles adjacent to the left of placed tile, add to the beginning of the second ArrayList of tiles
-							temp.add(board.getTile(i, tilesPlaced.get(j).getRow()));
+							temp.add(board.getTile(i, tilesPlaced.get(j).getCol()));
 						}
 						else
 						{
@@ -248,6 +300,14 @@ public class WordChecker
 		}
 		
 		return words;
+	}
+	
+	public void dumpTilesToBoard()
+	{
+		for (TilePlacement tp : tilesPlaced)
+		{
+			board.setTile(tp.getRow(), tp.getCol(), tp.getTile());
+		}
 	}
 	
 	private void sortTilesPlaced()
@@ -295,8 +355,9 @@ public class WordChecker
 			{
 				System.out.print(ie.getTile().getLetter());
 			}
-			System.out.println("Out of sort method");
+			System.out.println("Sorting");
 		}
+		System.out.println("Out of sort method" + "\n\n");
 	}
 	
 	public boolean isValid()
