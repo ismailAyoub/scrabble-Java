@@ -228,7 +228,8 @@ public class WordChecker
 						i++;
 					}
 				}
-				*/if (!board.getNode(tilesPlaced.get(0).getRow(), j).isEmpty())
+				*/
+				/*if (!board.getNode(tilesPlaced.get(0).getRow(), j).isEmpty())
 					{
 						//If tiles adjacent to the left of placed tile, add to the beginning of the second ArrayList of tiles
 						temp.add(0, board.getTile(tilesPlaced.get(0).getRow(), j));
@@ -237,7 +238,7 @@ public class WordChecker
 					{
 						break;
 					}
-				
+				*/
 				
 				//Search to the right of the tiles placed to see if the tiles play off adjacent tiles to the left previously placed on the board.
 				for (int j = tilesPlaced.get(0).getCol() - 1; j >= 0; j--)
