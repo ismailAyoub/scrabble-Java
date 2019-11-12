@@ -6,17 +6,6 @@ public class GameBoard {
     private Node board[][] = new Node[15][15];
 
     public GameBoard(){
-        for(int i=0; i<15; i++){
-
-            for(int j=0; j<15; j++) {
-                board[i][j] = new Node();
-                if(i == 0) board[i][j].setTop(true);
-                if(i == 14) board[i][j].setBottom(true);
-                if(j == 0) board[i][j].setLeft(true);
-                if(j == 14) board[i][j].setRight(true);
-            }
-
-        }
 
         setBonus(board);
 
