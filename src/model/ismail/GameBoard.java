@@ -7,7 +7,15 @@ public class GameBoard {
 
     public GameBoard(){
 
-        setBonus(board);
+        for(int i=0; i<15; i++){
+
+            for(int j=0; j<15; j++) {
+                board[i][j] = new Node();
+
+            }
+
+        }
+	    setBonus(board);
 
     }
 
