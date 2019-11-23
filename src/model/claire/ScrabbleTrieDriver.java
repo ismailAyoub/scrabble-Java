@@ -10,7 +10,11 @@ public class ScrabbleTrieDriver
 		System.out.println(i);
 		File f = new File("CollinsScrabbleWords2019.txt");
 		ScrabbleTrie st = new ScrabbleTrie();
-		st.addWordList(f, Difficulty.WORD);
+		st.initialize(
+			"CollinsScrabbleWords2019.txt",
+			"Scrabble_EASY.txt",
+			"Scrabble_HARD.txt"
+		);
 		Scanner s = new Scanner(System.in);
 		String input = "";
 		Scanner f2;
@@ -50,6 +54,11 @@ public class ScrabbleTrieDriver
 			after = System.currentTimeMillis();
 			System.out.println("\tReading from file took: " + (after - before) + " milliseconds");
 			
+			
+			b=st.isWord(input, Difficulty.EASY);
+			System.out.println(input +  (b ? " is an EASY word!" : " is not an EASY word!"));
+			b=st.isWord(input, Difficulty.HARD);
+			System.out.println(input +  (b ? " is a HARD word!" : " is not a HARD word!"));
 		}
 	}
 }

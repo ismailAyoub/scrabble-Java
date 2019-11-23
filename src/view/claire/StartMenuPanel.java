@@ -11,12 +11,15 @@ public class StartMenuPanel extends MenuPanel
 	private ActionListener buttonListener;
 	private String [] buttonTexts = {"New Game", "Load Game", "Options", "Quit"};
 	private JPanel menuContents;
+	
 	public StartMenuPanel()
 	{
 		super("Scrabble", 34);
 		
 		menuContents = new JPanel();
-		menuContents.setPreferredSize(new Dimension(400, 580));
+		menuContents.setPreferredSize(new Dimension(400, 450));
+		menuContents.setMinimumSize(new Dimension(400, 450));
+		menuContents.setMaximumSize(new Dimension(400, 450));
 		menuContents.setLayout(new BoxLayout(menuContents, BoxLayout.Y_AXIS));
 		menuContents.setBackground(Colors.yellow);
 		startButtons = new JButton[buttonTexts.length];
@@ -32,16 +35,16 @@ public class StartMenuPanel extends MenuPanel
 			startButtons[i].setBackground(Colors.blue);
 			startButtons[i].setForeground(Colors.yellow);
 			startButtons[i].setActionCommand(startButtons[i].getText());
-			startButtons[i].addActionListener(
-				new ActionListener()
+			startButtons[i].addActionListener( new NavigationListener()
+				/*new ActionListener()
 				{
 					public void actionPerformed(ActionEvent ae)
 					{
 						MainView parent = (MainView)SwingUtilities.getWindowAncestor((JButton)ae.getSource());
-						parent.getController().requestMenu(ae.getActionCommand());
+						parent.loadMenu(ae.getActionCommand());
 						//parent.execute(ae.getActionCommand());
 					}
-				}
+				}*/
 			);
 			menuContents.add(Box.createRigidArea(new Dimension(40, 30)));
 			menuContents.add(startButtons[i]);

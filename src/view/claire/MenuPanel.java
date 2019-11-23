@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
 //MenuPanel sets up the main "panel" which holds the different menus of the program--
 //	Start Menu, Options Menu, Load Game Menu, etc.
 
@@ -22,7 +21,7 @@ public class MenuPanel extends JPanel
 		this.setMaximumSize(new Dimension(400, 580));
 		this.setPreferredSize(new Dimension(400, 580));
 		
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.setLayout(new FlowLayout(FlowLayout.CENTER));
 		this.setBorder(BorderFactory.createLineBorder(Colors.red, 6));
 		this.setBackground(Colors.yellow);
 		
@@ -31,7 +30,7 @@ public class MenuPanel extends JPanel
 		this.contents = contents; 
 		this.parent = parent;
 		
-		this.add(Box.createRigidArea(new Dimension(10, 30)));
+		this.add(Box.createRigidArea(new Dimension(400, 30)));
 		this.add(labelBar);
 		this.add(contents);
 	}

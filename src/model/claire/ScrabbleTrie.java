@@ -5,9 +5,22 @@ import java.util.HashSet;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+	The ScrabbleTrie is a tree-like structure that emulates a Scrabble dictionary.
+	It stores all words that the user player is allowed to play during their turn, as well
+	as all words associated with each Difficulty setting, represented as enum constants.
+	@author Claire Campbell
+*/
 public class ScrabbleTrie
 {
-	protected static class TrieNode {
+	/**
+		The TrieNode represents a node within the ScrabbleTrie trie/tree structure.
+		A path from the root TrieNode to any TrieNode with a "marker" (represented by a Difficulty constant)
+		represents a valid word.
+		@author Claire Campbell
+	*/
+	protected static class TrieNode 
+	{
 		
 		//The array of child TrieNodes, will be one for each letter in the alphabet.
 		private TrieNode [] nexts;
@@ -54,6 +67,47 @@ public class ScrabbleTrie
 		root = new TrieNode();
 	}
 	
+	public void initialize(String scrabbleDictionary, String easyWordList, String hardWordList) throws IOException
+	{
+		File scrabbleDictionaryFile = new File(scrabbleDictionary);
+		File easyWordFile = new File(easyWordList);
+		File hardWordFile = new File(hardWordList);
+		
+		//Add the words in the Scrabble Dictionary to the scrabble trie.
+		addWordList(scrabbleDictionaryFile, Difficulty.WORD);
+		
+		int easywords = 0;
+		//Scan through Scrabble_EASY.txt and add only those words in the Scrabble Dictionary
+		String current = "";
+		Scanner scanner = new Scanner(easyWordFile);
+		while (scanner.hasNext())
+		{
+			current = scanner.nextLine().toUpperCase();
+			if (isWord(current, Difficulty.WORD))
+			{
+				addWord(current, Difficulty.EASY);
+				easywords++;
+			}
+		}
+		
+		int hardwords = 0;
+		//Scan through Scrabble_HARD.txt and add only those words in the Scrabble Dictionary
+		current = "";
+		scanner = new Scanner(hardWordFile);
+		while (scanner.hasNext())
+		{
+			current = scanner.nextLine().toUpperCase();
+			if (isWord(current, Difficulty.WORD))
+			{
+				addWord(current, Difficulty.HARD);
+				hardwords++;
+			}
+		}
+		
+		System.out.println("Easy words added: " + easywords);
+		System.out.println("Hard words added: " + hardwords);
+	}
+	
 	public void addWordList(File f, Difficulty difficulty) throws IOException
 	{
 		Scanner scanner = new Scanner(f);
@@ -66,7 +120,7 @@ public class ScrabbleTrie
 		scanner.close();
 	}
 	
-	public void addWord(String word, Difficulty difficulty)
+	public void addWord(String word, Difficulty difficulty) throws IOException
 	{
 		TrieNode current = root;
 		for (int i = 0; i < word.length(); i++)
@@ -106,58 +160,5 @@ public class ScrabbleTrie
 	public boolean isWord(String word)
 	{
 		return isWord(word, Difficulty.WORD);
-	}
-	
-	public HashSet<String> generateWords(String tiles)
-	{
-		HashSet<String> words = new HashSet<String>();
-		ArrayList chars = new ArrayList<Character>();
-		for (int i = 0; i < tiles.length(); i++)
-		{
-			chars.add(tiles.charAt(i));
-		}
-		generateHelper(words, root, new char[7], 0, chars);
-		return words;
-	}
-	//Generate words through traversal of the Trie??
-	private void generateHelper(HashSet<String> words, TrieNode currentNode, char [] word, int currentIndex, ArrayList<Character> tiles)
-	{
-		if (currentIndex != -1 && currentNode.getValidMarker(Difficulty.WORD))
-		{
-			words.add(new String(word));
-		}
-		
-		if (tiles.isEmpty())
-		{
-			return;
-		}
-		else
-		{
-			TrieNode n;
-			char currentTile;
-			int tileSize = tiles.size();
-			for (int i = 0; i < tileSize; i++)			//For each tile left in the tile rack...
-			{
-				currentTile = tiles.get(i);				//Get current tile.
-				
-				n = currentNode.getNext(currentTile);	//Use the trie to see if the current tile, added to the 
-														//	current word-in-progress, is a word or a prefix to a valid word.
-														//Do this by retrieving the trie node corresponding to that character:
-														//	If the trie node is null, the current tile does not create a valid 
-														//	word or prefix.
-														
-				if (n != null)							//If n != null, then recursively call the method to keep building the word.
-				{
-					currentIndex++;						//Next index in the word being built
-					word[currentIndex] = currentTile;	//Add the current tile to the word being built
-					tiles.remove(i);					//Take current tile out of the tiles-to-be-used set
-					generateHelper(words, n, word, currentIndex, tiles);	//Recursively call the function to continue building the word
-					
-					tiles.add(i, currentTile);		//After recursive call, reset everything to previous state.
-					word[currentIndex] = 0;
-					currentIndex--;
-				}
-			}
-		}
 	}
 }

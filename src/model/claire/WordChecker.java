@@ -1,4 +1,5 @@
 package model.claire;
+
 import model.ismail.*;
 import java.util.ArrayList;
 
@@ -18,7 +19,7 @@ public class WordChecker
 		tilesPlaced = new ArrayList<TilePlacement>();
 		valid = false;
 		wordPoints = 0;
-		alignment = "no";
+		alignment = "invalid";
 	}
 	
 	public void reset()
@@ -56,11 +57,22 @@ public class WordChecker
 		if (minCol == maxCol)
 		{
 			alignment = "vertical";
+			sortTilesPlaced();
+			for (int i = tilesPlaced.get(0).getRow(); i < tilesPlaced.get(tilesPlaced.size() - 1).getRow(); i++)
+			{
+				if (board.getTile(i, tilesPlaced.get(0).getCol()) == null)
+				{
+					valid = false;
+					alignment = "invalid";
+					return valid;
+				}
+			}
 			valid = true;
 		}
 		else if (minRow == maxRow)
 		{
 			alignment = "horizontal";
+			sortTilesPlaced();
 			valid = true;
 		}
 		
@@ -176,15 +188,10 @@ public class WordChecker
 			case "horizontal":
 				sortTilesPlaced();
 				
-				
 				ArrayList<Tile> temp = new ArrayList<Tile>();	//Holds the word formed on the board as a series of Tile
 				
 				
-				
-				
 				//ArrayList<Integer> horizontalGaps = new ArrayList<Integer>();	//Stores column indexes of tiles on the board that the user placed tiles around in the current turn
-				
-				
 				/*
 				//Find the columns in the current "line" of tiles n the board that hold tiles from previous turns.
 				//These columns will not hold tiles placed in the current turn, but the user USED these tiles in these columns in order to form a word on the board.
@@ -195,9 +202,6 @@ public class WordChecker
 						horizontalGaps.add(i);
 					}
 				}
-				
-				
-				s
 				
 				//(gap = tile not placed in current turn in this space, but the space holds a tile from a previous turn)
 				//Merge the tilesPlaced and the tiles in the horizontal gaps on the board into the word formed by the user
@@ -239,6 +243,7 @@ public class WordChecker
 						break;
 					}
 				*/
+				
 				
 				//Search to the right of the tiles placed to see if the tiles play off adjacent tiles to the left previously placed on the board.
 				for (int j = tilesPlaced.get(0).getCol() - 1; j >= 0; j--)

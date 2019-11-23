@@ -1,34 +1,27 @@
 package view.claire;
-
+import model.claire.*;
+import model.ismail.*;
+import model.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.io.*;
 
 public class MainView extends JFrame
 {
-	private JPanel contents;
-	private Controller controller;
-	
-	public MainView() 
+	private JPanel contents; 
+	private GameState gameState;
+
+	public MainView(GameState state) 
 	{
+		this.gameState = state; 
 		this.setSize(new Dimension(1000, 640));
 		this.getContentPane().setBackground(Colors.red);
 		contents = new StartMenuPanel();
-		//this.getContentPane().setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 		this.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER));
 		this.getContentPane().add(contents);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
-	}
-	
-	public Controller getController()
-	{
-		return controller;
-	}
-	
-	public void setController(Controller c)
-	{
-		this.controller = c;
 	}
 	
 	public void loadMenu(String s)
@@ -39,56 +32,44 @@ public class MainView extends JFrame
 		{
 			this.contents = new StartMenuPanel();
 		}
-		if (s.equals("GlobalOptionsMenu"))
+		if (s.equals("OptionsMenu"))
 		{
-			this.contents = new GlobalOptionsMenuPanel();
+			this.contents = new OptionsMenuPanel(this);
 		}
 		if (s.equals("Options"))
 		{
-			this.contents = new GlobalOptionsMenuPanel();
-			
+			this.contents = new OptionsMenuPanel(this);
 		}
 		if (s.equals("Quit"))
 		{
 			System.exit(0);
+		}
+		if (s.equals("LocalOptionsMenu"))
+		{
+			
+		}
+		if (s.equals("LoadGameMenu"))
+		{
+			
+		}
+		if (s.equals("SaveGameMenu"))
+		{
+			
 		}
 		this.add(contents);
 		this.validate();
 		this.repaint();
 	}
 	
-	public void execute(String s)
+	public GameState getGameState()
 	{
-		if (s.equals("StartMenu"))
-		{
-			
-			this.remove(contents);
-			this.contents = new StartMenuPanel();
-			this.add(contents);
-			this.validate();
-			this.repaint();
-		}
-		if (s.equals("GlobalOptionsMenu"))
-		{
-			this.remove(contents);
-			this.contents = new GlobalOptionsMenuPanel();
-			this.add(contents);
-			this.validate();
-			this.repaint();
-		}
-		if (s.equals("Options"))
-		{
-			this.remove(contents);
-			this.contents = new GlobalOptionsMenuPanel();
-			this.add(contents);
-			this.validate();
-			this.repaint();
-		}
-		if (s.equals("Quit"))
-		{
-			System.exit(0);
-		}
+		return this.gameState;
 	}
-
+	
+	public static void main(String [] args) throws IOException
+	{
+		new MainView(new GameState(new GameBoard()));
+	}
+	
 
 }
