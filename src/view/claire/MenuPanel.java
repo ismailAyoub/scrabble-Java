@@ -22,7 +22,7 @@ public class MenuPanel extends JPanel
 		this.setPreferredSize(new Dimension(400, 580));
 		
 		this.setLayout(new FlowLayout(FlowLayout.CENTER));
-		this.setBorder(BorderFactory.createLineBorder(Colors.red, 6));
+		//this.setBorder(BorderFactory.createLineBorder(Colors.red, 6));
 		this.setBackground(Colors.yellow);
 		
 		this.labelBar = createLabelPanel(title, fontSize);
