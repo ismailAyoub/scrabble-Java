@@ -1,51 +1,23 @@
-package model.ismail;
-
 import java.util.Scanner;
 
 public class Scrabble {
 
 
 
-    /*public static void setBounces(nodes n[][]){
-
-        n[0][0].setBounce("tw");
-        n[0][3].setBounce("dl");
-        n[0][7].setBounce("tw");
-        n[0][11].setBounce("dl");
-        n[0][14].setBounce("tw");
-
-        n[1][1].setBounce("dw");
-        n[1][5].setBounce("tl");
-        n[1][9].setBounce("tl");
-        n[1][13].setBounce("dw");
-
-        n[2][2].setBounce("dw");
-        n[2][6].setBounce("dl");
-        n[2][8].setBounce("dl");
-        n[2][12].setBounce("dw");
-
-        n[3][0].setBounce("dl");
-        n[3][3].setBounce("dw");
-        n[3][7].setBounce("dl");
-        n[3][11].setBounce("dw");
-        n[3][14].setBounce("dl");
-
-        n[4][4].setBounce("dw");
-        n[4][10].setBounce("dw");
-
-    }*/
-
-
     public static void main(String[] args){
 
-        GameBoard board1 = new GameBoard();
-        board1.printBoard();
-        System.out.println();
-		board1.getNode(0,0).getBounce();
-        String words[] = {"cat","dog","house","car","bike"};
+        gameBoard board1 = new gameBoard();
+        SaveGame save_game1 = new SaveGame();
 
         Scanner input = new Scanner(System.in);
         String loop = "yes";
+        System.out.print("Do you want to load the last game?");
+        String doLoad;
+        doLoad = input.next();
+        if(doLoad.equals("yes")){
+            save_game1.Load(board1);
+        }
+        board1.printBoard();
         while (loop.equals("yes")){
             System.out.print("Enter the letter you want to place: ");
             char l = input.next().charAt(0);
@@ -57,6 +29,13 @@ public class Scrabble {
             board1.printBoard();
             System.out.print("Do you want to input another letter? 'yes' or 'no' ");
             loop = input.next();
+
+        }
+        String doSave;
+        System.out.print("Do you want to save game? 'yes' or 'no'");
+        doSave = input.next();
+        if(doSave.equals("yes")){
+            save_game1.Save(board1);
         }
 
 
