@@ -34,7 +34,7 @@ public class WordCheckerDriver
 				//System.out.print("Do you want to input another letter? 'yes' or 'no' ");
 				//loop = input.next();
 ///Note------End of stolen code/////////////////////////////////////////////////////////////
-				ArrayList<ArrayList<Tile> > arr = new ArrayList<ArrayList<Tile> >();
+				ArrayList<ArrayList<TilePlacement> > arr = new ArrayList<ArrayList<TilePlacement> >();
 				w.addTilePlaced(new TilePlacement(i, j, new Tile(1, l)));
 				
 				System.out.println("Check word?");
@@ -45,14 +45,14 @@ public class WordCheckerDriver
 					System.out.println(w.validatePlacement() ? 
 								("Valid placement: " + w.getAlignment()) :
 								("Invalid placement.") );
-					arr = w.validateWord();
-					for (ArrayList<Tile> wordd : arr) {
-						String result = w.convertToString(wordd);
+					arr = w.validateTiles();
+					for (ArrayList<TilePlacement> wordd : arr) {
+						String result = w.convertTilePlacementsToString(wordd);
 						System.out.println("Word Placed: " + result);
 						System.out.print("\n");
 					}
 					
-					w.dumpTilesToBoard();
+					//w.dumpTilesToBoard();
 					System.out.print("\n\n\nTHE BOARD: ");
 					board1.printBoard();
 					
