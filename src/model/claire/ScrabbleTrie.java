@@ -224,9 +224,9 @@ public class ScrabbleTrie
 		@return The boolean value true if the specified word is stored in the ScrabbleTrie and associated with the Difficulty.EASY constant;
 				the boolean value false if the specified word is not stored in the ScrabbleTrie or not associated with the Difficulty.EASY constant.
 	*/
-	
 	public boolean isWord(String word)
 	{
 		return isWord(word, Difficulty.WORD);
 	}
+	
 }

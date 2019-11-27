@@ -34,8 +34,26 @@ public class GameState
 			"Scrabble_HARD.txt"
 		);
 		
+		
+		
 	}
 	
+	
+	/**
+	
+	*/
+	public void addAIPlayer()
+	{
+		
+	}
+	
+	/**
+		
+	*/
+	public void addPlayer(String s, int points)
+	{
+		
+	}
 	
 	
 	/**
