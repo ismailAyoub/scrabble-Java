@@ -1,6 +1,9 @@
 package model.ismail;
 import model.claire.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameBoard {
 
     private Node board[][] = new Node[15][15];
@@ -15,36 +18,87 @@ public class GameBoard {
             }
 
         }
-	    setBonus(board);
+        setBonus(board);
 
     }
 
     private void setBonus(Node n[][]){
 
-        n[0][0].setBounce("tw");
-        n[0][3].setBounce("dl");
-        n[0][7].setBounce("tw");
-        n[0][11].setBounce("dl");
-        n[0][14].setBounce("tw");
+        n[0][0].setBonus("tw");
+        n[0][3].setBonus("dl");
+        n[0][7].setBonus("tw");
+        n[0][11].setBonus("dl");
+        n[0][14].setBonus("tw");
 
-        n[1][1].setBounce("dw");
-        n[1][5].setBounce("tl");
-        n[1][9].setBounce("tl");
-        n[1][13].setBounce("dw");
+        n[1][1].setBonus("dw");
+        n[1][5].setBonus("tl");
+        n[1][9].setBonus("tl");
+        n[1][13].setBonus("dw");
 
-        n[2][2].setBounce("dw");
-        n[2][6].setBounce("dl");
-        n[2][8].setBounce("dl");
-        n[2][12].setBounce("dw");
+        n[2][2].setBonus("dw");
+        n[2][6].setBonus("dl");
+        n[2][8].setBonus("dl");
+        n[2][12].setBonus("dw");
 
-        n[3][0].setBounce("dl");
-        n[3][3].setBounce("dw");
-        n[3][7].setBounce("dl");
-        n[3][11].setBounce("dw");
-        n[3][14].setBounce("dl");
+        n[3][0].setBonus("dl");
+        n[3][3].setBonus("dw");
+        n[3][7].setBonus("dl");
+        n[3][11].setBonus("dw");
+        n[3][14].setBonus("dl");
 
-        n[4][4].setBounce("dw");
-        n[4][10].setBounce("dw");
+        n[4][4].setBonus("dw");
+        n[4][10].setBonus("dw");
+
+        n[5][1].setBonus("tl");
+        n[5][5].setBonus("tl");
+        n[5][9].setBonus("tl");
+        n[5][13].setBonus("tl");
+
+        n[6][2].setBonus("dl");
+        n[6][6].setBonus("dl");
+        n[6][8].setBonus("dl");
+        n[6][12].setBonus("dl");
+
+        n[7][0].setBonus("tw");
+        n[7][3].setBonus("dl");
+        n[7][7].setBonus("star");
+        n[7][11].setBonus("dl");
+        n[7][14].setBonus("tw");
+
+        n[8][2].setBonus("dl");
+        n[8][6].setBonus("dl");
+        n[8][8].setBonus("dl");
+        n[8][12].setBonus("dl");
+
+        n[9][1].setBonus("tl");
+        n[9][5].setBonus("tl");
+        n[9][9].setBonus("tl");
+        n[9][13].setBonus("tl");
+
+        n[10][4].setBonus("dw");
+        n[10][10].setBonus("dw");
+
+        n[11][0].setBonus("dl");
+        n[11][3].setBonus("dw");
+        n[11][7].setBonus("dl");
+        n[11][11].setBonus("dw");
+        n[11][14].setBonus("dl");
+
+        n[12][2].setBonus("dw");
+        n[12][6].setBonus("dl");
+        n[12][8].setBonus("dl");
+        n[12][12].setBonus("dw");
+
+        n[13][1].setBonus("dw");
+        n[13][5].setBonus("tl");
+        n[13][9].setBonus("tl");
+        n[13][13].setBonus("dw");
+
+        n[14][0].setBonus("tw");
+        n[14][3].setBonus("dl");
+        n[14][7].setBonus("tw");
+        n[14][11].setBonus("dl");
+        n[14][14].setBonus("tw");
 
     }
     public void printBoard(){
@@ -75,5 +129,37 @@ public class GameBoard {
     public Node getNode(int i,int j){
         return board[i][j];
     }
+
+    public void rollbackTurn(){
+        for(int i = 0; i<15;i++){
+            for (int j=0; j<15;j++){
+                if(board[i][j].getCurrent() == true){
+                    board[i][j].setTile(null);
+                    board[i][j].setCurrent(false);
+                }
+            }
+        }
+    }
+    public void finalizeTurn(){
+        for(int i = 0; i<15;i++){
+            for (int j=0; j<15;j++){
+                if(board[i][j].getCurrent() == true){
+                    board[i][j].setCurrent(false);
+                }
+            }
+        }
+    }
+    public List<Tile> getCurrentTiles(){
+        List<Tile> current_Tiles = new ArrayList<Tile>();
+        for(int i = 0; i<15;i++){
+            for (int j=0; j<15;j++){
+                if(board[i][j].getCurrent() == true){
+                    current_Tiles.add(board[i][j].getTile());
+                }
+            }
+        }
+        return current_Tiles;
+    }
+
 
 }
