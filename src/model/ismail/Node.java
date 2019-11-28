@@ -1,8 +1,9 @@
 package model.ismail;
 import model.claire.*;
 
+
 public class Node {
-    private boolean empty = true;
+    private boolean empty;
     private String bonus;
     private char letter;
 	private boolean current;
@@ -12,6 +13,7 @@ public class Node {
         bonus = "none";
 		tile = null;
 		current = false;
+		empty = true;
     }
     Node(char i){
         letter = i;
@@ -28,7 +30,7 @@ public class Node {
         this.empty = a;
     }
     
-    public void setBounce(String f){
+    public void setBonus(String f){
         this.bonus= f;
     }
     public void setLetter(char g){
@@ -39,6 +41,7 @@ public class Node {
 	{
 		this.tile = t;
 		empty = false;
+		current = true;
 	}
 
     public boolean isEmpty(){
