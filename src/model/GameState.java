@@ -2,6 +2,8 @@ package model;
 
 import model.ismail.*;
 import model.claire.*;
+import model.temp.*; 	///remove when junaid completes his files.
+//import model.junaid.*;	///uncomment when junaid completes his files.
 import java.util.ArrayList;
 import java.io.*;
 
@@ -10,12 +12,14 @@ public class GameState
 	private GameBoard board;
 	private Difficulty difficulty;
 	private boolean tutorialTooltipsEnabled;
-	//private TileBag tileBag;
-	
+	private TileBag tileBag;
+	private ArrayList<Player> players;
+	private int currentPlayer;
 	
 	//Do not save these fields in the save game files!!///////
 	private ScrabbleTrie scrabbleTrie;
 	private WordChecker wordChecker;
+	boolean currentTurnValid;
 	//////////////////////////////////////////////////////////
 	
 	
@@ -34,11 +38,14 @@ public class GameState
 			"Scrabble_HARD.txt"
 		);
 		
-		//tileBag = new TileBag();
-		//tileBag.init(new File("tile_distribution_default.txt"));
-		//tileBag.printTileBag();
+		tileBag = new TileBag();
+		tileBag.init(new File("tile_distribution_default.txt"));
+		tileBag.printTileBag();
 		
+		currentTurnValid = false;
+		currentPlayer = 0;
 	}
+	
 	
 	
 	/**
@@ -49,6 +56,8 @@ public class GameState
 		
 	}
 	
+	
+	
 	/**
 		
 	*/
@@ -56,6 +65,100 @@ public class GameState
 	{
 		
 	}
+	
+	
+	
+	/**
+		Gets the player whose turn it is.
+		@return The Player object representing the player whose turn it is.
+		@author Claire Campbell
+	*/
+	public Player getCurrentPlayer()
+	{
+		return players.get(currentPlayer);
+	}
+	
+	
+	
+	/**
+		The finalize() method should be called after the current player is done placing tiles on the game board.
+			It  validates the tiles placed (represented by the tilesPlaced parameter) on the GUI game board during the current turn.
+			If the tiles were placed in a valid arrangement on the board and form one or more valid words, the finalize()
+			method scores those words and adds the points to the current player's score.
+		@param tilesPlaced The tiles placed on the board, as an ArrayList of TilePlacements.
+		@param tileRack The tile rack from the GUI, which the player removed tiles from during their turn.
+			The tile rack is an array of Tile objects, with null elements representing tiles that have been 
+			removed and placed on the game board.
+	*/
+	public void finalize(ArrayList<TilePlacement> tilesPlaced, Tile[] tileRack)
+	{
+		for (int i = 0; i < tilesPlaced.size(); i++)
+		{
+			board.setTile(tilesPlaced.get(i).getRow(), tilesPlaced.get(i).getCol(), tilesPlaced.get(i).getTile());
+		}
+		
+		wordChecker.readTilesFromBoard();
+		ArrayList<ArrayList<TilePlacement> > words = wordChecker.validateTiles();
+		
+		if (words.size() == 0)
+		{
+			board.rollbackTurn();
+			wordChecker.reset();
+			currentTurnValid = false;
+		}
+		else
+		{
+			board.finalizeTurn();
+			///todo: Score the tiles in "words", add the score to the current player.
+			
+			
+			for (int i = 0; i < tilesPlaced.size(); i++)
+			{
+				getCurrentPlayer().removeTile(tilesPlaced.get(i).getTile());
+			}
+		}
+	}
+	
+	
+	
+	/**
+		Draws random tiles from the tile bag, and places these tiles in the GUI gameboard's tile rack
+			as well as the current Player's tile rack to replace the tiles that they placed on the board
+			during the current turn.
+		@param tileRack The array representing the tile rack in the GUI, which the player removed tiles from 
+			during their turn.
+		@author Claire Campbell
+	*/
+	public void drawTiles(Tile[] tileRack)
+	{
+		Tile drawn = null;
+		for (int i = 0; i < tileRack.length; i++)
+		{
+			if (tileRack[i] == null)
+			{
+				drawn = tileBag.drawRandomTile();
+				if (drawn != null)
+				{
+					tileRack[i] = drawn;
+					getCurrentPlayer().addTile(drawn);
+				}
+			}
+			
+		}
+	}
+	
+	
+	
+	/**
+		Getter method for the collection of all players in the current game.
+		@return An ArrayList<Player> representing all players participating in the current game.
+		@author Claire Campbell
+	*/
+	public ArrayList<Player> getAllPlayers()
+	{
+		return (ArrayList<Player>) players.clone();
+	}
+	
 	
 	
 	/**
@@ -68,6 +171,8 @@ public class GameState
 	{
 		this.tutorialTooltipsEnabled = enabled;
 	}
+	
+	
 	
 	/**
 		Query whether tutorial tooltips are enabled or disabled for the GUI game board.
@@ -90,6 +195,8 @@ public class GameState
 	{
 		this.difficulty = d;
 	}
+	
+	
 	
 	/**
 		Query the current difficulty setting.

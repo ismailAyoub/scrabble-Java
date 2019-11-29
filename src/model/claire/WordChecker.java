@@ -21,13 +21,11 @@ public class WordChecker
 	{
 		tilesPlaced = tp;
 	}
-	public void addTilePlaced(TilePlacement t)
-	{
-		tilesPlaced.add(t);
-	}
+
 	public boolean validatePlacement() {
 		return validatePlacement(tilesPlaced);
 	}
+	
 	public ArrayList<ArrayList<TilePlacement> > validateTiles()
 	{
 		return validateTiles(tilesPlaced);
@@ -67,7 +65,7 @@ public class WordChecker
 	*/
 	public void readTilesFromBoard()
 	{
-		////todo
+		tilesPlaced = board.getCurrentTilePlacements();
 	}
 
 	
@@ -185,7 +183,7 @@ public class WordChecker
 	
 	public ArrayList<ArrayList<TilePlacement> > validateTiles(ArrayList<TilePlacement> tilesPlaced)
 	{
-		
+		ArrayList<ArrayList<TilePlacement> > words = new ArrayList<ArrayList<TilePlacement> >();
 		if (tilesPlaced.size() == 0)	//No words placed?
 		{
 			valid = true;
@@ -193,7 +191,6 @@ public class WordChecker
 		}
 		
 		validatePlacement(tilesPlaced);
-		ArrayList<ArrayList<TilePlacement> > words = new ArrayList<ArrayList<TilePlacement> >();
 		int arrIndex = 0;
 		switch (alignment) 
 		{
@@ -293,6 +290,80 @@ public class WordChecker
 				sortTilesPlaced();
 				ArrayList<TilePlacement> temp = new ArrayList<TilePlacement>();	//Holds the word formed on the board as a series of Tile
 				
+				temp.addAll(tilesPlaced);
+				int firstCol = tilesPlaced.get(0).getCol();
+				int row = tilesPlaced.get(0).getRow();
+				for (int i = firstCol; i >= 0; i--)
+				{
+					if ((board).getTile(row, i) == null)
+					{
+						break;
+					}
+					else
+					{
+						temp.add(0, new TilePlacement(row, i, board.getTile(row, i)));
+					}
+				}
+				
+				int lastCol = tilesPlaced.get(tilesPlaced.size() - 1).getCol();
+				for (int i = lastCol; i <= 14; i++)
+				{
+					if (board.getTile(row, i) == null)
+					{
+						break;
+					}
+					else
+					{
+						temp.add(new TilePlacement(row, i, board.getTile(row, i)));
+					}
+				}
+				words.add(temp);
+				int index = 0;
+				for (int col = firstCol; col < lastCol; col++)
+				{
+					temp = new ArrayList<TilePlacement>();
+					temp.add(tilesPlaced.get(index));
+					
+					for (int i = row - 1; i >= 0; i--)
+					{
+						if (board.getTile(i, col) == null)
+						{
+							break;
+						}
+						else
+						{
+							temp.add(0, new TilePlacement(i, col, board.getTile(i, col)));
+						}
+					}
+					
+					for (int i = row + 1; i <= 14; i++)
+					{
+						if (board.getTile(i, col) == null)
+						{
+							break;
+						}
+						else
+						{
+							temp.add(new TilePlacement(i, col, board.getTile(i, col)));
+						}
+					}
+					word.add(temp);
+					index++;
+				}
+				ArrayList<ArrayList<TilePlacement> > toReturn = new ArrayList<ArrayList<TilePlacement> >();
+				for (int i = 0; i < words.size(); i++)
+				{
+					String str = words.get(i);
+					if (!trie.isWord(convertTilePlacementsToString(str)))
+					{
+						toReturn.add(words.get(i));
+					}
+				}
+				words = toReturn;
+				if (toReturn.size() != 0)
+				{
+					valid = true;
+				}
 				break;
 				
 			case "vertical":

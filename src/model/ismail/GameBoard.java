@@ -115,7 +115,9 @@ public class GameBoard {
 	public void setTile(int i, int j, Tile t)
 	{
 		board[i][j].setTile(t);
+		board[i][j].setCurrent(true);
 	}
+	
 	
 	public Tile getTile(int i, int j)
 	{
@@ -155,6 +157,22 @@ public class GameBoard {
             for (int j=0; j<15;j++){
                 if(board[i][j].getCurrent() == true){
                     current_Tiles.add(board[i][j].getTile());
+                }
+            }
+        }
+        return current_Tiles;
+    }
+	
+	
+	/*
+		I had to add this because the WordChecker requires an ArrayList of TilePlacements.
+	*/
+	public List<TilePlacement> getCurrentTilePlacements(){
+        List<TilePlacement> current_Tiles = new ArrayList<TilePlacement>();
+        for(int i = 0; i<15;i++){
+            for (int j=0; j<15;j++){
+                if(board[i][j].getCurrent() == true){
+                    current_Tiles.add(new TilePlacement(i, j, board[i][j].getTile()));
                 }
             }
         }
