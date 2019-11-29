@@ -65,7 +65,7 @@ public class WordChecker
 	*/
 	public void readTilesFromBoard()
 	{
-		tilesPlaced = board.getCurrentTilePlacements();
+		tilesPlaced = new ArrayList<TilePlacement>(board.getCurrentTilePlacements());
 	}
 
 	
@@ -347,13 +347,13 @@ public class WordChecker
 							temp.add(new TilePlacement(i, col, board.getTile(i, col)));
 						}
 					}
-					word.add(temp);
+					words.add(temp);
 					index++;
 				}
 				ArrayList<ArrayList<TilePlacement> > toReturn = new ArrayList<ArrayList<TilePlacement> >();
 				for (int i = 0; i < words.size(); i++)
 				{
-					String str = words.get(i);
+					ArrayList<TilePlacement> str = words.get(i);
 					if (!trie.isWord(convertTilePlacementsToString(str)))
 					{
 						toReturn.add(words.get(i));
