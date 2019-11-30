@@ -4,7 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
+/**
+	The JPanel-derived GUI container class containing the Start Menu. This panel is displayed when the 
+		application is started.
+	@author Claire Campbell
+*/
 public class StartMenuPanel extends MenuPanel
 {
 	private JButton [] startButtons;
@@ -12,6 +16,9 @@ public class StartMenuPanel extends MenuPanel
 	private String [] buttonTexts = {"New Game", "Load Game", "Options", "Quit"};
 	private JPanel menuContents;
 	
+	/**
+		The constructor for the StartMenuPanel.
+	*/
 	public StartMenuPanel()
 	{
 		super("Scrabble", 34);

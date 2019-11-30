@@ -4,9 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-//MenuPanel sets up the main "panel" which holds the different menus of the program--
-//	Start Menu, Options Menu, Load Game Menu, etc.
-
+/**
+	MenuPanel sets up the main "panel" which holds the different menus of the program--
+		Start Menu, Options Menu, Load Game Menu, etc. It is meant to be a superclass to all JPanel-derived
+		containers that display a menu.
+	@author Claire Campbell
+*/
 public class MenuPanel extends JPanel
 {
 	private MainView parent;	//MainView is a subclass of JFrame
@@ -14,7 +17,14 @@ public class MenuPanel extends JPanel
 	private String title;
 	private JPanel labelBar;
 	
-	
+	/**
+		This is the constructor for the MenuPanel. It sets up the MenuPanel container to be the 
+			appropriate size (400 by 580) and background color (yellow). It also adds a JPanel displaying
+			the title of the menu to the top of the MenuPanel.
+		@param title The title to be displayed at the top of the menu panel.
+		@param fontSize The font size for the title text.
+		@param contents The 400x450 pixel JPanel containing the menu contents.
+	*/
 	public MenuPanel(String title, int fontSize, JPanel contents)
 	{
 		this.setMinimumSize(new Dimension(400, 580));
@@ -35,11 +45,23 @@ public class MenuPanel extends JPanel
 		this.add(contents);
 	}
 	
+	/**
+		This is the constructor for the MenuPanel. It sets up the MenuPanel container to be the 
+			appropriate size (400 by 580) and background color (yellow). It also adds a JPanel displaying
+			the title of the menu to the top of the MenuPanel.
+		@param title The title to be displayed at the top of the menu panel.
+		@param fontSize The font size for the title text.
+	*/
 	public MenuPanel(String title, int fontSize)
 	{
 		this(title, fontSize, new JPanel());
 	}
 	
+	/**
+		Sets the title displayed at the top of the MenuPanel.
+		@param title The title to be displayed at the top of the menu.
+		@param fontSize The font size for the title text.
+	*/
 	public void setTitle(String title, int fontSize)
 	{
 		this.title = title;
@@ -48,6 +70,11 @@ public class MenuPanel extends JPanel
 		this.add(this.labelBar, 1);
 		this.repaint();
 	}
+	
+	/**
+		Sets the contents of the MenuPanel to the specified JPanel.
+		@param contents The 400x580 pixel JPanel containing the menu contents.
+	*/
 	public void setContents(JPanel contents)
 	{
 		this.remove(this.contents);
@@ -55,7 +82,13 @@ public class MenuPanel extends JPanel
 		this.add(contents);
 		this.repaint();
 	}
-
+	
+	/**
+		Creates the label panel containing the title of the menu.
+		@param title The String containing the title to be displayed in the label panel at the top of the menu panel.
+		@param fontSize The font size for the title's text.
+		@return A JPanel containing the title, formatted to agree with the look-and-feel of the Scrabble application.
+	*/
 	private JPanel createLabelPanel(String title, float fontSize)
 	{
 		JPanel returnPanel = new JPanel();			//The panel to be returned.
@@ -70,10 +103,8 @@ public class MenuPanel extends JPanel
 		label.setFont(label.getFont().deriveFont(fontSize));
 		
 		//Setup sizes
-		//labelPanel.setMinimumSize(new Dimension(160, 60));
 		labelPanel.setPreferredSize(new Dimension(160, 50));
 		labelPanel.setMaximumSize(new Dimension(160, 60));
-		//returnPanel.setMinimumSize(new Dimension(400, 100));
 		returnPanel.setPreferredSize(new Dimension(400, 100));
 		returnPanel.setMaximumSize(new Dimension(400, 100));
 		

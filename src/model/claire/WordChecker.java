@@ -364,6 +364,10 @@ public class WordChecker
 				{
 					valid = true;
 				}
+				else
+				{
+					valid = false;
+				}
 				break;
 				
 			case "vertical":
