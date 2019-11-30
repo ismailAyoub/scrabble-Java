@@ -25,7 +25,10 @@ public class WordChecker
 	public boolean validatePlacement() {
 		return validatePlacement(tilesPlaced);
 	}
-	
+	public void addTilePlaced(TilePlacement tp)
+	{
+		tilesPlaced.add(tp);
+	}
 	public ArrayList<ArrayList<TilePlacement> > validateTiles()
 	{
 		return validateTiles(tilesPlaced);
@@ -263,25 +266,27 @@ public class WordChecker
 					}
 				}
 				
-				
+				ArrayList<ArrayList<TilePlacement> > toReturn1 = new ArrayList<ArrayList<TilePlacement> >();
 				//Remove invalid words from the words arraylist. Set valid to appropriate value'=.
 				for (int i = 0; i < words.size(); i++)
 				{
 					if (words.get(i).size() == 1)
 					{
-						words.get(i).clear();
-						words.remove(i);
+						//invalid word, do nothing
 					}
 					else if (trie.isWord(convertTilePlacementsToString(words.get(i)), Difficulty.WORD))
 					{
 						valid = true;
+						toReturn1.add(words.get(i));
 					}
 					else
 					{
 						words.clear();
+						toReturn1.clear();
 						valid = false;
 					}
 				}
+				words = toReturn1;
 				break;
 			
 			
@@ -290,10 +295,24 @@ public class WordChecker
 				sortTilesPlaced();
 				ArrayList<TilePlacement> temp = new ArrayList<TilePlacement>();	//Holds the word formed on the board as a series of Tile
 				
-				temp.addAll(tilesPlaced);
+				//temp.addAll(tilesPlaced);
 				int firstCol = tilesPlaced.get(0).getCol();
+				int lastCol = tilesPlaced.get(tilesPlaced.size() - 1).getCol();
 				int row = tilesPlaced.get(0).getRow();
-				for (int i = firstCol; i >= 0; i--)
+				
+				for (int i = firstCol; i <= lastCol; i++)
+				{
+					if ((board).getTile(row, i) == null)
+					{
+						break;
+					}
+					else
+					{
+						temp.add(new TilePlacement(row, i, board.getTile(row, i)));
+					}
+				}
+				
+				for (int i = firstCol - 1; i >= 0; i--)
 				{
 					if ((board).getTile(row, i) == null)
 					{
@@ -305,8 +324,8 @@ public class WordChecker
 					}
 				}
 				
-				int lastCol = tilesPlaced.get(tilesPlaced.size() - 1).getCol();
-				for (int i = lastCol; i <= 14; i++)
+				
+				for (int i = lastCol + 1; i <= 14; i++)
 				{
 					if (board.getTile(row, i) == null)
 					{
@@ -318,48 +337,61 @@ public class WordChecker
 					}
 				}
 				words.add(temp);
+				
 				int index = 0;
-				for (int col = firstCol; col < lastCol; col++)
+				for (int col = firstCol; col <= lastCol; col++)	
 				{
-					temp = new ArrayList<TilePlacement>();
-					temp.add(tilesPlaced.get(index));
 					
-					for (int i = row - 1; i >= 0; i--)
+					if (tilesPlaced.get(index).getCol() == col)
 					{
-						if (board.getTile(i, col) == null)
+						temp = new ArrayList<TilePlacement>();
+						temp.add(tilesPlaced.get(index));
+						
+						for (int i = row - 1; i >= 0; i--)
 						{
-							break;
+							if (board.getTile(i, col) == null)
+							{
+								break;
+							}
+							else
+							{
+								temp.add(0, new TilePlacement(i, col, board.getTile(i, col)));
+							}
 						}
-						else
+						
+						for (int i = row + 1; i <= 14; i++)
 						{
-							temp.add(0, new TilePlacement(i, col, board.getTile(i, col)));
+							if (board.getTile(i, col) == null)
+							{
+								break;
+							}
+							else
+							{
+								temp.add(new TilePlacement(i, col, board.getTile(i, col)));
+							}
 						}
+						words.add(temp);
+						index++;
 					}
 					
-					for (int i = row + 1; i <= 14; i++)
-					{
-						if (board.getTile(i, col) == null)
-						{
-							break;
-						}
-						else
-						{
-							temp.add(new TilePlacement(i, col, board.getTile(i, col)));
-						}
-					}
-					words.add(temp);
-					index++;
 				}
 				ArrayList<ArrayList<TilePlacement> > toReturn = new ArrayList<ArrayList<TilePlacement> >();
 				for (int i = 0; i < words.size(); i++)
 				{
 					ArrayList<TilePlacement> str = words.get(i);
-					if (!trie.isWord(convertTilePlacementsToString(str)))
+					System.out.print(convertTilePlacementsToString(str).length() + "  ");
+					System.out.println(convertTilePlacementsToString(str));
+					System.out.println(trie.isWord(convertTilePlacementsToString(str)));
+					if (trie.isWord(convertTilePlacementsToString(str)))
 					{
 						toReturn.add(words.get(i));
 					}
+					else if (words.get(i).size() > 1 && (!trie.isWord(convertTilePlacementsToString(str))))
+					{
+						toReturn.clear();
+						break;
+					}
 				}
-				words = toReturn;
 				if (toReturn.size() != 0)
 				{
 					valid = true;
@@ -368,6 +400,7 @@ public class WordChecker
 				{
 					valid = false;
 				}
+				words = toReturn;
 				break;
 				
 			case "vertical":
@@ -377,6 +410,8 @@ public class WordChecker
 		
 		return words;
 	}
+	
+	
 	
 	/**
 		sortTilesPlaced() sorts the TilePlacement objects in the tilesPlaced ArrayList ascending.

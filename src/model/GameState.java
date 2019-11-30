@@ -114,7 +114,7 @@ public class GameState
 			
 			for (int i = 0; i < tilesPlaced.size(); i++)
 			{
-				getCurrentPlayer().removeTile(tilesPlaced.get(i).getTile());
+				getCurrentPlayer().removeTile(tilesPlaced.get(i).getTile().getLetter());
 			}
 		}
 	}
