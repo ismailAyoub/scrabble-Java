@@ -17,7 +17,8 @@ public class StartMenuPanel extends MenuPanel
 	private JPanel menuContents;
 	
 	/**
-		The constructor for the StartMenuPanel.
+		The constructor for the StartMenuPanel. Sets up the Start Menu that is displayed to the user
+			when the application is started up. 
 	*/
 	public StartMenuPanel()
 	{

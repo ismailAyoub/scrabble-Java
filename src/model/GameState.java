@@ -2,7 +2,7 @@ package model;
 
 import model.ismail.*;
 import model.claire.*;
-import model.temp.*; 	///remove when junaid completes his files.
+import model.temp.*; 		///remove when junaid completes his files.
 //import model.junaid.*;	///uncomment when junaid completes his files.
 import java.util.ArrayList;
 import java.io.*;
@@ -15,6 +15,7 @@ public class GameState
 	private TileBag tileBag;
 	private ArrayList<Player> players;
 	private int currentPlayer;
+	private boolean firstTurn;
 	
 	//Do not save these fields in the save game files!!///////
 	private ScrabbleTrie scrabbleTrie;
@@ -44,6 +45,7 @@ public class GameState
 		
 		currentTurnValid = false;
 		currentPlayer = 0;
+		firstTurn = true;
 	}
 	
 	

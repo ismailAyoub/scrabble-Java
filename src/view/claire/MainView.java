@@ -7,11 +7,19 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 
+/**
+	The MainView class is the GUI window that displays the menu and game board of the game.
+	@author Claire Campbell
+*/
 public class MainView extends JFrame
 {
 	private JPanel contents; 
 	private GameState gameState;
 
+	/**
+		The constructor for the MainView class sets up the frame that displays all GUI components of the game.
+		@param state The GameState associated with the MainView.
+	*/
 	public MainView(GameState state) 
 	{
 		this.gameState = state; 
@@ -30,6 +38,10 @@ public class MainView extends JFrame
 		this.setVisible(true);
 	}
 	
+	/**
+		The loadMenu() method loads and displays the specified menu in the JFrame.
+		@param s A String specifying the menu to load.
+	*/
 	public void loadMenu(String s)
 	{
 		
@@ -72,11 +84,22 @@ public class MainView extends JFrame
 		this.repaint();
 	}
 	
+	/**
+		The getGameState() method retrieves and returns the GameState object associated with the GUI/
+			MainView. 
+		@return The GameState object associated with the MainView.
+	*/
 	public GameState getGameState()
 	{
 		return this.gameState;
 	}
 	
+	/**
+		The main method of the application; creates a new MainView and passes a new GameState object to it
+			in order to start the application.
+		@param args Command line arguments; unused.
+		@throws IOException If any method in GameState that reads from a file on disk fails to do so.
+	*/
 	public static void main(String [] args) throws IOException
 	{
 		new MainView(new GameState(new GameBoard()));

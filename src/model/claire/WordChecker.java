@@ -16,19 +16,44 @@ public class WordChecker
 	private boolean valid;
 	private String alignment;
 	
-	
+	/**
+		The addTiles method adds the specified TilePlacements to the WordChecker's internal list of 
+			TilePlacements to be checked for validity for the current turn. This method overwrites the 
+			current list of TilePlacements.
+		@param tp The ArrayList of TilePlacements to add to the WordChecker.
+	*/
 	public void addTiles(ArrayList<TilePlacement> tp)
 	{
 		tilesPlaced = tp;
 	}
-
+	
+	/**
+		The validatePlacement() method validates the placement of the TilePlacements in the WordChecker's
+			internal list of TilePlacements. 
+		@return The boolean value true if the tiles placed on the board are placed in a valid arrangement;
+			the boolean value false if the tiles placed on the board are not placed in a valid arrangement.
+	*/
 	public boolean validatePlacement() {
 		return validatePlacement(tilesPlaced);
 	}
+	
+	/**
+		The addTilePlaced() method adds a single TilePlacement to the WordChecker's internal list of 
+			TilePlacements to be checked for validity for the current turn.
+		@param tp The TilePlacement to add to teh WordChecker.
+	*/
 	public void addTilePlaced(TilePlacement tp)
 	{
 		tilesPlaced.add(tp);
 	}
+	
+	/**
+		The validateTiles() method validates the tiles placed on the board during the current turn by	
+			validating the tiles in the WordChecker's internal list of TilePlacements.
+		@return An ArrayList<ArrayList<TilePlacement> > representing the words formed on the board by the 
+			current turn's tiles, if any. The ArrayList returned from the method is empty if no words
+			were formed on the board by the current turn's tiles.
+	*/
 	public ArrayList<ArrayList<TilePlacement> > validateTiles()
 	{
 		return validateTiles(tilesPlaced);
