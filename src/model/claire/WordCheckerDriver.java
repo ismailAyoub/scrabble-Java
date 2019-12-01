@@ -9,6 +9,7 @@ public class WordCheckerDriver
 	
 	public static void main(String[] args) throws IOException
 	{
+			boolean firstTurn = true;
 			ScrabbleTrie t2 = new ScrabbleTrie();
 			t2.addWordList(new File("CollinsScrabbleWords2019.txt"), Difficulty.WORD);
 			System.out.println("Is her a word?? " + t2.isWord("her"));
@@ -58,7 +59,11 @@ public class WordCheckerDriver
 					System.out.println(w.validatePlacement() ? 
 								("Valid placement: " + w.getAlignment()) :
 								("Invalid placement.") );
-					arr = w.validateTiles();
+					
+					if (firstTurn)
+						arr = w.validateTilesFirstTurn();
+					else
+						arr = w.validateTiles();
 					for (ArrayList<TilePlacement> wordd : arr) {
 						String result = w.convertTilePlacementsToString(wordd);
 						System.out.println("Word Placed: " + result);
