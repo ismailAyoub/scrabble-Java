@@ -30,6 +30,7 @@ public class SelectGameModePanel extends MenuPanel {
       MainView parent = (MainView)SwingUtilities.getWindowAncestor((JButton)ae.getSource());
       GameState state = parent.getGameState();
       state.addPlayer("Player 1", 0);
+      state.addAIPlayer();
       parent.loadMenu(ae.getActionCommand());
     }
   }
