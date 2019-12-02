@@ -1,4 +1,4 @@
-package view;
+package view.claire;
 import model.claire.*;
 import model.ismail.*;
 import model.*;
