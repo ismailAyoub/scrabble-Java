@@ -2,8 +2,8 @@ package model;
 
 import model.ismail.*;
 import model.claire.*;
-import model.temp.*; 		///remove when junaid completes his files.
-//import model.junaid.*;	///uncomment when junaid completes his files.
+//import model.temp.*; 		///remove when junaid completes his files.
+import model.Junaid.*;	///uncomment when junaid completes his files.
 import java.util.ArrayList;
 import java.io.*;
 
