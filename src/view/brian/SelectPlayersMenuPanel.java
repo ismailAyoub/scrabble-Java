@@ -1,10 +1,10 @@
-package view.claire;
 package view.brian;
 
+import view.claire.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import view.claire.*;
+
 
 public class SelectPlayersMenuPanel extends MenuPanel {
   JPanel mainPanel;
@@ -21,7 +21,6 @@ public class SelectPlayersMenuPanel extends MenuPanel {
       MainView parent = (MainView)SwingUtilities.getWindowAncestor(source);
       for(int i = 0; i < 4; ++i) {
         names[i] = playersNames[i].getText();
-        parent.addPlayer(playersNames[i], 0);
       }
   		parent.loadMenu(ae.getActionCommand());
     }
