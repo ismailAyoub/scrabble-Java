@@ -1,4 +1,5 @@
 package view.claire;
+package view.brian;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,6 +7,7 @@ import java.awt.event.*;
 import model.*;
 import model.claire.*;
 import model.ismail.*;
+import view.claire.*;
 
 public class SelectGameModePanel extends MenuPanel {
   JPanel mainPanel;
@@ -18,6 +20,8 @@ public class SelectGameModePanel extends MenuPanel {
     public void actionPerformed(ActionEvent ae) {
       MainView parent = (MainView)SwingUtilities.getWindowAncestor((JButton)ae.getSource());
       parent.gameState = new GameState(new GameBoard());
+      parent.addPlayer("Player 1", 0);
+      parent.loadMenu(ae.getActionCommand());
     }
   }
 
