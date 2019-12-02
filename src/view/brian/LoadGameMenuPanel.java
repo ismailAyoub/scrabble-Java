@@ -9,6 +9,11 @@ import model.ismail.*;
 import model.*;
 import java.io.File;
 
+/**
+  The LoadGameMenuPanel is the GUI where players are able to choose which
+  save game state/slot to load up. Total of 4 saves to load from.
+  @author Brian Huynh
+*/
 public class LoadGameMenuPanel extends MenuPanel {
   JPanel mainPanel;
   JPanel menuContents;
@@ -16,6 +21,10 @@ public class LoadGameMenuPanel extends MenuPanel {
   JButton loadSlot1,loadSlot2,loadSlot3,loadSlot4; // represent Saved GameState
   String [] buttonTexts = {"Load Game 1", "Load Game 2", "Load Game 3", "Load Game 4"};
 
+  /**
+    The loadSlotListener1 is the ActionListener for the 1st load slot.
+    Loads the desired saved game and bring player to the gameboard.
+  */
 	public class loadSlotListener1 implements ActionListener {
 	  public void actionPerformed(ActionEvent ae) {
       MainView parent = (MainView)SwingUtilities.getWindowAncestor((JButton)ae.getSource());
@@ -29,6 +38,10 @@ public class LoadGameMenuPanel extends MenuPanel {
       parent.loadMenu("GameBoardGUI");
 	   }
   }
+  /**
+    The loadSlotListener2 is the ActionListener for the 2nd load slot.
+    Loads the desired saved game and bring player to the gameboard.
+  */
 	public class loadSlotListener2 implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
       MainView parent = (MainView)SwingUtilities.getWindowAncestor((JButton)ae.getSource());
@@ -42,6 +55,10 @@ public class LoadGameMenuPanel extends MenuPanel {
       parent.loadMenu("GameBoardGUI");
     }
   }
+  /**
+    The loadSlotListener3 is the ActionListener for the 3rd load slot.
+    Loads the desired saved game and bring player to the gameboard.
+  */
 	public class loadSlotListener3 implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
       MainView parent = (MainView)SwingUtilities.getWindowAncestor((JButton)ae.getSource());
@@ -55,6 +72,10 @@ public class LoadGameMenuPanel extends MenuPanel {
       parent.loadMenu("GameBoardGUI");
     }
   }
+  /**
+    The loadSlotListener4 is the ActionListener for the 4th load slot.
+    Loads the desired saved game and bring player to the gameboard.
+  */
 	public class loadSlotListener4 implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
       MainView parent = (MainView)SwingUtilities.getWindowAncestor((JButton)ae.getSource());
@@ -69,6 +90,11 @@ public class LoadGameMenuPanel extends MenuPanel {
     }
   }
 
+  /**
+  The default constructor for LoadGameMenuPanel. Add four JButtons each
+  representing a saved game. Total of four save game slots are displayed.
+  @param parentFrame The JFrame that will contain the LoadGameMenuPanel
+  */
 	public LoadGameMenuPanel(JFrame parentFrame) {
     super("Load Game", 28);
 

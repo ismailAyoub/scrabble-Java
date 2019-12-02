@@ -9,6 +9,11 @@ import model.ismail.*;
 import model.*;
 import java.io.File;
 
+/**
+  SaveGameMenuPanel is the GUI window where players are able to save their
+  current game into any of the four save slots.
+  @author Brian Huynh
+*/
 public SaveGameMenuPanel extends MenuPanel {
   JPanel mainPanel;
   JPanel menuContents;
@@ -16,6 +21,10 @@ public SaveGameMenuPanel extends MenuPanel {
   JButton saveSlot1,saveSlot2,saveSlot3,saveSlot4; // represent Saved GameState
   String [] buttonTexts = {"Game Slot 1", "Game Slot 2", "Game Slot 3", "Game Slot 4"};
 
+  /**
+    The saveSlotListener1 is the ActionListener for save slot 1.
+    Saves current game into save slot 1.
+  */
   public class saveSlotListener1 implements ActionListener {
 	  public void actionPerformed(ActionEvent ae) {
       MainView parent = (MainView)SwingUtilities.getWindowAncestor((JButton)ae.getSource());
@@ -29,6 +38,10 @@ public SaveGameMenuPanel extends MenuPanel {
       parent.loadMenu("GameBoardGUI");
 	   }
   }
+  /**
+    The saveSlotListener1 is the ActionListener for save slot 2.
+    Saves current game into save slot 2.
+  */
   public class saveSlotListener2 implements ActionListener {
 	  public void actionPerformed(ActionEvent ae) {
       MainView parent = (MainView)SwingUtilities.getWindowAncestor((JButton)ae.getSource());
@@ -42,6 +55,10 @@ public SaveGameMenuPanel extends MenuPanel {
       parent.loadMenu("GameBoardGUI");
 	   }
   }
+  /**
+    The saveSlotListener1 is the ActionListener for save slot 3.
+    Saves current game into save slot 3.
+  */
   public class saveSlotListener3 implements ActionListener {
 	  public void actionPerformed(ActionEvent ae) {
       MainView parent = (MainView)SwingUtilities.getWindowAncestor((JButton)ae.getSource());
@@ -55,6 +72,10 @@ public SaveGameMenuPanel extends MenuPanel {
       parent.loadMenu("GameBoardGUI");
 	   }
   }
+  /**
+    The saveSlotListener1 is the ActionListener for save slot 4.
+    Saves current game into save slot 4.
+  */
   public class saveSlotListener4 implements ActionListener {
 	  public void actionPerformed(ActionEvent ae) {
       MainView parent = (MainView)SwingUtilities.getWindowAncestor((JButton)ae.getSource());
@@ -69,12 +90,18 @@ public SaveGameMenuPanel extends MenuPanel {
 	   }
   }
 
+  /**
+    The SaveGameMenuPanel default constructor for SaveGameMenuPanel. Add
+    four JButtons each representing save slots 1 to 4.
+    A back button to go back to the game board.
+    @param parentFrame The JFrame the will contain SaveGameMenuPanel
+  */
   public SaveGameMenuPanel(JFrame parentFrame) {
     super("Save Game", 28)
 
     //set up back button
     back = new JButton("Back");
-    back.setActionCommand("StartMenu");
+    back.setActionCommand("GameBoardGUI");
     back.addActionListener(new NavigationListener());
     back.setBackground(Colors.yellow);
     back.setBorder(BorderFactory.createLineBorder(Colors.blue, 2));
