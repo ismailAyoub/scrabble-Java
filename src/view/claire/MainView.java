@@ -87,6 +87,10 @@ public class MainView extends JFrame
 		{
 			this.contents.add(new SaveGameMenuPanel(this));
 		}
+		if (s.equals("Rules"))
+		{
+			this.contents.add(new RulesPanel(this));
+		}
 		if (s.equals("GameBoardGUI"))
 		{
 			this.contents = new JPanel();

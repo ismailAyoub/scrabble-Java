@@ -183,6 +183,8 @@ public class GameState
 			currentTurnValid = true;
 			wordChecker.reset();
 		}
+		
+		
 	}
 	
 	

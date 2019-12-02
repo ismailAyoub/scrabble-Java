@@ -152,12 +152,15 @@ public class AppContainer extends JPanel
 			{
 				rackButtons[i].setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
 				rackButtons[i].setMinimumSize(new Dimension(40, 40));
+				rackButtons[i].setPreferredSize(new Dimension(40, 40));
 			}
 			currentSelectedIndex = Integer.parseInt(ae.getActionCommand());
 			currentSelected = tileRackArr[currentSelectedIndex];
 			rackButtons[currentSelectedIndex].setBorder(BorderFactory.createLineBorder(Colors.red, 4));
 			tileRackPanel.revalidate();
 			tileRackPanel.repaint();
+			view.revalidate();
+			view.repaint();
 		}
 	}
 	
@@ -178,6 +181,11 @@ public class AppContainer extends JPanel
 		*/
 		public void actionPerformed(ActionEvent ae)
 		{
+			for (int i = 0; i < placedTiles.size(); i++)
+			{
+				System.out.println(placedTiles.get(i).getTile().getLetter());
+			}
+			
 			view.getGameState().finalize(placedTiles, tileRackArr);
 			if (view.getGameState().isCurrentTurnValid())
 			{
@@ -238,6 +246,8 @@ public class AppContainer extends JPanel
 				}
 				tileRackPanel.revalidate();
 				tileRackPanel.repaint();
+				view.revalidate();
+				view.repaint();
 			}
 			else
 			{
@@ -262,6 +272,7 @@ public class AppContainer extends JPanel
 						rackButtons[i].setActionCommand("" + i);
 						rackButtons[i].addActionListener(new RackListener());
 						rackButtons[i].setMinimumSize(new Dimension(40, 40));
+						rackButtons[i].setPreferredSize(new Dimension(40, 40));
 						tileRackPanel.add(rackButtons[i]);
 					}
 					catch (Exception e) {
@@ -274,7 +285,10 @@ public class AppContainer extends JPanel
 				tileRackPanel.revalidate();
 				tileRackPanel.repaint();
 			}
-			
+			tileRackPanel.revalidate();
+			tileRackPanel.repaint();
+			view.revalidate();
+			view.repaint();
 			placedTiles.clear();
 			currentPlayerName.setText(view.getGameState().getCurrentPlayer().getName());
 		}
