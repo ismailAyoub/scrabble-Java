@@ -48,8 +48,6 @@ public class GameState
 		firstTurn = true;
 	}
 	
-	
-	
 	/**
 	
 	*/
@@ -67,6 +65,28 @@ public class GameState
 	{
 		
 	}
+	
+	
+
+	
+	/**
+		
+	*/
+	public void load(File f)
+	{
+		
+	}
+	
+	
+	
+	/**
+	
+	*/
+	public void save(File f)
+	{
+		
+	}
+	
 	
 	
 	
