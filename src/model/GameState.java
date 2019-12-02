@@ -15,6 +15,7 @@ public class GameState
 	private TileBag tileBag;
 	private ArrayList<Player> players;
 	private int currentPlayer;
+	private ArrayList<ArrayList<TilePlacement> > wordsPlayedCurrent;
 	private boolean firstTurn;
 	
 	//Do not save these fields in the save game files!!///////
@@ -29,6 +30,7 @@ public class GameState
 		this.board = gb;
 		difficulty = Difficulty.EASY;
 		tutorialTooltipsEnabled = false;
+		players = new ArrayList<Player>();
 		
 		//Set up ScrabbleTrie 
 		scrabbleTrie = new ScrabbleTrie();
@@ -39,6 +41,9 @@ public class GameState
 			"Scrabble_HARD.txt"
 		);
 		
+		wordChecker = new WordChecker(scrabbleTrie, gb);
+		wordsPlayedCurrent = new ArrayList<ArrayList<TilePlacement> >();
+		
 		tileBag = new TileBag();
 		tileBag.init(new File("tile_distribution_default.txt"));
 		tileBag.printTileBag();
@@ -47,6 +52,13 @@ public class GameState
 		currentPlayer = 0;
 		firstTurn = true;
 	}
+	
+	
+	public boolean isCurrentTurnValid()
+	{
+		return currentTurnValid;
+	}
+	
 	
 	/**
 	
@@ -63,7 +75,11 @@ public class GameState
 	*/
 	public void addPlayer(String s, int points)
 	{
-		
+		players.add(new Player(s, 0));
+		for (int i = 0; i < 7; i++)
+		{
+			players.get(players.size() - 1).addTile(tileBag.drawRandomTile());
+		}
 	}
 	
 	
@@ -87,7 +103,14 @@ public class GameState
 		
 	}
 	
-	
+	public void nextTurn()
+	{
+		currentPlayer += 1;
+		if (currentPlayer >= players.size())
+		{
+			currentPlayer = 0;
+		}
+	}
 	
 	
 	/**
@@ -98,6 +121,11 @@ public class GameState
 	public Player getCurrentPlayer()
 	{
 		return players.get(currentPlayer);
+	}
+	
+	public ArrayList<ArrayList<TilePlacement> > getCurrentWords()
+	{
+		return wordsPlayedCurrent;
 	}
 	
 	
@@ -123,6 +151,12 @@ public class GameState
 		//check the tiles for validity
 		wordChecker.readTilesFromBoard();
 		ArrayList<ArrayList<TilePlacement> > words = wordChecker.validateTiles();
+		if (firstTurn)
+		{
+			words = wordChecker.validateTilesFirstTurn();
+			firstTurn = false;
+		}
+		wordsPlayedCurrent = words;
 		
 		///if the tiles are invalid, rollback the turn.
 		if (words.size() == 0)
@@ -143,7 +177,7 @@ public class GameState
 				getCurrentPlayer().removeTile(tilesPlaced.get(i).getTile().getLetter());
 			}
 			
-			
+			currentTurnValid = true;
 			wordChecker.reset();
 		}
 	}
@@ -176,6 +210,14 @@ public class GameState
 		}
 	}
 	
+	public Tile[] getTileRack()
+	{
+		return getCurrentPlayer().getTileRack();
+	}
+	public boolean isCurrentTurnTile(int r, int c)
+	{
+		return board.getNode(r, c).getCurrent();
+	}
 	
 	
 	/**

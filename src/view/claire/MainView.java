@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.io.*;
 import view.brian.*;
 import view.claire.*;
-
+import view.temp.*;
 /**
 	The MainView class is the GUI window that displays the menu and game board of the game.
 	@author Claire Campbell
@@ -25,7 +25,7 @@ public class MainView extends JFrame
 	public MainView(GameState state) 
 	{
 		this.gameState = state; 
-		this.setSize(new Dimension(1060, 660));
+		this.setSize(new Dimension(1060, 700));
 		this.getContentPane().setBackground(Colors.red);
 		contents = new JPanel();
 		contents.setPreferredSize(new Dimension(400, 600));
@@ -83,7 +83,11 @@ public class MainView extends JFrame
 		}
 		if (s.equals("GameBoardGUI"))
 		{
-			
+			this.contents = new JPanel();
+			this.contents.setBackground(Colors.red);
+			this.contents.setPreferredSize(new Dimension(1060, 660));
+			this.contents.setMinimumSize(new Dimension(1060, 660));
+			this.contents.add(new AppContainer(this));
 		}
 		if (s.equals("New Game"))
 		{
@@ -95,6 +99,7 @@ public class MainView extends JFrame
 		}
 		this.add(contents);
 		this.validate();
+		this.revalidate();
 		this.repaint();
 	}
 	

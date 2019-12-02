@@ -99,12 +99,13 @@ public class MenuPanel extends JPanel
 		returnPanel.setBackground(Colors.blue);
 		returnPanel.setLayout(new BoxLayout(returnPanel, BoxLayout.Y_AXIS));
 		labelPanel.setBackground(Colors.yellow);
+		labelPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		label.setForeground(Colors.red);
 		label.setFont(label.getFont().deriveFont(fontSize));
 		
 		//Setup sizes
-		labelPanel.setPreferredSize(new Dimension(160, 50));
-		labelPanel.setMaximumSize(new Dimension(160, 60));
+		labelPanel.setPreferredSize(new Dimension(180, 50));
+		labelPanel.setMaximumSize(new Dimension(180, 60));
 		returnPanel.setPreferredSize(new Dimension(400, 100));
 		returnPanel.setMaximumSize(new Dimension(400, 100));
 		

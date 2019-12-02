@@ -78,7 +78,7 @@ public class Player {
      * @author Junaid Khan
      * @return returns tiles from the tileRack.
      */
-    public Tile[] getTitleRack() {
+    public Tile[] getTileRack() {
         return tileRack;
     }
 
