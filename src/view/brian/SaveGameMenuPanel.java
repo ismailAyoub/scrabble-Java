@@ -9,14 +9,14 @@ import model.ismail.*;
 import model.*;
 import java.io.File;
 
-public class LoadGameMenuPanel extends MenuPanel {
+public SaveGameMenuPanel extends MenuPanel {
   JPanel mainPanel;
   JPanel menuContents;
   JButton back;
-  JButton loadSlot1,loadSlot2,loadSlot3,loadSlot4; // represent Saved GameState
-  String [] buttonTexts = {"Load Game 1", "Load Game 2", "Load Game 3", "Load Game 4"};
+  JButton saveSlot1,saveSlot2,saveSlot3,saveSlot4; // represent Saved GameState
+  String [] buttonTexts = {"Game Slot 1", "Game Slot 2", "Game Slot 3", "Game Slot 4"};
 
-	public class loadSlotListener1 implements ActionListener {
+  public class saveSlotListener1 implements ActionListener {
 	  public void actionPerformed(ActionEvent ae) {
       MainView parent = (MainView)SwingUtilities.getWindowAncestor((JButton)ae.getSource());
 			GameState state = parent.getGameState();
@@ -24,53 +24,53 @@ public class LoadGameMenuPanel extends MenuPanel {
       //File savegame1 = new File("S:\...\...\...\...\scrabble_cs401\src\model\ismail\saveGame.txt");
       File savegame = new File("saveGame.txt");
       if(savegame.exists()){
-        state.load(savegame);
+        state.save(savegame);
       }
       parent.loadMenu("GameBoardGUI");
 	   }
   }
-	public class loadSlotListener2 implements ActionListener {
-    public void actionPerformed(ActionEvent ae) {
+  public class saveSlotListener2 implements ActionListener {
+	  public void actionPerformed(ActionEvent ae) {
       MainView parent = (MainView)SwingUtilities.getWindowAncestor((JButton)ae.getSource());
 			GameState state = parent.getGameState();
       //File savegame1 = new File("S:\Users\Brian Huynh\Documents\GitHub\scrabble_cs401\src\model\ismail\saveGame.txt");
       //File savegame1 = new File("S:\...\...\...\...\scrabble_cs401\src\model\ismail\saveGame.txt");
-      File savegame = new File("saveGame2.txt");
+      File savegame = new File("saveGame.txt");
       if(savegame.exists()){
-        state.load(savegame);
+        state.save(savegame);
       }
       parent.loadMenu("GameBoardGUI");
-    }
+	   }
   }
-	public class loadSlotListener3 implements ActionListener {
-    public void actionPerformed(ActionEvent ae) {
+  public class saveSlotListener3 implements ActionListener {
+	  public void actionPerformed(ActionEvent ae) {
       MainView parent = (MainView)SwingUtilities.getWindowAncestor((JButton)ae.getSource());
 			GameState state = parent.getGameState();
       //File savegame1 = new File("S:\Users\Brian Huynh\Documents\GitHub\scrabble_cs401\src\model\ismail\saveGame.txt");
       //File savegame1 = new File("S:\...\...\...\...\scrabble_cs401\src\model\ismail\saveGame.txt");
-      File savegame = new File("saveGame3.txt");
+      File savegame = new File("saveGame.txt");
       if(savegame.exists()){
-        state.load(savegame);
+        state.save(savegame);
       }
       parent.loadMenu("GameBoardGUI");
-    }
+	   }
   }
-	public class loadSlotListener4 implements ActionListener {
-    public void actionPerformed(ActionEvent ae) {
+  public class saveSlotListener4 implements ActionListener {
+	  public void actionPerformed(ActionEvent ae) {
       MainView parent = (MainView)SwingUtilities.getWindowAncestor((JButton)ae.getSource());
 			GameState state = parent.getGameState();
       //File savegame1 = new File("S:\Users\Brian Huynh\Documents\GitHub\scrabble_cs401\src\model\ismail\saveGame.txt");
       //File savegame1 = new File("S:\...\...\...\...\scrabble_cs401\src\model\ismail\saveGame.txt");
-      File savegame = new File("saveGame4.txt");
+      File savegame = new File("saveGame.txt");
       if(savegame.exists()){
-        state.load(savegame);
+        state.save(savegame);
       }
       parent.loadMenu("GameBoardGUI");
-    }
+	   }
   }
 
-	public LoadGameMenuPanel(JFrame parentFrame) {
-    super("Load Game", 28);
+  public SaveGameMenuPanel(JFrame parentFrame) {
+    super("Save Game", 28)
 
     //set up back button
     back = new JButton("Back");
@@ -88,50 +88,50 @@ public class LoadGameMenuPanel extends MenuPanel {
     menuContents.setMaximumSize(new Dimension(340, 350));
     menuContents.setBackground(Colors.blue);
 
-	  //Set up buttons aka save games
-	  loadSlot1 = new JButton(buttonTexts[0]);
-	  loadSlot1.setAlignmentX(Component.CENTER_ALIGNMENT);
-	  loadSlot1.setPreferredSize(new Dimension(175, 75));
-    loadSlot1.setMaximumSize(new Dimension(175, 75));
-    loadSlot1.setFont(loadSlot1.getFont().deriveFont(20f));
-    loadSlot1.setBackground(Colors.blue);
-    loadSlot1.setForeground(Colors.yellow);
-    loadSlot1.addActionListener(new loadSlotListener1());
+    //Set up buttons aka save games
+	  saveSlot1 = new JButton(buttonTexts[0]);
+	  saveSlot1.setAlignmentX(Component.CENTER_ALIGNMENT);
+	  saveSlot1.setPreferredSize(new Dimension(175, 75));
+    saveSlot1.setMaximumSize(new Dimension(175, 75));
+    saveSlot1.setFont(saveSlot1.getFont().deriveFont(20f));
+    saveSlot1.setBackground(Colors.blue);
+    saveSlot1.setForeground(Colors.yellow);
+    saveSlot1.addActionListener(new loadSlotListener1());
     menuContents.add(Box.createRigidArea(new Dimension(40, 30)));
-    menuContents.add(loadSlot1);
+    menuContents.add(saveSlot1);
 
-    loadSlot2 = new JButton(buttonTexts[1]);
-    loadSlot2.setAlignmentX(Component.CENTER_ALIGNMENT);
-    loadSlot2.setPreferredSize(new Dimension(175, 75));
-    loadSlot2.setMaximumSize(new Dimension(175, 75));
-    loadSlot2.setFont(loadSlot2.getFont().deriveFont(20f));
-    loadSlot2.setBackground(Colors.blue);
-    loadSlot2.setForeground(Colors.yellow);
-    loadSlot2.addActionListener(new loadSlotListener2());
+    saveSlot2 = new JButton(buttonTexts[1]);
+    saveSlot2.setAlignmentX(Component.CENTER_ALIGNMENT);
+    saveSlot2.setPreferredSize(new Dimension(175, 75));
+    saveSlot2.setMaximumSize(new Dimension(175, 75));
+    saveSlot2.setFont(saveSlot2.getFont().deriveFont(20f));
+    saveSlot2.setBackground(Colors.blue);
+    saveSlot2.setForeground(Colors.yellow);
+    saveSlot2.addActionListener(new loadSlotListener2());
     menuContents.add(Box.createRigidArea(new Dimension(40, 10)));
-    menuContents.add(loadSlot2);
+    menuContents.add(saveSlot2);
 
-	  loadSlot3 = new JButton(buttonTexts[2]);
-    loadSlot3.setAlignmentX(Component.CENTER_ALIGNMENT);
-    loadSlot3.setPreferredSize(new Dimension(175, 75));
-    loadSlot3.setMaximumSize(new Dimension(175, 75));
-    loadSlot3.setFont(loadSlot3.getFont().deriveFont(20f));
-    loadSlot3.setBackground(Colors.blue);
-    loadSlot3.setForeground(Colors.yellow);
-    loadSlot3.addActionListener(new loadSlotListener3());
+    saveSlot3 = new JButton(buttonTexts[2]);
+    saveSlot3.setAlignmentX(Component.CENTER_ALIGNMENT);
+    saveSlot3.setPreferredSize(new Dimension(175, 75));
+    saveSlot3.setMaximumSize(new Dimension(175, 75));
+    saveSlot3.setFont(saveSlot3.getFont().deriveFont(20f));
+    saveSlot3.setBackground(Colors.blue);
+    saveSlot3.setForeground(Colors.yellow);
+    saveSlot3.addActionListener(new loadSlotListener3());
     menuContents.add(Box.createRigidArea(new Dimension(40, 10)));
-    menuContents.add(loadSlot3);
+    menuContents.add(saveSlot3);
 
-    loadSlot4 = new JButton(buttonTexts[3]);
-	  loadSlot4.setAlignmentX(Component.CENTER_ALIGNMENT);
-    loadSlot4.setPreferredSize(new Dimension(175, 75));
-    loadSlot4.setMaximumSize(new Dimension(175, 75));
-    loadSlot4.setFont(loadSlot4.getFont().deriveFont(20f));
-    loadSlot4.setBackground(Colors.blue);
-    loadSlot4.setForeground(Colors.yellow);
-    loadSlot4.addActionListener(new loadSlotListener4());
+    saveSlot4 = new JButton(buttonTexts[3]);
+	  saveSlot4.setAlignmentX(Component.CENTER_ALIGNMENT);
+    saveSlot4.setPreferredSize(new Dimension(175, 75));
+    saveSlot4.setMaximumSize(new Dimension(175, 75));
+    saveSlot4.setFont(saveSlot4.getFont().deriveFont(20f));
+    saveSlot4.setBackground(Colors.blue);
+    saveSlot4.setForeground(Colors.yellow);
+    saveSlot4.addActionListener(new loadSlotListener4());
     menuContents.add(Box.createRigidArea(new Dimension(40, 10)));
-    menuContents.add(loadSlot4);
+    menuContents.add(saveSlot4);
 
     //Set up main Panel
     mainPanel = new JPanel();

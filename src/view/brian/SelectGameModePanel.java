@@ -17,9 +17,8 @@ public class SelectGameModePanel extends MenuPanel {
   JButton back;
 
   public class SinglePLayerListener implements ActionListener {
-    public void actionPerformed(ActionEvent ae) {
+      public void actionPerformed(ActionEvent ae) {
       MainView parent = (MainView)SwingUtilities.getWindowAncestor((JButton)ae.getSource());
-      //parent.gameState.addPlayer("Player 1", 0);
       parent.loadMenu(ae.getActionCommand());
     }
   }
@@ -49,7 +48,6 @@ public class SelectGameModePanel extends MenuPanel {
     singlePlayer.setBackground(Colors.blue);
     singlePlayer.setForeground(Colors.yellow);
     singlePlayer.setActionCommand("GameBoardGUI");
-    singlePlayer.addActionListener(new SinglePLayerListener());
     singlePlayer.addActionListener(new NavigationListener());
 
     //Set up for Multiplayer Button
@@ -83,6 +81,7 @@ public class SelectGameModePanel extends MenuPanel {
 		mainPanel.add(menuContents);
 		mainPanel.add(Box.createRigidArea(new Dimension(250, 15)));
 		mainPanel.add(back);
+
 
     this.setContents(mainPanel);
   }
