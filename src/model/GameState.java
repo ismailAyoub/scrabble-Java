@@ -76,15 +76,6 @@ public class GameState
 	}
 	
 	
-	/**
-		
-	*/
-	public void addAIPlayer()
-	{
-		
-	}
-	
-	
 	
 	/**
 		The addPlayer() method adds the specified player to the GameState.
@@ -99,27 +90,6 @@ public class GameState
 		{
 			players.get(players.size() - 1).addTile(tileBag.drawRandomTile());
 		}
-	}
-	
-	
-
-	
-	/**
-		
-	*/
-	public void load(File f)
-	{
-		
-	}
-	
-	
-	
-	/**
-	
-	*/
-	public void save(File f)
-	{
-		
 	}
 	
 	
@@ -148,6 +118,14 @@ public class GameState
 		return players.get(currentPlayer);
 	}
 	
+	/**
+		The getCurrentWords() method returns the ArrayList of ArrayLists of TilePlacement
+			objects representing all words placed on the board during the current turn.
+			This method shouled be called after finalize() has been called for the current turn.
+		@return An ArrayList&lt;ArrayList&lt;TilePlacement&gt;&gt; representing the words placed on the board
+			during the current turn. This container is empty is no valid words were placed on the board during the 
+			current turn.
+	*/
 	public ArrayList<ArrayList<TilePlacement> > getCurrentWords()
 	{
 		return wordsPlayedCurrent;
@@ -235,10 +213,27 @@ public class GameState
 		}
 	}
 	
+	
+	/**
+		The getter method for the tile rack of the current player.
+		@return An array of Tile objects representing the tile rack of the current player.
+		@author Claire Campbell
+	*/
 	public Tile[] getTileRack()
 	{
 		return getCurrentPlayer().getTileRack();
 	}
+	
+	
+	/**
+		The isCurrentTurnTile() method checks whether the tile at the given position in the internal game board
+			was placed during the current turn.
+		@param r The row of the tile to check.
+		@param c The column of the tile to check.
+		@return The boolean value true if the tile in the specified row and column was placed during the current turn;
+			false otherwise.
+		@author Claire Campbell
+	*/
 	public boolean isCurrentTurnTile(int r, int c)
 	{
 		return board.getNode(r, c).getCurrent();
@@ -254,7 +249,6 @@ public class GameState
 	{
 		return (ArrayList<Player>) players.clone();
 	}
-	
 	
 	
 	/**
@@ -303,6 +297,39 @@ public class GameState
 	{
 		return this.difficulty;
 	}
+	
+	
+	
+	
+	
+	/**
+		
+	*/
+	public void load(File f)
+	{
+		
+	}
+	
+	
+	
+	/**
+	
+	*/
+	public void save(File f)
+	{
+		
+	}
+	
+	
+	
+	/**
+		
+	*/
+	public void addAIPlayer()
+	{
+		
+	}
+	
 }
 
 /*
