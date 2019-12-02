@@ -13,7 +13,7 @@ import model.*;
   menus such as load game, save game, settings, or rules.
   @author Brian Huynh
 */
-public class MenuBar{
+public class MenuBar extends JMenuBar{
   JMenuBar menuBar;
   JMenu mainMenu;
   JMenuItem saveGame, loadGame, exit, rules, settings;
@@ -65,5 +65,6 @@ public class MenuBar{
     menuBar.add(mainMenu);
     menuBar.add(rules);
     menuBar.add(settings);
+	
     }
 }

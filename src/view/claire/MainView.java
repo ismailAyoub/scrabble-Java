@@ -8,7 +8,13 @@ import javax.swing.*;
 import java.io.*;
 import view.brian.*;
 import view.claire.*;
-import view.temp.*;
+
+
+import view.temp.*;////WHEN max is done w AppContainer, comment this out...
+//import view.max.*;	///And uncomment this.
+
+
+
 /**
 	The MainView class is the GUI window that displays the menu and game board of the game.
 	@author Claire Campbell
@@ -46,7 +52,7 @@ public class MainView extends JFrame
 	*/
 	public void loadMenu(String s)
 	{
-		
+	
 		this.remove(contents);
 		contents = new JPanel();
 		contents.setPreferredSize(new Dimension(400, 600));
@@ -71,15 +77,15 @@ public class MainView extends JFrame
 		}
 		if (s.equals("LoadGameMenu"))
 		{
-			
+			this.contents.add(new LoadGameMenuPanel(this));
 		}
 		if (s.equals("Load Game"))
 		{
-			///this.contents.add(new LoadGameMenuPanel(this));
+			this.contents.add(new LoadGameMenuPanel(this));
 		}
 		if (s.equals("SaveGameMenu"))
 		{
-			
+			this.contents.add(new SaveGameMenuPanel(this));
 		}
 		if (s.equals("GameBoardGUI"))
 		{

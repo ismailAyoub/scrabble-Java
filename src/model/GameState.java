@@ -7,6 +7,12 @@ import model.Junaid.*;	///uncomment when junaid completes his files.
 import java.util.ArrayList;
 import java.io.*;
 
+/**
+	The GameState class is an aggregate of all classes that comprise the "state" of the application.
+		It includes the WordChecker, an array list of Players, the GameBoard, and the various game settings.
+	@author Claire Campbell
+	@author Ismail Ayoub
+*/
 public class GameState 
 {
 	private GameBoard board;
@@ -24,7 +30,11 @@ public class GameState
 	boolean currentTurnValid;
 	//////////////////////////////////////////////////////////
 	
-	
+	/**
+		The GameState constructor initializes the GameState with the specified GameBoard, a new ScrabbleTrie(),
+			a new array list of Players, a new WordChecker, and a new TileBag.
+		@param gb The GameBoard object that the GameState is associated with.
+	*/
 	public GameState(GameBoard gb) throws IOException
 	{
 		this.board = gb;
@@ -54,6 +64,12 @@ public class GameState
 	}
 	
 	
+	/**
+		This is the getter method for the currentTurnValid field;
+			it should be called after finalize() has been called for the current turn.
+		@return The boolean value true is the current turn is valid; false if not.
+		@author Claire Campbell
+	*/
 	public boolean isCurrentTurnValid()
 	{
 		return currentTurnValid;
@@ -61,7 +77,7 @@ public class GameState
 	
 	
 	/**
-	
+		
 	*/
 	public void addAIPlayer()
 	{
@@ -71,7 +87,10 @@ public class GameState
 	
 	
 	/**
-		
+		The addPlayer() method adds the specified player to the GameState.
+		@param s The name of the player to be added.
+		@param points The number of points the player starts out with.
+		@author Claire Campbell
 	*/
 	public void addPlayer(String s, int points)
 	{
@@ -103,6 +122,12 @@ public class GameState
 		
 	}
 	
+	
+	/**
+		The nextTurn() method sets the current player to the next player in the array list of Players.
+			It should be called after finalize() and drawTiles().
+		@author Claire Campbell
+	*/
 	public void nextTurn()
 	{
 		currentPlayer += 1;
