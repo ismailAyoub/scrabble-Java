@@ -8,7 +8,11 @@ import model.*;
 import model.claire.*;
 import model.ismail.*;
 
-
+/**
+  The SelectGameModePanel is the GUI that allow player(s) to choose
+  which gamemode to play: Single-Player or Multi-player
+  @author Brian Huynh
+*/
 public class SelectGameModePanel extends MenuPanel {
   JPanel mainPanel;
   JPanel menuContents;
@@ -16,14 +20,25 @@ public class SelectGameModePanel extends MenuPanel {
   JButton multiPlayer;
   JButton back;
 
+  /**
+    The SinglePLayerListener is the ActionListener for the single Player
+    JButton. Clicking "Single Player" will bring the player to GameBoard.
+    @author Brian Huynh
+  */
   public class SinglePLayerListener implements ActionListener {
-    public void actionPerformed(ActionEvent ae) {
+      public void actionPerformed(ActionEvent ae) {
       MainView parent = (MainView)SwingUtilities.getWindowAncestor((JButton)ae.getSource());
-      //parent.gameState.addPlayer("Player 1", 0);
       parent.loadMenu(ae.getActionCommand());
     }
   }
 
+  /**
+    The default constructor for SelectGameModePanel adds two JRadioButtons
+    each represeting "Single Player" and "Multi-Player".
+    multiPlayer JButton brings the players to SelectPlayersMenuPanel.
+    @param parentFrame The JFrame that will contain the SelectGameModePanel
+    @author Brian Huynh
+  */
   public SelectGameModePanel(JFrame parentFrame) {
     super("Scrabble", 34);
 
@@ -49,7 +64,6 @@ public class SelectGameModePanel extends MenuPanel {
     singlePlayer.setBackground(Colors.blue);
     singlePlayer.setForeground(Colors.yellow);
     singlePlayer.setActionCommand("GameBoardGUI");
-    singlePlayer.addActionListener(new SinglePLayerListener());
     singlePlayer.addActionListener(new NavigationListener());
 
     //Set up for Multiplayer Button

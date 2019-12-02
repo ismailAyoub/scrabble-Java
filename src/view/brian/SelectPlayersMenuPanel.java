@@ -5,7 +5,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
+/**
+  The SelectPlayersMenuPanel is the GUI window that allows player to choose
+  how many players and enter players' names.
+  @author Brian Huynh
+*/
 public class SelectPlayersMenuPanel extends MenuPanel {
   JPanel mainPanel;
   JPanel menuContents;
@@ -15,6 +19,11 @@ public class SelectPlayersMenuPanel extends MenuPanel {
   String names[] = new String[4]; // To store players names
   JLabel labels[] = new JLabel[4];
 
+  /**
+    The nextListener class is an ActionListener for the "next" JButton.
+    Clicking "next" will bring the players to the next screen or gameboard.
+    @author Brian Huynh
+  */
   public class nextListener implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
       JButton source = (JButton)ae.getSource();
@@ -26,6 +35,12 @@ public class SelectPlayersMenuPanel extends MenuPanel {
     }
   }
 
+  /**
+    The default constructor for the SelectPlayersMenuPanel adds labels
+    corresponding to their textfields to the SelectGameModePanel.
+    Players will be able to enter their names.
+    @param parentFrame The JFrame that will contain the SelectGameModePanel
+  */
   public SelectPlayersMenuPanel(JFrame parentFrame) {
     super("Scrabble", 34);
 
