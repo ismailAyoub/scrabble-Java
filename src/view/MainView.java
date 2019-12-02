@@ -1,4 +1,4 @@
-package view.claire;
+package view;
 import model.claire.*;
 import model.ismail.*;
 import model.*;
@@ -7,6 +7,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 import view.brian.*;
+import view.claire.*;
 
 /**
 	The MainView class is the GUI window that displays the menu and game board of the game.
@@ -72,7 +73,7 @@ public class MainView extends JFrame
 		{
 			
 		}
-		if (s.equals("Load Game")
+		if (s.equals("Load Game"))
 		{
 			///this.contents.add(new LoadGameMenuPanel(this));
 		}
