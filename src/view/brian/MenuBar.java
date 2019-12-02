@@ -22,12 +22,12 @@ public class MenuBar{
     The rulesListener is an ActionListener for the rules JButton.
     This will bring up the JDialog rules window containing the rules.
   */
-  public class rulesListener implements ActionListener{
+  /*public class rulesListener implements ActionListener{
     public void actionPerformed(ActionEvent ae) {
       JDialog textBox = new JDialog("Rules");
       textBox.setVisible(true);
     }
-  }
+  }*/
 
   /**
   The default constructor for MenuBar. Sets up the menubar to be displayed in
@@ -40,7 +40,7 @@ public class MenuBar{
 
     rules = new JMenuItem("Rules");
     rules.setActionCommand("Rules");
-    rules.addActionListener(new rulesListener());
+    rules.addActionListener(new NavigationListener());
 
     settings = new JMenuItem("Settings");
     settings.setActionCommand("OptionsMenu");

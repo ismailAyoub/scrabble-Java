@@ -23,7 +23,7 @@ public class RulesPanel extends MenuPanel {
     back.setForeground(Colors.red);
     back.setMaximumSize(new Dimension(140, 30));
 
-    textArea = new JTextArea("");
+    textArea = new JTextArea();
     textArea.setEditable(false);
     textArea.append("Test");
 
