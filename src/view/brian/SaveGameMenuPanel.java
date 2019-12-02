@@ -14,7 +14,7 @@ import java.io.File;
   current game into any of the four save slots.
   @author Brian Huynh
 */
-public SaveGameMenuPanel extends MenuPanel {
+public class SaveGameMenuPanel extends MenuPanel {
   JPanel mainPanel;
   JPanel menuContents;
   JButton back;
@@ -97,7 +97,7 @@ public SaveGameMenuPanel extends MenuPanel {
     @param parentFrame The JFrame the will contain SaveGameMenuPanel
   */
   public SaveGameMenuPanel(JFrame parentFrame) {
-    super("Save Game", 28)
+    super("Save Game", 28);
 
     //set up back button
     back = new JButton("Back");
@@ -123,7 +123,7 @@ public SaveGameMenuPanel extends MenuPanel {
     saveSlot1.setFont(saveSlot1.getFont().deriveFont(20f));
     saveSlot1.setBackground(Colors.blue);
     saveSlot1.setForeground(Colors.yellow);
-    saveSlot1.addActionListener(new loadSlotListener1());
+    saveSlot1.addActionListener(new saveSlotListener1());
     menuContents.add(Box.createRigidArea(new Dimension(40, 30)));
     menuContents.add(saveSlot1);
 
@@ -134,7 +134,7 @@ public SaveGameMenuPanel extends MenuPanel {
     saveSlot2.setFont(saveSlot2.getFont().deriveFont(20f));
     saveSlot2.setBackground(Colors.blue);
     saveSlot2.setForeground(Colors.yellow);
-    saveSlot2.addActionListener(new loadSlotListener2());
+    saveSlot2.addActionListener(new saveSlotListener2());
     menuContents.add(Box.createRigidArea(new Dimension(40, 10)));
     menuContents.add(saveSlot2);
 
@@ -145,7 +145,7 @@ public SaveGameMenuPanel extends MenuPanel {
     saveSlot3.setFont(saveSlot3.getFont().deriveFont(20f));
     saveSlot3.setBackground(Colors.blue);
     saveSlot3.setForeground(Colors.yellow);
-    saveSlot3.addActionListener(new loadSlotListener3());
+    saveSlot3.addActionListener(new saveSlotListener3());
     menuContents.add(Box.createRigidArea(new Dimension(40, 10)));
     menuContents.add(saveSlot3);
 
@@ -156,7 +156,7 @@ public SaveGameMenuPanel extends MenuPanel {
     saveSlot4.setFont(saveSlot4.getFont().deriveFont(20f));
     saveSlot4.setBackground(Colors.blue);
     saveSlot4.setForeground(Colors.yellow);
-    saveSlot4.addActionListener(new loadSlotListener4());
+    saveSlot4.addActionListener(new saveSlotListener4());
     menuContents.add(Box.createRigidArea(new Dimension(40, 10)));
     menuContents.add(saveSlot4);
 

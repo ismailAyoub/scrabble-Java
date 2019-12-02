@@ -37,6 +37,7 @@ public class SelectGameModePanel extends MenuPanel {
     each represeting "Single Player" and "Multi-Player".
     multiPlayer JButton brings the players to SelectPlayersMenuPanel.
     @param parentFrame The JFrame that will contain the SelectGameModePanel
+    @author Brian Huynh
   */
   public SelectGameModePanel(JFrame parentFrame) {
     super("Scrabble", 34);
@@ -96,7 +97,6 @@ public class SelectGameModePanel extends MenuPanel {
 		mainPanel.add(menuContents);
 		mainPanel.add(Box.createRigidArea(new Dimension(250, 15)));
 		mainPanel.add(back);
-
 
     this.setContents(mainPanel);
   }
