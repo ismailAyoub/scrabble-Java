@@ -72,6 +72,10 @@ public class MainView extends JFrame
 		{
 			
 		}
+		if (s.equals("Load Game")
+		{
+			
+		}
 		if (s.equals("SaveGameMenu"))
 		{
 			
