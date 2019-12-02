@@ -79,6 +79,14 @@ public class MainView extends JFrame
 		{
 			
 		}
+		if (s.equals("New Game"))
+		{
+			
+		}
+		if (s.equals("multi"))
+		{
+			
+		}
 		this.add(contents);
 		this.validate();
 		this.repaint();

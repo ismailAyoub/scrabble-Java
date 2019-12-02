@@ -69,11 +69,19 @@ public class WordCheckerDriver
 						System.out.println("Word Placed: " + result);
 						System.out.print("\n");
 					}
-					
+					if (arr.size() == 0)
+					{
+						board1.rollbackTurn();
+						System.out.println("Rolling back turn");
+						}
+					else
+					{
+						board1.finalizeTurn();
+					}
 					//w.dumpTilesToBoard();
 					System.out.print("\n\n\nTHE BOARD: \n");
 					board1.printBoard();
-					
+					firstTurn = false;
 					System.out.print("\n\n--------------------------------------------------------------------------\n\n");
 					w.reset();
 				}

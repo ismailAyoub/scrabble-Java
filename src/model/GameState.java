@@ -94,20 +94,24 @@ public class GameState
 	*/
 	public void finalize(ArrayList<TilePlacement> tilesPlaced, Tile[] tileRack)
 	{
+		//put the tiles on the board that were played during the current turn 
 		for (int i = 0; i < tilesPlaced.size(); i++)
 		{
 			board.setTile(tilesPlaced.get(i).getRow(), tilesPlaced.get(i).getCol(), tilesPlaced.get(i).getTile());
 		}
 		
+		//check the tiles for validity
 		wordChecker.readTilesFromBoard();
 		ArrayList<ArrayList<TilePlacement> > words = wordChecker.validateTiles();
 		
+		///if the tiles are invalid, rollback the turn.
 		if (words.size() == 0)
 		{
 			board.rollbackTurn();
 			wordChecker.reset();
 			currentTurnValid = false;
 		}
+		///If the tiles are valid, score them and finalize the tiles on the board.
 		else
 		{
 			board.finalizeTurn();
@@ -118,6 +122,9 @@ public class GameState
 			{
 				getCurrentPlayer().removeTile(tilesPlaced.get(i).getTile().getLetter());
 			}
+			
+			
+			wordChecker.reset();
 		}
 	}
 	

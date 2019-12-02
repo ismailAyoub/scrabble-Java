@@ -60,7 +60,7 @@ public class Node {
 	}
 	public void setCurrent(boolean c)
 	{
-		current = false;
+		current = c;
 	}
 	public boolean getCurrent()
 	{

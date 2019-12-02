@@ -226,33 +226,52 @@ public class WordChecker
 	
 		//make sure the tiles are placed adjacent to some other tile(s) on the board.
 		Tile top, bottom, left, right;
-		boolean checkTop = true, checkBottom = true, checkRight = true, checkLeft = true;
 		boolean hasAdjacentTiles = false;
 		for (int i = 0; i < tilesPlaced.size(); i++)
 		{
-			checkTop = checkBottom = checkRight = checkLeft = true;
 			top = bottom = left = right = null;
 			
-			if (tilesPlaced.get(i).getRow() > 0)
+			if (tilesPlaced.get(i).getRow() > 0) {
 				top = board.getTile(tilesPlaced.get(i).getRow() - 1, tilesPlaced.get(i).getCol());
-			else
-				checkTop = false;
+				if (board.getNode(tilesPlaced.get(i).getRow() - 1, tilesPlaced.get(i).getCol()).getCurrent() == false && top != null) {
+					hasAdjacentTiles = true;
+					System.out.println("Found adjacent: " + top.getLetter());
+					break;
+				}
+			}
 			
-			if (tilesPlaced.get(i).getRow() < 14)
+			
+			if (tilesPlaced.get(i).getRow() < 14) {
 				bottom = board.getTile(tilesPlaced.get(i).getRow() + 1, tilesPlaced.get(i).getCol());
-			else
-				checkBottom = false;
+				if (board.getNode(tilesPlaced.get(i).getRow() + 1, tilesPlaced.get(i).getCol()).getCurrent() == false && bottom != null) {
+					System.out.println("Found adjacent: " + bottom.getLetter());
+					hasAdjacentTiles = true;
+					break;
+				}
+			}
 			
-			if (tilesPlaced.get(i).getCol() > 0)
+			
+			if (tilesPlaced.get(i).getCol() > 0) {
 				left = board.getTile(tilesPlaced.get(i).getRow(), tilesPlaced.get(i).getCol() - 1);
-			else
-				checkLeft = false;
+				if (board.getNode(tilesPlaced.get(i).getRow(), tilesPlaced.get(i).getCol() - 1).getCurrent() == false && left != null) {
+					System.out.println("Found adjacent: " + left.getLetter());
+					hasAdjacentTiles = true;
+					break;
+				}
+			}
 			
-			if (tilesPlaced.get(i).getCol() < 14)
+			
+			if (tilesPlaced.get(i).getCol() < 14) {
 				right = board.getTile(tilesPlaced.get(i).getRow(), tilesPlaced.get(i).getCol() + 1);
-			else
-				checkRight = false;
+				if (board.getNode(tilesPlaced.get(i).getRow(), tilesPlaced.get(i).getCol() + 1).getCurrent() == false && right != null) {
+					System.out.println("Found adjacent: " + right.getLetter());
+					hasAdjacentTiles = true;
+					break;
+				}
+			}
 			
+			
+			/*
 			if ((top != null && checkTop == true) ||
 					(bottom != null && checkBottom == true) ||
 					(left != null && checkLeft == true) || 
@@ -261,6 +280,7 @@ public class WordChecker
 				hasAdjacentTiles = true;
 				break;
 			}
+			*/
 		}
 		
 		if (hasAdjacentTiles == false)
