@@ -67,7 +67,7 @@ public class SelectGameModePanel extends MenuPanel {
     singlePlayer.setBackground(Colors.blue);
     singlePlayer.setForeground(Colors.yellow);
     singlePlayer.setActionCommand("GameBoardGUI");
-    singlePlayer.addActionListener(new SinglePLayerListener);
+    singlePlayer.addActionListener(new SinglePLayerListener());
     //singlePlayer.addActionListener(new NavigationListener());
 
     //Set up for Multiplayer Button
