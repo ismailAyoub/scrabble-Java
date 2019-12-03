@@ -34,7 +34,16 @@ public class RulesPanel extends MenuPanel {
 
     textArea = new JTextArea();
     textArea.setEditable(false);
-    textArea.append("Test");
+    textArea.append("How to play your turn:\n");
+    textArea.append("1. Pick a letter in your rack.\n");
+    textArea.append("2. Pick a spot on the Game Board to place the letter in.\n");
+    textArea.append("3. Repeat step 1 and 2 until word is formed.\n");
+    textArea.append("4. Click Finalize after placing your word on board.\n");
+    textArea.append("\n");
+    textArea.append("All words must be valid.\n");
+    textArea.append("Word score is automatically calculated end of turn.\n");
+    textArea.append("Game ends when there is no more word tiles.\n");
+    textArea.append("Game ends when there is not enough spots to place \na word.");
 
     //Set up for the sub panel to go within Main Panel
     menuContents = new JPanel();
