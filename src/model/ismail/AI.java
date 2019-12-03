@@ -414,6 +414,35 @@ public class AI extends Player{
      AIBoardScan scans the ordinal board and copies it into the dummy board.
      */
 
+    public void scanBoard(GameBoard board){
+        for(int i=0; i < 15;i++){
+            for(int j=0; j<15;j++){
+                AIBoard[i][j] = new AINode();
+                AIBoard[i][j].setEmpty(board.getNode(i,j).isEmpty());
+                AIBoard[i][j].setTile(board.getTile(i,j));
+                if(board.getNode(i,j).getTile() == null){
+                    AIBoard[i][j].setEmpty(true);
+                }
+                AIBoard[i][j].setPosition(i,j);
+                if(i == 0){
+                    AIBoard[i][j].setUp(false);
+                }
+                if(i == 14){
+                    AIBoard[i][j].setDown(false);
+                }
+                if(j == 0){
+                    AIBoard[i][j].setLeft(false);
+                }
+                if(j == 14){
+                    AIBoard[i][j].setRight(false);
+                }
+                if(AIBoard[i][j].isEmpty() == false){
+                    o_nodes.add(new occupiedNodes(i,j));
+                }
+            }
+        }
+    }
+    
     public void AIBoardScan(){
 
         int dummy_i =0, dummy_j=0;
