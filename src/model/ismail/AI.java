@@ -382,7 +382,7 @@ public class AI {
         else {
             createEasyWords();
         }
-        addWord(board);
+       // addWord(board);
 
     }
 
