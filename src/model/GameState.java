@@ -136,12 +136,25 @@ public class GameState
 			{
 				board.finalizeTurn();
 			}
+			
+			scoreWords(words);
 			////score the word.
 			nextTurn();
 			
 		}
 	}
 	
+	public void scoreWords(ArrayList<ArrayList<TilePlacement> > wrds)
+	{
+		int score = 0;
+		for (int i = 0; i < wrds.size(); i++)
+		{
+			for (int j = 0; j < wrds.get(i).size(); j++)
+			{
+				
+			}
+		}
+	}
 	
 	/**
 		Gets the player whose turn it is.
@@ -252,6 +265,8 @@ public class GameState
 	}
 	
 	
+	
+	
 	/**
 		The getter method for the tile rack of the current player.
 		@return An array of Tile objects representing the tile rack of the current player.
@@ -337,7 +352,10 @@ public class GameState
 	}
 	
 	
-	
+	public Tile getTilePlacedAt(int i, int j)
+	{
+		return board.getTile(i, j);
+	}
 	
 	
 	/**

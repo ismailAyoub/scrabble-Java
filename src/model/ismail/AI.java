@@ -520,7 +520,7 @@ public class AI {
     public void createHardWords(){
         Scanner sc = null;
         try {
-            sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/Scrabble_HARD.txt"));
+            sc = new Scanner(new File("Scrabble_HARD.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

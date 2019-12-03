@@ -244,6 +244,20 @@ public class AppContainer extends JPanel
 				{
 					tileRackPanel.add(rackButtons[i]);
 				}
+				
+				for (int i = 0; i < 15; i++)
+				{
+					for (int j = 0; j < 15; j++)
+					{
+						try {
+							tileButton[i][j].setText(view.getGameState().getTilePlacedAt(i, j).getText());
+						}
+						catch (Exception ie)
+						{
+							
+						}
+					}
+				}
 				tileRackPanel.revalidate();
 				tileRackPanel.repaint();
 				view.revalidate();
