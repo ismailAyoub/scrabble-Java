@@ -13,7 +13,7 @@ import java.util.Scanner;
  @author Ismail Ayoub
  */
 
-public class AI {
+public class AI extends Player{
 
     /**
      The AI node does the same thing as the Node class but it is used here to create a dummy board.
@@ -360,10 +360,10 @@ public class AI {
     /**
      This is the AI constructor and it initializes all the valuables on the class and creates the dummy board..
      @param board The is a GameBoard object that is going to be copied into the dummy board.
-     @param  d the d is the difficulty of the game that.
+     @param  d the d is the difficulty of the game that the player chooses.
      */
     public AI(GameBoard board, Difficulty d){
-
+        super("AI", 0);
 
         Player p = new Player("Computer",0);
 
@@ -409,6 +409,11 @@ public class AI {
 
     }
 
+
+    /**
+     AIBoardScan scans the ordinal board and copies it into the dummy board.
+     */
+
     public void AIBoardScan(){
 
         int dummy_i =0, dummy_j=0;
@@ -445,6 +450,9 @@ public class AI {
 
 
     }
+    /**
+     AIBoardScan2 scans the dummy board and calculates the max letter it can install in each direction..
+     */
 
     public void AIBoardScan2(){
         int maxUp= 0, maxDown = 0, maxLeft = 0,maxRight = 0;
@@ -501,6 +509,9 @@ public class AI {
         return AIBoard[i][j];
     }
 
+    /**
+     printBoard prints the dummy board.
+     */
     public void printBoard(){
         for(int i=0; i<15; i++){
 
@@ -517,10 +528,13 @@ public class AI {
         }
     }
 
+    /**
+     createHardWords reads the hard word text file and sorts it in a ArrayList by size to use later in the addWord function.
+     */
     public void createHardWords(){
         Scanner sc = null;
         try {
-            sc = new Scanner(new File("Scrabble_HARD.txt"));
+            sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/Scrabble_HARD.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -574,11 +588,13 @@ public class AI {
             }
         }
     }
-
+    /**
+     createEasyWords reads the easy word text file and sorts it in a ArrayList by size to use later in the addWord function.
+     */
     public void createEasyWords(){
         Scanner sc = null;
         try {
-            sc = new Scanner(new File("Scrabble_EASY.txt"));
+            sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/Scrabble_EASY.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -633,6 +649,10 @@ public class AI {
         }
     }
 
+    /**
+     The addWord uses the calculations made to add a new word to the board in the correct place.
+     @param Board is the board that the addWord function is going to place the letters on.
+     */
     public void addWord(GameBoard Board){
 
 
@@ -729,7 +749,7 @@ public class AI {
                             char c = Character.toUpperCase(wordList.get(x2).charAt(k));
                             Scanner sc = null;
                             try {
-                                sc = new Scanner(new File("AI_tile_distribution.txt"));
+                                sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/AI_tile_distribution.txt"));
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
@@ -856,7 +876,7 @@ public class AI {
                             char c = Character.toUpperCase(wordList.get(x2).charAt(k));
                             Scanner sc = null;
                             try {
-                                sc = new Scanner(new File("AI_tile_distribution.txt"));
+                                sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/AI_tile_distribution.txt"));
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
@@ -987,7 +1007,7 @@ public class AI {
                             char c = Character.toUpperCase(wordList.get(x2).charAt(k));
                             Scanner sc = null;
                             try {
-                                sc = new Scanner(new File("AI_tile_distribution.txt"));
+                                sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/AI_tile_distribution.txt"));
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
@@ -1114,7 +1134,7 @@ public class AI {
                             char c = Character.toUpperCase(wordList.get(x2).charAt(k));
                             Scanner sc = null;
                             try {
-                                sc = new Scanner(new File("AI_tile_distribution.txt"));
+                                sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/AI_tile_distribution.txt"));
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
