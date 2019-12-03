@@ -32,6 +32,7 @@ public class GameBoard {
     /**
     setBonus method sets up the bonus squares for specific letters that are place
     on top of the them.
+    @param n[][] is the node object reference.
     */
     private void setBonus(Node n[][]){
 
@@ -134,6 +135,8 @@ public class GameBoard {
 
   /**
   setTile method place a tile onto the board.
+  @param i,j,t are the positions of the board
+   t is the Tile object reference.
   */
 	public void setTile(int i, int j, Tile t)
 	{
@@ -144,6 +147,7 @@ public class GameBoard {
 	/**
   getTile method returns a tile that is in a certain position of the
   board.
+  @param i,j are the positions of the board.
   */
 	public Tile getTile(int i, int j)
 	{
@@ -152,6 +156,8 @@ public class GameBoard {
 
     /**
     The setLetter places a letter onto the game board.
+    @param i,j,l i and j are the positions of the board.
+    l is the letter to put on the board.
     */
     public void setLetter(int i, int j, char l){
         board[i][j].setLetter(l);
@@ -159,6 +165,7 @@ public class GameBoard {
 
     /**
     The getNode method returns a node object that represents a square.
+    @param i,j are the positions of the board.
     */
     public Node getNode(int i,int j){
         return board[i][j];
