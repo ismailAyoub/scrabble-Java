@@ -386,7 +386,11 @@ public class AI extends Player {
         else {
             createEasyWords();
         }
+<<<<<<< HEAD
         //addWord(board);
+=======
+       // addWord(board);
+>>>>>>> cf257849cd353357b8bba25bff9fd9d8c7e9928e
 
     }
 
