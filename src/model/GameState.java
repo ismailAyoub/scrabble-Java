@@ -151,8 +151,20 @@ public class GameState
 		{
 			for (int j = 0; j < wrds.get(i).size(); j++)
 			{
-				
+				int temp = wrds.get(i).get(j).getTile().getPoints();
+				int row = wrds.get(i).get(j).getRow();
+				int col = wrds.get(i).get(j).getCol();
+				if (board.getNode(row, col).getBounce().equals("tl") && board.getNode(row, col).getCurrent() == true)
+				{
+					temp *= 3;
+				}
+				else if (board.getNode(row, col).getBounce().equals("dl") && board.getNode(row, col).getCurrent() == true)
+				{
+					temp *= 2;
+				}
+				score += temp;
 			}
+			getCurrentPlayer().addPoints(score);
 		}
 	}
 	
@@ -220,6 +232,7 @@ public class GameState
 		else
 		{
 			board.finalizeTurn();
+			scoreWords(words);
 			///todo: Score the tiles in "words", add the score to the current player.
 			
 			if (!(players.get(currentPlayer) instanceof AI))
@@ -350,7 +363,11 @@ public class GameState
 	{
 		return this.difficulty;
 	}
-	
+
+	public Node getNode(int i, int j)
+	{
+		return board.getNode(i, j);
+	}
 	
 	public Tile getTilePlacedAt(int i, int j)
 	{

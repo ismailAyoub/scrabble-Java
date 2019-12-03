@@ -101,6 +101,10 @@ public class MainView extends JFrame
 			this.contents.setMinimumSize(new Dimension(1060, 660));
 			this.contents.add(new AppContainer(this));
 		}
+		if (s.equals("Rules"))
+		{
+			this.contents.add(new RulesPanel(this));
+		}
 		if (s.equals("New Game"))
 		{
 			this.contents.add(new SelectGameModePanel(this));

@@ -250,7 +250,7 @@ public class AppContainer extends JPanel
 					for (int j = 0; j < 15; j++)
 					{
 						try {
-							tileButton[i][j].setText(view.getGameState().getTilePlacedAt(i, j).getText());
+							tileButton[i][j].setText("" + view.getGameState().getTilePlacedAt(i, j).getLetter());
 						}
 						catch (Exception ie)
 						{
@@ -343,6 +343,7 @@ public class AppContainer extends JPanel
 				rackButtons[i].setActionCommand("" + i);
 				rackButtons[i].setMinimumSize(new Dimension(40, 40));
 				rackButtons[i].addActionListener(new RackListener());
+				
 				tileRackPanel.add(rackButtons[i]);
 			}
 			catch (Exception e) {
@@ -365,6 +366,14 @@ public class AppContainer extends JPanel
 				tileButton[i][j] = new TileButton(i, j);
 				tileButton[i][j].setText("");
 				tileButton[i][j].setVisible(true);
+				if (view.getGameState().getNode(i, j).getBounce().equals("dl"))
+				{
+					tileButton[i][j].setBackground(new Color(180, 180, 250));
+				}
+				if (view.getGameState().getNode(i, j).getBounce().equals("tl"))
+				{
+					tileButton[i][j].setBackground(new Color(250, 190, 190));
+				}
 				tileButton[i][j].setMinimumSize(new Dimension(30, 30));
 				tileButton[i][j].setBorder(BorderFactory.createLineBorder(Colors.blue, 2));
 				tileButton[i][j].addActionListener(new BoardListener());
