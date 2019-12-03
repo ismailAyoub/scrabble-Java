@@ -610,7 +610,7 @@ public class AI {
 
         Random random = new Random();
         int index = random.nextInt(o_nodes.size());
-        index = 0;
+        //index = 0;
 
         int i =o_nodes.get(index).getI();
         int j =o_nodes.get(index).getJ();
@@ -624,7 +624,7 @@ public class AI {
 
 
         int direction = random.nextInt(4);
-        direction = 0;
+        //direction = 3;
 
         int wordList_loop=0;
 
@@ -788,7 +788,7 @@ public class AI {
 
             wordList_loop=0;
             Random random2 = new Random();
-                while (wordList_loop < wordList.size()) {
+                /*while (wordList_loop < wordList.size()) {
                 dummy_i = i;
                 dummy_j = j;
 
@@ -797,12 +797,68 @@ public class AI {
                     int wordLength = wordList.get(x2).length();
                     if(wordList.get(x2).charAt(wordLength-1) == AIBoard[i][j].getLetter()){
                     dummy_j -= wordList.get(x2).length()-1;
-                    for (int k = 0; k < wordList.get(x2).length()-1; k++) {
+                    for (int k = 1; k < wordList.get(x2).length()-1; k++) {
                         AIBoard[i][dummy_j++].setLetter(wordList.get(x2).charAt(k));
                     }
                     break;
                 }
                     }
+                wordList_loop++;
+
+            }*/
+            while (wordList_loop < wordList.size()) {
+                dummy_i = i;
+                dummy_j = j;
+                dummy_i2 = i;
+                dummy_j2 = j;
+
+                int x2 = random.nextInt(wordList.size());
+
+                if (wordList.get(x2).length() <= maxLeft+1) {
+                    int wordLength = wordList.get(x2).length();
+                    if(Character.toUpperCase(wordList.get(x2).charAt(wordLength-1)) == AIBoard[i][j].getTile().getLetter()){
+                        dummy_j -= wordList.get(x2).length()-1;
+                        dummy_j2 -= wordList.get(x2).length()-1;
+                        for (int k = 0; k < wordList.get(x2).length(); k++) {
+                            Tile tile = new Tile(0,Character.toUpperCase(wordList.get(x2).charAt(k)));
+                            AIBoard[i][dummy_j++].setTile(tile);
+
+
+                            boolean found = false;
+                            char c = Character.toUpperCase(wordList.get(x2).charAt(k));
+                            Scanner sc = null;
+                            try {
+                                sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/AI_tile_distribution.txt"));
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                            while (sc.hasNextLine()) {
+
+                                Scanner s2 = new Scanner(sc.nextLine());
+                                char l = '-';
+                                int p = 0;
+                                while (s2.hasNext()) {
+                                    if(c == s2.next().charAt(0)) {
+                                        l = c;
+                                        p = Integer.parseInt(s2.next());
+                                        found = true;
+                                    }
+                                }
+
+                                if(found){
+                                    Tile t = new Tile(p,l);
+                                    Board.setTile(i,dummy_j2++,t);
+                                    break;
+                                }
+
+                            }
+                            sc.close();
+
+
+                        }
+                        break;
+                    }
+                }
                 wordList_loop++;
 
             }
@@ -862,7 +918,7 @@ public class AI {
             wordList_loop=0;
             Random random2 = new Random();
 
-            while (wordList_loop < wordList.size()) {
+           /* while (wordList_loop < wordList.size()) {
 
                 int x2 = random.nextInt(wordList.size());
                 dummy_i = i;
@@ -880,7 +936,65 @@ public class AI {
                 }
                 wordList_loop++;
 
+            }*/
+            while (wordList_loop < wordList.size()) {
+                dummy_i = i;
+                dummy_j = j;
+                dummy_i2 = i;
+                dummy_j2 = j;
+
+                int x2 = random.nextInt(wordList.size());
+
+                if (wordList.get(x2).length() <= maxUp+1) {
+                    int wordLength = wordList.get(x2).length();
+                    if(Character.toUpperCase(wordList.get(x2).charAt(wordLength-1)) == AIBoard[i][j].getTile().getLetter()){
+                        dummy_i -= wordList.get(x2).length()-1;
+                        dummy_i2 -= wordList.get(x2).length()-1;
+                        for (int k = 0; k < wordList.get(x2).length(); k++) {
+                            Tile tile = new Tile(0,Character.toUpperCase(wordList.get(x2).charAt(k)));
+                            AIBoard[dummy_i++][j].setTile(tile);
+
+
+                            boolean found = false;
+                            char c = Character.toUpperCase(wordList.get(x2).charAt(k));
+                            Scanner sc = null;
+                            try {
+                                sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/AI_tile_distribution.txt"));
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                            while (sc.hasNextLine()) {
+
+                                Scanner s2 = new Scanner(sc.nextLine());
+                                char l = '-';
+                                int p = 0;
+                                while (s2.hasNext()) {
+                                    if(c == s2.next().charAt(0)) {
+                                        l = c;
+                                        p = Integer.parseInt(s2.next());
+                                        found = true;
+                                    }
+                                }
+
+                                if(found){
+                                    Tile t = new Tile(p,l);
+                                    Board.setTile(dummy_i2++,j,t);
+                                    break;
+                                }
+
+                            }
+                            sc.close();
+
+
+                        }
+                        break;
+                    }
+                }
+                wordList_loop++;
+
             }
+
+
         }
 
         if(direction == 3) {
@@ -936,7 +1050,7 @@ public class AI {
 
             wordList_loop=0;
             Random random2 = new Random();
-            while (wordList_loop < wordList.size()) {
+           /* while (wordList_loop < wordList.size()) {
 
                 int x2 = random.nextInt(wordList.size());
                 dummy_i = i;
@@ -946,6 +1060,58 @@ public class AI {
                     if(wordList.get(x2).charAt(0) == AIBoard[i][j].getLetter()){
                         for (int k = 1; k < wordList.get(x2).length(); k++) {
                             AIBoard[++dummy_i][j].setLetter(wordList.get(x2).charAt(k));
+                        }
+                        break;
+                    }
+                }
+                wordList_loop++;
+
+            }*/
+            while (wordList_loop < wordList.size()) {
+                dummy_i = i;
+                dummy_j = j;
+                dummy_i2 = i;
+                dummy_j2 = j;
+
+                int x2 = random.nextInt(wordList.size());
+
+                if (wordList.get(x2).length() <= maxDown+1) {
+                    if(Character.toUpperCase(wordList.get(x2).charAt(0)) == AIBoard[i][j].getTile().getLetter()){
+                        for (int k = 0; k < wordList.get(x2).length(); k++) {
+                            Tile tile = new Tile(0,Character.toUpperCase(wordList.get(x2).charAt(k)));
+                            AIBoard[dummy_i++][j].setTile(tile);
+
+
+                            boolean found = false;
+                            char c = Character.toUpperCase(wordList.get(x2).charAt(k));
+                            Scanner sc = null;
+                            try {
+                                sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/AI_tile_distribution.txt"));
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                            while (sc.hasNextLine()) {
+                                Scanner s2 = new Scanner(sc.nextLine());
+                                char l = '-';
+                                int p = 0;
+                                while (s2.hasNext()) {
+                                    if(c == s2.next().charAt(0)) {
+                                        l = c;
+                                        p = Integer.parseInt(s2.next());
+                                        found = true;
+                                    }
+                                }
+
+                                if(found){
+                                    Tile t = new Tile(p,l);
+                                    Board.setTile(dummy_i2++,j,t);
+                                    break;
+                                }
+
+                            }
+                            sc.close();
+
+
                         }
                         break;
                     }
