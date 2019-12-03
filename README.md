@@ -1,5 +1,15 @@
 # scrabble_cs401
 CS 401 Semester Project.
+TO COMPILE:
+1. Open the shell and navigate to the /bin subfolder.
+2. Run the compileme.sh script. This compiles the program with some errors due to circular dependencies, but generates all necessary .class files to run the program.
+
+TO RUN:
+1. Open the shell and navigate to the /bin subfolder.
+2. Run the following command: java view.claire.MainView
+
+
+
 
 PACKAGE STRUCTURE:
 I structured the packages in this project with the goal of keeping track of which files belong to which group member. I also assumed an MVC architecture, but we can change this later if we want to use a different design pattern. Under the src directory, save your files to model/yourname, controller/yourname, or view/yourname, and add a package declaration at the very beginning of your java files such as:     
