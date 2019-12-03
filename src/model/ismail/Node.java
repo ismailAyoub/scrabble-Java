@@ -11,7 +11,7 @@ public class Node {
     Node(){
         letter = '_';
         bonus = "none";
-		tile = null;
+		tile = new Tile(0,'_');
 		current = false;
 		empty = true;
     }
