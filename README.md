@@ -1,5 +1,6 @@
 # scrabble_cs401
 CS 401 Semester Project.
+
 TO COMPILE:
 1. Open the shell and navigate to the /bin subfolder.
 2. Run the compileme.sh script. This compiles the program with some errors due to circular dependencies, but generates all necessary .class files to run the program.
