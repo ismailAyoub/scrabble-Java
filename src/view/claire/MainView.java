@@ -31,6 +31,7 @@ public class MainView extends JFrame
 	public MainView(GameState state) 
 	{
 		this.gameState = state; 
+		this.setJMenuBar(new view.brian.MenuBar());
 		this.setSize(new Dimension(1060, 700));
 		this.getContentPane().setBackground(Colors.red);
 		contents = new JPanel();
@@ -93,6 +94,7 @@ public class MainView extends JFrame
 		}
 		if (s.equals("GameBoardGUI"))
 		{
+			
 			this.contents = new JPanel();
 			this.contents.setBackground(Colors.red);
 			this.contents.setPreferredSize(new Dimension(1060, 660));

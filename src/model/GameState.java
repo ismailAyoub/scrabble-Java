@@ -105,6 +105,41 @@ public class GameState
 		{
 			currentPlayer = 0;
 		}
+		if (players.get(currentPlayer) instanceof AI)
+		{
+			((AI)players.get(currentPlayer)).addWord(board);
+			wordChecker.readTilesFromBoard();
+			ArrayList<ArrayList<TilePlacement> > words = wordChecker.validateTiles();
+			wordsPlayedCurrent = words;
+		
+			///if the tiles are invalid, rollback the turn.
+			if (words.size() == 0)
+			{
+				board.rollbackTurn();
+				wordChecker.reset();
+				while (words.size() == 0)
+				{
+					((AI)players.get(currentPlayer)).addWord(board);
+					wordChecker.readTilesFromBoard();
+					words = wordChecker.validateTiles();
+					wordsPlayedCurrent = words;
+					if (words.size() == 0)
+					{
+						board.rollbackTurn();
+						wordChecker.reset();
+					}
+					
+				}
+			}
+			///If the tiles are valid, score them and finalize the tiles on the board.
+			else
+			{
+				board.finalizeTurn();
+			}
+			////score the word.
+			nextTurn();
+			
+		}
 	}
 	
 	
@@ -174,12 +209,13 @@ public class GameState
 			board.finalizeTurn();
 			///todo: Score the tiles in "words", add the score to the current player.
 			
-			
-			for (int i = 0; i < tilesPlaced.size(); i++)
+			if (!(players.get(currentPlayer) instanceof AI))
 			{
-				getCurrentPlayer().removeTile(tilesPlaced.get(i).getTile().getLetter());
+				for (int i = 0; i < tilesPlaced.size(); i++)
+				{
+					getCurrentPlayer().removeTile(tilesPlaced.get(i).getTile().getLetter());
+				}
 			}
-			
 			currentTurnValid = true;
 			wordChecker.reset();
 		}
@@ -325,11 +361,12 @@ public class GameState
 	
 	
 	/**
-		
+		This method adds the AI Player for single player mode to the game state.
+		@author Claire Campbell
 	*/
 	public void addAIPlayer()
 	{
-		
+		players.add(new AI(board, difficulty));
 	}
 	
 }

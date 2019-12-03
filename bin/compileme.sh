@@ -2,6 +2,7 @@ javac ../src/model/claire/Tile.java -d .
 javac ../src/model/claire/TilePlacement.java -d .
 javac ../src/model/ismail/Node.java -d .
 javac ../src/model/ismail/GameBoard.java -d .
+javac ../src/model/claire/Difficulty.java -d .
 javac ../src/model/claire/*.java -d .
 javac ../src/model/Junaid/*.java -d . 
 javac ../src/model/ismail/*.java -d . 

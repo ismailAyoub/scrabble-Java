@@ -394,8 +394,10 @@ public class AppContainer extends JPanel
 		playerPoints.setBorder(BorderFactory.createLineBorder(Colors.red, 4));
 		finalizePanel.setBackground(Colors.yellow);
 		tileBagPanel.setBackground(Colors.yellow);
-		
+		//view.setVisible(false);
 		//this.view.setJMenuBar(new view.brian.MenuBar());
+		//view.setVisible(true);
+		
 		this.add(tileBagPanel);
 		this.add(boardPanel);
 		this.add(finalizePanel);
@@ -403,6 +405,8 @@ public class AppContainer extends JPanel
 		//this.pack();
 		this.revalidate();
 		this.repaint();
+		view.revalidate();
+		view.repaint();
 		
 	}
 	

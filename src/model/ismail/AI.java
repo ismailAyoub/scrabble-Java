@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class AI {
+public class AI extends Player {
 
     public class AINode{
             public class Position{
@@ -341,8 +341,8 @@ public class AI {
     public List<occupiedNodes> o_nodes;
 
     public AI(GameBoard board, Difficulty d){
-
-        Player p = new Player("Computer",0);
+		super("Computer", 0);
+        //Player p = new Player("Computer",0);
 
         o_nodes = new ArrayList<occupiedNodes>();
 
@@ -351,6 +351,10 @@ public class AI {
                 AIBoard[i][j] = new AINode();
                 AIBoard[i][j].setEmpty(board.getNode(i,j).isEmpty());
                 AIBoard[i][j].setTile(board.getTile(i,j));
+				if (board.getNode(i, j).getTile() == null)
+				{
+					System.out.println("NULL!!");
+				}
                 if(board.getNode(i,j).getTile().getLetter() == '_'){
                     AIBoard[i][j].setEmpty(true);
                 }
@@ -382,7 +386,7 @@ public class AI {
         else {
             createEasyWords();
         }
-        addWord(board);
+        //addWord(board);
 
     }
 
