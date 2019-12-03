@@ -364,6 +364,11 @@ public class GameState
 		return this.difficulty;
 	}
 
+
+	public void printBoard()
+	{
+		board.printBoard();
+	}
 	public Node getNode(int i, int j)
 	{
 		return board.getNode(i, j);

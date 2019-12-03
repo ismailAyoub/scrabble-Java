@@ -206,6 +206,7 @@ public class AppContainer extends JPanel
 				tileRackPanel.repaint();
 				
 				view.getGameState().drawTiles(tileRackArr);
+				view.getGameState().printBoard();
 				view.getGameState().nextTurn();
 				JOptionPane.showMessageDialog(null, "Please give the computer to " + view.getGameState().getCurrentPlayer().getName());
 				
@@ -420,7 +421,22 @@ public class AppContainer extends JPanel
 		//view.setVisible(false);
 		//this.view.setJMenuBar(new view.brian.MenuBar());
 		//view.setVisible(true);
+		JPanel bonuses = new JPanel();
+		bonuses.setPreferredSize(new Dimension(140, 150));
+		bonuses.setMinimumSize(new Dimension(140, 150));
+		JButton dl = new JButton("Double Letter");
+		JButton tl = new JButton("Triple Letter");
+		dl.setBackground(new Color(180, 180, 250));
+		tl.setBackground(new Color(250, 190, 190));
+		bonuses.setBackground(Colors.yellow);
+		bonuses.setBorder(BorderFactory.createLineBorder(Colors.red, 4));
+		bonuses.add(new JLabel("Bonuses:"));
+		bonuses.add(Box.createRigidArea(new Dimension(140, 10)));
+		bonuses.add(dl);
+		bonuses.add(tl);
 		
+		finalizePanel.add(Box.createRigidArea(new Dimension(140, 30)));
+		finalizePanel.add(bonuses);
 		this.add(tileBagPanel);
 		this.add(boardPanel);
 		this.add(finalizePanel);
