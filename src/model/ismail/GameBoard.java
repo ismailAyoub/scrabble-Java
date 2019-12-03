@@ -105,7 +105,12 @@ public class GameBoard {
         for(int i=0; i<15; i++){
 
             for(int j=0; j<15; j++){
-                System.out.print(board[i][j].getLetter() + " ");
+                if(board[i][j].getTile() == null){
+                    System.out.print('_' + " ");
+                }
+                else {
+                    System.out.print(board[i][j].getTile().getLetter() + " ");
+                }
 				
             }
             System.out.println();
