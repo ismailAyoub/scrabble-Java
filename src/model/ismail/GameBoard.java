@@ -135,8 +135,9 @@ public class GameBoard {
 
   /**
   setTile method place a tile onto the board.
-  @param i,j,t are the positions of the board
-   t is the Tile object reference.
+  @param i is the positions of the board
+  @param j is the y position of the board
+  @param t is the tile to put on the board
   */
 	public void setTile(int i, int j, Tile t)
 	{
@@ -147,7 +148,8 @@ public class GameBoard {
 	/**
   getTile method returns a tile that is in a certain position of the
   board.
-  @param i,j are the positions of the board.
+  @param i is the x positions of the board.
+  @param j is the y positions of the board.
   */
 	public Tile getTile(int i, int j)
 	{
@@ -156,8 +158,9 @@ public class GameBoard {
 
     /**
     The setLetter places a letter onto the game board.
-    @param i,j,l i and j are the positions of the board.
-    l is the letter to put on the board.
+    @param i is the x position of the board.
+    @param j is the y position of the board.
+    @param l is the letter to put on the board.
     */
     public void setLetter(int i, int j, char l){
         board[i][j].setLetter(l);
@@ -165,7 +168,8 @@ public class GameBoard {
 
     /**
     The getNode method returns a node object that represents a square.
-    @param i,j are the positions of the board.
+    @param i is the x position of the board.
+    @param j is the y position of the board.
     */
     public Node getNode(int i,int j){
         return board[i][j];
