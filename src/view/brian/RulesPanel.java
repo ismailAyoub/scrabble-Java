@@ -5,12 +5,21 @@ import java.awt.*;
 import java.awt.event.*;
 import view.claire.*;
 
+/**
+  The RulesPanel class makes the GUI that displays the Rules to Players.
+  @author Brian Huynh
+*/
 public class RulesPanel extends MenuPanel {
   JPanel mainPanel;
   JPanel menuContents;
   JButton back;
   JTextArea textArea;
 
+  /**
+    The RulesPanel constructor sets up the GUI window to contain the Rules Text.
+    Sets up the back button. Brings the user back to the GameBoardGUI.
+    @param parentFrame The JFrame that will hold the RulesPanel gui.
+  */
   public RulesPanel(JFrame parentFrame) {
     super("Rules", 34);
 
