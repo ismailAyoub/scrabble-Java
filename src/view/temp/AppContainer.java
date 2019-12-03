@@ -208,6 +208,7 @@ public class AppContainer extends JPanel
 				view.getGameState().drawTiles(tileRackArr);
 				view.getGameState().printBoard();
 				view.getGameState().nextTurn();
+				setPlayerPoints();
 				JOptionPane.showMessageDialog(null, "Please give the computer to " + view.getGameState().getCurrentPlayer().getName());
 
 				tileRackArr = new Tile[7];
@@ -275,6 +276,7 @@ public class AppContainer extends JPanel
 
 				tileRackPanel.removeAll();
 				view.getGameState().nextTurn();
+				setPlayerPoints();
 				JOptionPane.showMessageDialog(null, "Please give the computer to " + view.getGameState().getCurrentPlayer().getName());
 				tileRackArr = new Tile[7];
 				rackButtons = new JButton[7];
@@ -300,12 +302,13 @@ public class AppContainer extends JPanel
 				tileRackPanel.revalidate();
 				tileRackPanel.repaint();
 			}
+			currentPlayerName.setText(view.getGameState().getCurrentPlayer().getName());
 			tileRackPanel.revalidate();
 			tileRackPanel.repaint();
 			view.revalidate();
 			view.repaint();
 			placedTiles.clear();
-			currentPlayerName.setText(view.getGameState().getCurrentPlayer().getName());
+			
 		}
 
 	}

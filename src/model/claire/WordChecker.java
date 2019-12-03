@@ -50,7 +50,7 @@ public class WordChecker
 	/**
 		The validateTiles() method validates the tiles placed on the board during the current turn by	
 			validating the tiles in the WordChecker's internal list of TilePlacements.
-		@return An ArrayList<ArrayList<TilePlacement> > representing the words formed on the board by the 
+		@return An ArrayList of ArrayLists of TilePlacements representing the words formed on the board by the 
 			current turn's tiles, if any. The ArrayList returned from the method is empty if no words
 			were formed on the board by the current turn's tiles.
 	*/
@@ -208,7 +208,10 @@ public class WordChecker
 	
 	
 	
-	
+	/**
+		This method validates the tiles placed on the board during the current turn, and determines which words they form.
+		@param tilesPlaced An ArrayList of ArrayLists of TilePlacements.
+	*/	
 	public ArrayList<ArrayList<TilePlacement> > validateTiles(ArrayList<TilePlacement> tilesPlaced)
 	{
 		ArrayList<ArrayList<TilePlacement> > words = new ArrayList<ArrayList<TilePlacement> >();
@@ -702,7 +705,10 @@ public class WordChecker
 	
 	
 	/**
-		
+		This method validates the tiles placed on the board during the current turn; this version of 
+			validateTilesFirstTurn() must be called after readTilesFromBoard().
+		@return An ArrayList of ArrayLists of TilePlacements representing the words placed on the board during the current turn, if any.
+			This container is empty if no valid tiles were placed on the board during the current turn.
 	*/
 	public ArrayList<ArrayList<TilePlacement> > validateTilesFirstTurn()
 	{
@@ -712,7 +718,11 @@ public class WordChecker
 ////////////This method was added last-minute and is a copy+paste from validateTiles(); ////////////////////////////////////////////////////////////////////////////
 	/////	Shouldn't count towards the 500 lines.
 	/**
-		
+		This method validates the tiles placed during the first turn of the game.
+		@param tilesPlaced An ArrayList of TilePlacements that contains the tiles placed during the 
+			current turn and their positions on the board.
+		@return An ArrayList of ArrayLists of TilePlacements representing the words placed on the board during the current turn.
+			This container is empty if no valid words were placed on the board during the current turn.
 	*/
 	public ArrayList<ArrayList<TilePlacement> > validateTilesFirstTurn(ArrayList<TilePlacement> tilesPlaced)
 	{

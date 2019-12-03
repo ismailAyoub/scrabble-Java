@@ -34,6 +34,8 @@ public class GameState
 		The GameState constructor initializes the GameState with the specified GameBoard, a new ScrabbleTrie(),
 			a new array list of Players, a new WordChecker, and a new TileBag.
 		@param gb The GameBoard object that the GameState is associated with.
+		@throws IOException If the constructor cannot initialize the ScrabbleTrie with words from 
+			"CollinsScrabbleWords2019.txt", "Scrabble_EASY.txt", or "Scrabble_HARD.txt".
 	*/
 	public GameState(GameBoard gb) throws IOException
 	{
@@ -108,9 +110,19 @@ public class GameState
 		}
 		if (players.get(currentPlayer) instanceof AI)
 		{
+			
+			System.out.println("Adding AI Word:");
+			System.out.println("\n\nBeginning of Turn:");
+			board.printBoard();
+			
 			((AI)players.get(currentPlayer)).scanBoard(board);
 			((AI)players.get(currentPlayer)).addWord(board);
+			System.out.println("After AI Method:");
+			board.printBoard();
+			
 			wordChecker.readTilesFromBoard();
+			
+			
 			ArrayList<ArrayList<TilePlacement> > words = wordChecker.validateTiles();
 			wordsPlayedCurrent = words;
 		
@@ -121,6 +133,7 @@ public class GameState
 				wordChecker.reset();
 				while (words.size() == 0)
 				{
+					System.out.println("Adding AI Word:");
 					((AI)players.get(currentPlayer)).scanBoard(board);
 					((AI)players.get(currentPlayer)).addWord(board);
 					wordChecker.readTilesFromBoard();
@@ -137,10 +150,19 @@ public class GameState
 			///If the tiles are valid, score them and finalize the tiles on the board.
 			else
 			{
-				board.finalizeTurn();
+				
 			}
-			
-			scoreWords();
+			board.finalizeTurn();
+			for (int i = 0; i < players.size(); i++)
+			{
+				if (players.get(i) instanceof AI)
+				{
+					((AI)players.get(i)).scanBoard(board);
+				}
+			}
+			scoreWords(words);
+			System.out.println("\n\nEnd of Turn:");
+			board.printBoard();
 			////score the word.
 			nextTurn();
 			
@@ -149,7 +171,8 @@ public class GameState
 	
 	/**
 		This method scores the words placed on the board during the current turn.
-		@param wrds An ArrayList of ArrayList
+		@param wrds An ArrayList of ArrayLists of TilePlacements containing the words placed
+			on the board during the current turn.
 	*/
 	public void scoreWords(ArrayList<ArrayList<TilePlacement> > wrds)
 	{
@@ -173,7 +196,7 @@ public class GameState
 			}
 			getCurrentPlayer().addPoints(score);
 		}
-	}*/
+	}
 	
 	/**
 		Gets the player whose turn it is.
@@ -224,7 +247,8 @@ public class GameState
 		if (firstTurn)
 		{
 			words = wordChecker.validateTilesFirstTurn();
-			firstTurn = false;
+			if (words.size() != 0)
+				firstTurn = false;
 		}
 		wordsPlayedCurrent = words;
 		
@@ -239,6 +263,14 @@ public class GameState
 		else
 		{
 			board.finalizeTurn();
+			for (int i = 0; i < players.size(); i++)
+			{
+				if (players.get(i) instanceof AI)
+				{
+					((AI)players.get(i)).scanBoard(board);
+				}
+			}
+				
 			scoreWords(words);
 			///todo: Score the tiles in "words", add the score to the current player.
 			
@@ -315,7 +347,7 @@ public class GameState
 	
 	/**
 		Getter method for the collection of all players in the current game.
-		@return An ArrayList<Player> representing all players participating in the current game.
+		@return An ArrayList of Player objects representing all players participating in the current game.
 		@author Claire Campbell
 	*/
 	public ArrayList<Player> getAllPlayers()
@@ -371,16 +403,31 @@ public class GameState
 		return this.difficulty;
 	}
 
-
+	/**
+		This method prints the contents of the GameBoard object associated with the GameState to console.
+	*/
 	public void printBoard()
 	{
 		board.printBoard();
 	}
+	
+	/**
+		This method returns the Node object in the GameBoard at the given position.
+		@param i The row to retrieve the node from.
+		@param j The column to retrieve the node from.
+		@return The Node object at row i and column j on the GameBoard.
+	*/
 	public Node getNode(int i, int j)
 	{
 		return board.getNode(i, j);
 	}
 	
+	/**
+		This method returns the Tile object in the GameBoard at the given position.
+		@param i The row to retrieve the Tile from.
+		@param j The column to retrieve the Tile from.
+		@return The Tile object at row i and column j on the GameBoard.
+	*/
 	public Tile getTilePlacedAt(int i, int j)
 	{
 		return board.getTile(i, j);

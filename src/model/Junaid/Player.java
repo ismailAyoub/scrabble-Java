@@ -37,7 +37,7 @@ public class Player {
     }
 
     /**
-     * @autjor Junaid Khan
+     * @author Junaid Khan
      * @param t removes tiles from the array
      */
     public void removeTile(Tile t) {
