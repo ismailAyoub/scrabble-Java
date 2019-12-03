@@ -117,6 +117,7 @@ public class GameState
 			
 			((AI)players.get(currentPlayer)).scanBoard(board);
 			((AI)players.get(currentPlayer)).addWord(board);
+			((AI)players.get(currentPlayer)).scanBoard(board);
 			System.out.println("After AI Method:");
 			board.printBoard();
 			
@@ -136,6 +137,7 @@ public class GameState
 					System.out.println("Adding AI Word:");
 					((AI)players.get(currentPlayer)).scanBoard(board);
 					((AI)players.get(currentPlayer)).addWord(board);
+					((AI)players.get(currentPlayer)).scanBoard(board);
 					wordChecker.readTilesFromBoard();
 					words = wordChecker.validateTiles();
 					wordsPlayedCurrent = words;
@@ -157,7 +159,7 @@ public class GameState
 			{
 				if (players.get(i) instanceof AI)
 				{
-					((AI)players.get(i)).scanBoard(board);
+					//((AI)players.get(i)).scanBoard(board);
 				}
 			}
 			scoreWords(words);
@@ -165,6 +167,7 @@ public class GameState
 			board.printBoard();
 			////score the word.
 			nextTurn();
+			//((AI)players.get(currentPlayer)).scanBoard(board);
 			
 		}
 	}

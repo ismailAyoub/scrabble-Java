@@ -210,7 +210,9 @@ public class WordChecker
 	
 	/**
 		This method validates the tiles placed on the board during the current turn, and determines which words they form.
-		@param tilesPlaced An ArrayList of ArrayLists of TilePlacements.
+		@param tilesPlaced An ArrayList of ArrayLists of TilePlacements representing the tiles placed on the board during the current turn.
+		@return An ArrayList of ArrayLists of TilePlacements representing the words placed on the board during the current turn.
+			This container is empty if no valid words were placed on the board during the current turn.
 	*/	
 	public ArrayList<ArrayList<TilePlacement> > validateTiles(ArrayList<TilePlacement> tilesPlaced)
 	{
