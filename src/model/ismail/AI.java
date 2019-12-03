@@ -409,12 +409,10 @@ public class AI extends Player{
 
     }
 
+       public void scanBoard(GameBoard board){
+        o_nodes = new ArrayList<occupiedNodes>();
 
-    /**
-     AIBoardScan scans the ordinal board and copies it into the dummy board.
-     */
-
-    public void scanBoard(GameBoard board){
+        AIBoardScan();
         for(int i=0; i < 15;i++){
             for(int j=0; j<15;j++){
                 AIBoard[i][j] = new AINode();
@@ -441,9 +439,14 @@ public class AI extends Player{
                 }
             }
         }
+
+        AIBoardScan2();
     }
     
-    public void AIBoardScan(){
+  /**
+     AIBoardScan scans the ordinal board and copies it into the dummy board.
+     */   
+ public void AIBoardScan(){
 
         int dummy_i =0, dummy_j=0;
         for(int i=0; i<15; i++){
