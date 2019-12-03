@@ -8,8 +8,16 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class AI extends Player {
+/**
+ The AI is used to add new words to the board when the player selects single payer.
+ @author Ismail Ayoub
+ */
 
+public class AI {
+
+    /**
+     The AI node does the same thing as the Node class but it is used here to create a dummy board.
+     */
     public class AINode{
             public class Position{
             private int i;
@@ -131,6 +139,11 @@ public class AI extends Player {
                 return up;
             }
     }
+
+   /**
+    The PossibleWordPlacements is used to store the values for possible max values in each direction on the board.
+    @author Ismail Ayoub
+ */
     public class PossibleWordPlacments{
         private char letter;
         private int maxUp;
@@ -226,6 +239,10 @@ public class AI extends Player {
             return maxUpRight;
         }
     }
+    /**
+     The occupiedNodes is used to store the location of all the nodes that contain something in them and are not empty.
+     @author Ismail Ayoub
+     */
     public class occupiedNodes{
         private int i;
         private int j;
@@ -340,9 +357,15 @@ public class AI extends Player {
     }
     public List<occupiedNodes> o_nodes;
 
+    /**
+     This is the AI constructor and it initializes all the valuables on the class and creates the dummy board..
+     @param board The is a GameBoard object that is going to be copied into the dummy board.
+     @param  d the d is the difficulty of the game that.
+     */
     public AI(GameBoard board, Difficulty d){
-		super("Computer", 0);
-        //Player p = new Player("Computer",0);
+
+
+        Player p = new Player("Computer",0);
 
         o_nodes = new ArrayList<occupiedNodes>();
 
@@ -351,10 +374,6 @@ public class AI extends Player {
                 AIBoard[i][j] = new AINode();
                 AIBoard[i][j].setEmpty(board.getNode(i,j).isEmpty());
                 AIBoard[i][j].setTile(board.getTile(i,j));
-				if (board.getNode(i, j).getTile() == null)
-				{
-					System.out.println("NULL!!");
-				}
                 if(board.getNode(i,j).getTile() == null){
                     AIBoard[i][j].setEmpty(true);
                 }
@@ -386,6 +405,8 @@ public class AI extends Player {
         else {
             createEasyWords();
         }
+        //addWord(board);
+
     }
 
     public void AIBoardScan(){
@@ -499,7 +520,7 @@ public class AI extends Player {
     public void createHardWords(){
         Scanner sc = null;
         try {
-            sc = new Scanner(new File("Scrabble_HARD.txt"));
+            sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/Scrabble_HARD.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -557,7 +578,7 @@ public class AI extends Player {
     public void createEasyWords(){
         Scanner sc = null;
         try {
-            sc = new Scanner(new File("Scrabble_EASY.txt"));
+            sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/Scrabble_EASY.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -708,7 +729,7 @@ public class AI extends Player {
                             char c = Character.toUpperCase(wordList.get(x2).charAt(k));
                             Scanner sc = null;
                             try {
-                                sc = new Scanner(new File("AI_tile_distribution.txt"));
+                                sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/AI_tile_distribution.txt"));
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
@@ -835,7 +856,7 @@ public class AI extends Player {
                             char c = Character.toUpperCase(wordList.get(x2).charAt(k));
                             Scanner sc = null;
                             try {
-                                sc = new Scanner(new File("AI_tile_distribution.txt"));
+                                sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/AI_tile_distribution.txt"));
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
@@ -966,7 +987,7 @@ public class AI extends Player {
                             char c = Character.toUpperCase(wordList.get(x2).charAt(k));
                             Scanner sc = null;
                             try {
-                                sc = new Scanner(new File("AI_tile_distribution.txt"));
+                                sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/AI_tile_distribution.txt"));
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
@@ -1093,7 +1114,7 @@ public class AI extends Player {
                             char c = Character.toUpperCase(wordList.get(x2).charAt(k));
                             Scanner sc = null;
                             try {
-                                sc = new Scanner(new File("AI_tile_distribution.txt"));
+                                sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/AI_tile_distribution.txt"));
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
