@@ -482,7 +482,12 @@ public class AI {
         for(int i=0; i<15; i++){
 
             for(int j=0; j<15; j++){
-                System.out.print(AIBoard[i][j].getTile().getLetter() + " ");
+                if(AIBoard[i][j].getTile() == null){
+                    System.out.print('_' + " ");
+                }
+                else {
+                    System.out.print(AIBoard[i][j].getTile().getLetter() + " ");
+                }
 
             }
             System.out.println();
