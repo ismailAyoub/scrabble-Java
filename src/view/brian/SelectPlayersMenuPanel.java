@@ -1,6 +1,7 @@
 package view.brian;
 
 import view.claire.*;
+import model.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -26,12 +27,31 @@ public class SelectPlayersMenuPanel extends MenuPanel {
   */
   public class nextListener implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
+      int startAmount = 4; // Variable used to determine how many players
+                           // will play. Also used to make sure minimum of 2.
       JButton source = (JButton)ae.getSource();
       MainView parent = (MainView)SwingUtilities.getWindowAncestor(source);
+      GameState state = parent.getGameState();
       for(int i = 0; i < 4; ++i) {
         names[i] = playersNames[i].getText();
+        if(names[i].trim().isEmpty()) {
+          startAmount--;
+        }
       }
-  		parent.loadMenu(ae.getActionCommand());
+      if(startAmount >= 2) {
+        for(int i = 0; i < 4; ++i) {
+          if(names[i].trim().isEmpty()){
+            //do nothing
+          }else {
+            state.addPlayer(names[i], 0);
+          }
+        }
+      }else {
+        JOptionPane.showMessageDialog(null, "Please enter minimum of 2 players");
+      }
+      if(startAmount >= 2){
+        parent.loadMenu(ae.getActionCommand());
+      }
     }
   }
 
@@ -65,7 +85,8 @@ public class SelectPlayersMenuPanel extends MenuPanel {
     back.setBorder(BorderFactory.createLineBorder(Colors.blue, 2));
     next.setForeground(Colors.red);
     next.setActionCommand("GameBoardGUI");
-    next.addActionListener(new NavigationListener());
+    //next.addActionListener(new NavigationListener());
+    next.addActionListener(new nextListener());
     next.setMinimumSize(new Dimension(140, 30));
 
     //Set up for menuContents
