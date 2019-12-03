@@ -355,7 +355,7 @@ public class AI extends Player {
 				{
 					System.out.println("NULL!!");
 				}
-                if(board.getNode(i,j).getTile().getLetter() == '_'){
+                if(board.getNode(i,j).getTile() == null){
                     AIBoard[i][j].setEmpty(true);
                 }
                 AIBoard[i][j].setPosition(i,j);
@@ -386,12 +386,6 @@ public class AI extends Player {
         else {
             createEasyWords();
         }
-<<<<<<< HEAD
-        //addWord(board);
-=======
-       // addWord(board);
->>>>>>> cf257849cd353357b8bba25bff9fd9d8c7e9928e
-
     }
 
     public void AIBoardScan(){
@@ -505,7 +499,7 @@ public class AI extends Player {
     public void createHardWords(){
         Scanner sc = null;
         try {
-            sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/Scrabble_HARD.txt"));
+            sc = new Scanner(new File("Scrabble_HARD.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -563,7 +557,7 @@ public class AI extends Player {
     public void createEasyWords(){
         Scanner sc = null;
         try {
-            sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/Scrabble_EASY.txt"));
+            sc = new Scanner(new File("Scrabble_EASY.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -714,7 +708,7 @@ public class AI extends Player {
                             char c = Character.toUpperCase(wordList.get(x2).charAt(k));
                             Scanner sc = null;
                             try {
-                                sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/AI_tile_distribution.txt"));
+                                sc = new Scanner(new File("AI_tile_distribution.txt"));
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
@@ -841,7 +835,7 @@ public class AI extends Player {
                             char c = Character.toUpperCase(wordList.get(x2).charAt(k));
                             Scanner sc = null;
                             try {
-                                sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/AI_tile_distribution.txt"));
+                                sc = new Scanner(new File("AI_tile_distribution.txt"));
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
@@ -972,7 +966,7 @@ public class AI extends Player {
                             char c = Character.toUpperCase(wordList.get(x2).charAt(k));
                             Scanner sc = null;
                             try {
-                                sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/AI_tile_distribution.txt"));
+                                sc = new Scanner(new File("AI_tile_distribution.txt"));
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
@@ -1099,7 +1093,7 @@ public class AI extends Player {
                             char c = Character.toUpperCase(wordList.get(x2).charAt(k));
                             Scanner sc = null;
                             try {
-                                sc = new Scanner(new File("/Users/ismailmarwan/Documents/Game/AI_tile_distribution.txt"));
+                                sc = new Scanner(new File("AI_tile_distribution.txt"));
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
