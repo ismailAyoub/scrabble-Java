@@ -23,7 +23,7 @@ public class GameState
 	private int currentPlayer;
 	private ArrayList<ArrayList<TilePlacement> > wordsPlayedCurrent;
 	private boolean firstTurn;
-	
+	private WordScoreCalculator wsc;
 	//Do not save these fields in the save game files!!///////
 	private ScrabbleTrie scrabbleTrie;
 	private WordChecker wordChecker;
@@ -38,6 +38,7 @@ public class GameState
 	public GameState(GameBoard gb) throws IOException
 	{
 		this.board = gb;
+		wsc = new WordScoreCalculator(gb);
 		difficulty = Difficulty.EASY;
 		tutorialTooltipsEnabled = false;
 		players = new ArrayList<Player>();
@@ -107,6 +108,7 @@ public class GameState
 		}
 		if (players.get(currentPlayer) instanceof AI)
 		{
+			((AI)players.get(currentPlayer)).scanBoard(board);
 			((AI)players.get(currentPlayer)).addWord(board);
 			wordChecker.readTilesFromBoard();
 			ArrayList<ArrayList<TilePlacement> > words = wordChecker.validateTiles();
@@ -119,6 +121,7 @@ public class GameState
 				wordChecker.reset();
 				while (words.size() == 0)
 				{
+					((AI)players.get(currentPlayer)).scanBoard(board);
 					((AI)players.get(currentPlayer)).addWord(board);
 					wordChecker.readTilesFromBoard();
 					words = wordChecker.validateTiles();
@@ -137,13 +140,17 @@ public class GameState
 				board.finalizeTurn();
 			}
 			
-			scoreWords(words);
+			scoreWords();
 			////score the word.
 			nextTurn();
 			
 		}
 	}
 	
+	/**
+		This method scores the words placed on the board during the current turn.
+		@param wrds An ArrayList of ArrayList
+	*/
 	public void scoreWords(ArrayList<ArrayList<TilePlacement> > wrds)
 	{
 		int score = 0;
@@ -166,7 +173,7 @@ public class GameState
 			}
 			getCurrentPlayer().addPoints(score);
 		}
-	}
+	}*/
 	
 	/**
 		Gets the player whose turn it is.

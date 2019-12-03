@@ -17,3 +17,4 @@ javac ../src/view/claire/*.java ../src/view/brian/*.java ../src/view/temp/*.java
 javac ../src/view/claire/*.java -d .
 javac ../src/view/brian/*.java -d .
 javac ../src/view/temp/*.java -d .
+javac ../src/view/claire/*.java ../src/view/brian/*.java ../src/view/temp/*.java -sourcepath ../src/view/:../bin/view/claire/:../bin/view/brian/:../bin/view/temp/ -d .
