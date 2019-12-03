@@ -4,10 +4,17 @@ import model.claire.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+The GameBoard class sets up the game board(not GameBoardGUI).
+@author Ismail Ayoub
+*/
 public class GameBoard {
 
     private Node board[][] = new Node[15][15];
 
+    /**
+    The constructor for GameBoard. Sets up the grid.
+    */
     public GameBoard(){
 
         for(int i=0; i<15; i++){
@@ -22,6 +29,10 @@ public class GameBoard {
 
     }
 
+    /**
+    setBonus method sets up the bonus squares for specific letters that are place
+    on top of the them.
+    */
     private void setBonus(Node n[][]){
 
         n[0][0].setBonus("tw");
@@ -101,6 +112,10 @@ public class GameBoard {
         n[14][14].setBonus("tw");
 
     }
+
+    /**
+    printBoard method prints the game board in the console/terminal.
+    */
     public void printBoard(){
         for(int i=0; i<15; i++){
 
@@ -111,32 +126,48 @@ public class GameBoard {
                 else {
                     System.out.print(board[i][j].getTile().getLetter() + " ");
                 }
-				
+
             }
             System.out.println();
         }
     }
-	
+
+  /**
+  setTile method place a tile onto the board.
+  */
 	public void setTile(int i, int j, Tile t)
 	{
 		board[i][j].setTile(t);
 		board[i][j].setCurrent(true);
 	}
-	
-	
+
+	/**
+  getTile method returns a tile that is in a certain position of the
+  board.
+  */
 	public Tile getTile(int i, int j)
 	{
 		return board[i][j].getTile();
 	}
 
+    /**
+    The setLetter places a letter onto the game board.
+    */
     public void setLetter(int i, int j, char l){
         board[i][j].setLetter(l);
     }
-	
+
+    /**
+    The getNode method returns a node object that represents a square.
+    */
     public Node getNode(int i,int j){
         return board[i][j];
     }
 
+    /**
+    rollbackTurn method returns all the letters of the invalid word to the
+    player and removes the letters off the board.
+    */
     public void rollbackTurn(){
         for(int i = 0; i<15;i++){
             for (int j=0; j<15;j++){
@@ -148,6 +179,10 @@ public class GameBoard {
             }
         }
     }
+
+    /**
+    The finalizeTurn validize the word the player put on the board.
+    */
     public void finalizeTurn(){
         for(int i = 0; i<15;i++){
             for (int j=0; j<15;j++){
@@ -157,6 +192,11 @@ public class GameBoard {
             }
         }
     }
+
+    /**
+    The getCurrentTiles method returns an array of Tiles that represents
+    a word.
+    */
     public List<Tile> getCurrentTiles(){
         List<Tile> current_Tiles = new ArrayList<Tile>();
         for(int i = 0; i<15;i++){
@@ -168,10 +208,12 @@ public class GameBoard {
         }
         return current_Tiles;
     }
-	
-	
-	/*
-		I had to add this because the WordChecker requires an ArrayList of TilePlacements.
+
+
+	//I had to add this because the WordChecker requires an ArrayList of TilePlacements.
+  /**
+    The getCurrentTilePlacements returns an array of positions of each letter in
+    a word placed by the player in the board.
 	*/
 	public List<TilePlacement> getCurrentTilePlacements(){
         List<TilePlacement> current_Tiles = new ArrayList<TilePlacement>();
