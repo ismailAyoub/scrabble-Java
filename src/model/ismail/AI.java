@@ -409,7 +409,9 @@ public class AI extends Player{
 
     }
 
-       public void scanBoard(GameBoard board){
+
+
+    public void scanBoard(GameBoard board){
         o_nodes = new ArrayList<occupiedNodes>();
 
         AIBoardScan();
@@ -442,11 +444,11 @@ public class AI extends Player{
 
         AIBoardScan2();
     }
-    
-  /**
+
+    /**
      AIBoardScan scans the ordinal board and copies it into the dummy board.
-     */   
- public void AIBoardScan(){
+     */
+    public void AIBoardScan(){
 
         int dummy_i =0, dummy_j=0;
         for(int i=0; i<15; i++){
@@ -704,7 +706,7 @@ public class AI extends Player{
 
 
         int direction = random.nextInt(4);
-        //direction = 3;
+        direction = 3;
 
         int wordList_loop=0;
 
@@ -767,7 +769,6 @@ public class AI extends Player{
                 dummy_j = j;
                 dummy_i2 = i;
                 dummy_j2 = j;
-
                 int x2 = random.nextInt(wordList.size());
 
                 if (wordList.get(x2).length() <= maxRight+1) {
@@ -1030,7 +1031,7 @@ public class AI extends Player{
                     if(Character.toUpperCase(wordList.get(x2).charAt(wordLength-1)) == AIBoard[i][j].getTile().getLetter()){
                         dummy_i -= wordList.get(x2).length()-1;
                         dummy_i2 -= wordList.get(x2).length()-1;
-                        for (int k = 0; k < wordList.get(x2).length(); k++) {
+                        for (int k = 0; k < wordList.get(x2).length()-1; k++) {
                             Tile tile = new Tile(0,Character.toUpperCase(wordList.get(x2).charAt(k)));
                             AIBoard[dummy_i++][j].setTile(tile);
 
