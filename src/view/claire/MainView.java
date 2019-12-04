@@ -140,5 +140,10 @@ public class MainView extends JFrame
 		new MainView(new GameState(new GameBoard()));
 	}
 	
+	public void newGameState()
+	{
+		gameState = new GameState(new GameBoard());
+	}
+	
 
 }
