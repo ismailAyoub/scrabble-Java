@@ -6,6 +6,7 @@ import model.claire.*;
 import model.Junaid.*;	///uncomment when junaid completes his files.
 import java.util.ArrayList;
 import java.io.*;
+import javax.swing.JOptionPane;	//sins against the delegate-model architecture here!
 
 /**
 	The GameState class is an aggregate of all classes that comprise the "state" of the application.
@@ -24,6 +25,7 @@ public class GameState
 	private ArrayList<ArrayList<TilePlacement> > wordsPlayedCurrent;
 	private boolean firstTurn;
 	private WordScoreCalculator wsc;
+	private AI trueAI;
 	//Do not save these fields in the save game files!!///////
 	private ScrabbleTrie scrabbleTrie;
 	private WordChecker wordChecker;
@@ -78,7 +80,10 @@ public class GameState
 		return currentTurnValid;
 	}
 	
-	
+	public int getTilesLeft()
+	{
+		return tileBag.getAllTiles().size();
+	}
 	
 	/**
 		The addPlayer() method adds the specified player to the GameState.
@@ -110,14 +115,14 @@ public class GameState
 		}
 		if (players.get(currentPlayer) instanceof AI)
 		{
-			
+			trueAI = new AI(board, difficulty);
 			System.out.println("Adding AI Word:");
 			System.out.println("\n\nBeginning of Turn:");
 			board.printBoard();
-			
-			((AI)players.get(currentPlayer)).scanBoard(board);
-			((AI)players.get(currentPlayer)).addWord(board);
-			((AI)players.get(currentPlayer)).scanBoard(board);
+			trueAI.addWord(board);
+			//((AI)players.get(currentPlayer)).scanBoard(board);
+			//((AI)players.get(currentPlayer)).addWord(board);
+			//((AI)players.get(currentPlayer)).scanBoard(board);
 			System.out.println("After AI Method:");
 			board.printBoard();
 			
@@ -135,9 +140,11 @@ public class GameState
 				while (words.size() == 0)
 				{
 					System.out.println("Adding AI Word:");
-					((AI)players.get(currentPlayer)).scanBoard(board);
-					((AI)players.get(currentPlayer)).addWord(board);
-					((AI)players.get(currentPlayer)).scanBoard(board);
+					trueAI = new AI(board, difficulty);
+					trueAI.addWord(board);
+					//((AI)players.get(currentPlayer)).scanBoard(board);
+					//((AI)players.get(currentPlayer)).addWord(board);
+					//((AI)players.get(currentPlayer)).scanBoard(board);
 					wordChecker.readTilesFromBoard();
 					words = wordChecker.validateTiles();
 					wordsPlayedCurrent = words;
@@ -162,7 +169,9 @@ public class GameState
 					//((AI)players.get(i)).scanBoard(board);
 				}
 			}
-			scoreWords(words);
+			int scorePts = scoreWords(words);
+			JOptionPane.showMessageDialog(null, "AI earned " + scorePts + " points.");
+			wordChecker.reset();
 			System.out.println("\n\nEnd of Turn:");
 			board.printBoard();
 			////score the word.
@@ -177,7 +186,7 @@ public class GameState
 		@param wrds An ArrayList of ArrayLists of TilePlacements containing the words placed
 			on the board during the current turn.
 	*/
-	public void scoreWords(ArrayList<ArrayList<TilePlacement> > wrds)
+	public int scoreWords(ArrayList<ArrayList<TilePlacement> > wrds)
 	{
 		int score = 0;
 		for (int i = 0; i < wrds.size(); i++)
@@ -197,8 +206,10 @@ public class GameState
 				}
 				score += temp;
 			}
-			getCurrentPlayer().addPoints(score);
+			
 		}
+		getCurrentPlayer().addPoints(score);
+		return score;
 	}
 	
 	/**

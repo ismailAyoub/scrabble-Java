@@ -16,6 +16,7 @@ import java.util.ArrayList;
 */
 public class AppContainer extends JPanel
 {
+	private JPanel tilesLeftPanel;
 	private JPanel boardPanel;
 	private JPanel finalizePanel;
 	private MainView view;
@@ -32,7 +33,7 @@ public class AppContainer extends JPanel
 	private JTextArea playerPointsLabel;
 	private JLabel currentPlayer;
 	private JLabel currentPlayerName;
-
+	private boolean firstTurn;
 
 	/**
 		This JButton-derived class represents a space on the game board GUI.
@@ -91,7 +92,13 @@ public class AppContainer extends JPanel
 				////here x=row and y=col lol
 				int x = src.getXVal();
 				int y = src.getYVal();
-				if (tileButton[x][y].getText() == "" && currentSelectedIndex != -1)
+				
+				if (firstTurn == true && (x != 7 || y != 7) && tileButton[7][7].getText() == "*")
+				{
+					JOptionPane.showMessageDialog(null, "Please place your first tile over the star.");
+					return;
+				}
+				if ((tileButton[x][y].getText() == "" || tileButton[x][y].getText() == "*") && currentSelectedIndex != -1)
 				{
 					tileButton[x][y].setText("" + tileRackArr[currentSelectedIndex].getLetter());
 					currentSelected = null;
@@ -153,6 +160,10 @@ public class AppContainer extends JPanel
 				rackButtons[i].setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
 				rackButtons[i].setMinimumSize(new Dimension(40, 40));
 				rackButtons[i].setPreferredSize(new Dimension(40, 40));
+				try{
+					rackButtons[i].setToolTipText("" + tileRackArr[i].getPoints());
+				}
+				catch (NullPointerException e) {}
 			}
 			currentSelectedIndex = Integer.parseInt(ae.getActionCommand());
 			currentSelected = tileRackArr[currentSelectedIndex];
@@ -185,10 +196,11 @@ public class AppContainer extends JPanel
 			{
 				System.out.println(placedTiles.get(i).getTile().getLetter());
 			}
-
+			int oldPoints = view.getGameState().getCurrentPlayer().getPoints();
 			view.getGameState().finalize(placedTiles, tileRackArr);
 			if (view.getGameState().isCurrentTurnValid())
 			{
+				
 				ArrayList<ArrayList<TilePlacement> > tp = view.getGameState().getCurrentWords();
 				ArrayList<String> strs = new ArrayList<String>();
 				for (int i = 0; i < tp.size(); i++)
@@ -201,11 +213,16 @@ public class AppContainer extends JPanel
 					strs1 += strs.get(i);
 				}
 				JOptionPane.showMessageDialog(null, "The following words were placed on the board: \n" + strs);
+				view.getGameState().drawTiles(tileRackArr);
+				tilesLeftPanel.removeAll();
+				tilesLeftPanel.add(new JLabel("Tiles Left: " + view.getGameState().getTilesLeft()));
+				
 				setPlayerPoints();
+				JOptionPane.showMessageDialog(null, "You earned points: " + (view.getGameState().getCurrentPlayer().getPoints() - oldPoints));
 				tileRackPanel.revalidate();
 				tileRackPanel.repaint();
 
-				view.getGameState().drawTiles(tileRackArr);
+				
 				view.getGameState().printBoard();
 				view.getGameState().nextTurn();
 				setPlayerPoints();
@@ -219,7 +236,9 @@ public class AppContainer extends JPanel
 					try {
 						Tile temp = view.getGameState().getCurrentPlayer().getTileRack()[i];
 						tileRackArr[i] = new Tile(temp.getPoints(), temp.getLetter());
+						
 						rackButtons[i] = new JButton(" " + temp.getLetter());
+						rackButtons[i].setToolTipText("" + tileRackArr[i].getPoints());
 						rackButtons[i].setActionCommand("" + i);
 						rackButtons[i].setMinimumSize(new Dimension(40, 40));
 						rackButtons[i].addActionListener(new RackListener());
@@ -320,6 +339,7 @@ public class AppContainer extends JPanel
 	*/
 	public AppContainer(MainView view)
 	{
+		firstTurn = true;
 		this.view = view;
 		if (view.getGameState().getAllPlayers().size() == 0)
 		{
@@ -348,6 +368,7 @@ public class AppContainer extends JPanel
 				rackButtons[i].setActionCommand("" + i);
 				rackButtons[i].setMinimumSize(new Dimension(40, 40));
 				rackButtons[i].addActionListener(new RackListener());
+				rackButtons[i].setToolTipText("" + tileRackArr[i].getPoints());
 
 				tileRackPanel.add(rackButtons[i]);
 			}
@@ -385,6 +406,7 @@ public class AppContainer extends JPanel
 				boardPanel.add(tileButton[i][j]);
 			}
 		}
+		tileButton[7][7].setText("*");
 		finalizePanel = new JPanel();
 		finalizePanel.setPreferredSize(new Dimension(150, 510));
 		finalizePanel.setMaximumSize(new Dimension(150, 510));
@@ -441,6 +463,14 @@ public class AppContainer extends JPanel
 
 		finalizePanel.add(Box.createRigidArea(new Dimension(140, 30)));
 		finalizePanel.add(bonuses);
+		tilesLeftPanel = new JPanel();
+		tilesLeftPanel.setBorder(BorderFactory.createLineBorder(Colors.red, 4));
+		tilesLeftPanel.setPreferredSize(new Dimension(140, 80));
+		tilesLeftPanel.setBackground(Colors.yellow);
+		tilesLeftPanel.add(new JLabel("Tiles Remaining: " + view.getGameState().getTilesLeft()));
+		//JPanel bonuses = new JPanel();
+		tileBagPanel.add(Box.createRigidArea(new Dimension(145, 20)));
+		tileBagPanel.add(tilesLeftPanel);
 		this.add(tileBagPanel);
 		this.add(boardPanel);
 		this.add(finalizePanel);
