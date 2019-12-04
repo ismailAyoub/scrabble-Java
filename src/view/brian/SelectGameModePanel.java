@@ -31,6 +31,7 @@ public class SelectGameModePanel extends MenuPanel {
       GameState state = parent.getGameState();
       state.addPlayer("Player 1", 0);
       state.addAIPlayer();
+      parent.newGameState();
       parent.loadMenu(ae.getActionCommand());
     }
   }
