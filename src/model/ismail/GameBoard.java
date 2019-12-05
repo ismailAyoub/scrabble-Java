@@ -186,6 +186,8 @@ public class GameBoard {
                     board[i][j].setTile(null);
 					board[i][j].setLetter('_');
                     board[i][j].setCurrent(false);
+                    board[i][j].setEmpty(true);
+					
                 }
             }
         }
@@ -199,6 +201,7 @@ public class GameBoard {
             for (int j=0; j<15;j++){
                 if(board[i][j].getCurrent() == true){
                     board[i][j].setCurrent(false);
+                    board[i][j].setEmpty(false);
                 }
             }
         }

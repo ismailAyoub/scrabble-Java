@@ -119,6 +119,7 @@ public class GameState
 			System.out.println("Adding AI Word:");
 			System.out.println("\n\nBeginning of Turn:");
 			board.printBoard();
+			trueAI.scanBoard(board);
 			trueAI.addWord(board);
 			//((AI)players.get(currentPlayer)).scanBoard(board);
 			//((AI)players.get(currentPlayer)).addWord(board);
@@ -141,6 +142,7 @@ public class GameState
 				{
 					System.out.println("Adding AI Word:");
 					trueAI = new AI(board, difficulty);
+					trueAI.scanBoard(board);
 					trueAI.addWord(board);
 					//((AI)players.get(currentPlayer)).scanBoard(board);
 					//((AI)players.get(currentPlayer)).addWord(board);
