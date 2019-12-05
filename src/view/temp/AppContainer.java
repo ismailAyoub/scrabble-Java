@@ -279,6 +279,7 @@ public class AppContainer extends JPanel
 						}
 					}
 				}
+				setPlayerPoints();
 				tileRackPanel.revalidate();
 				tileRackPanel.repaint();
 				view.revalidate();
@@ -322,6 +323,8 @@ public class AppContainer extends JPanel
 				tileRackPanel.repaint();
 			}
 			currentPlayerName.setText(view.getGameState().getCurrentPlayer().getName());
+			setPlayerPoints();playerPointsLabel.revalidate();
+			playerPointsLabel.repaint();
 			tileRackPanel.revalidate();
 			tileRackPanel.repaint();
 			view.revalidate();

@@ -2,6 +2,7 @@ package view.brian;
 
 import view.claire.*;
 import model.*;
+import java.io.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -31,6 +32,7 @@ public class SelectPlayersMenuPanel extends MenuPanel {
                            // will play. Also used to make sure minimum of 2.
       JButton source = (JButton)ae.getSource();
       MainView parent = (MainView)SwingUtilities.getWindowAncestor(source);
+	  try {parent.newGameState();} catch (IOException e) {}
       GameState state = parent.getGameState();
       for(int i = 0; i < 4; ++i) {
         names[i] = playersNames[i].getText();
