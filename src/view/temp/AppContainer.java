@@ -415,6 +415,9 @@ public class AppContainer extends JPanel
 		finalizePanel.setMaximumSize(new Dimension(150, 510));
 		finalizePanel.add(Box.createRigidArea(new Dimension(145, 40)));
 		JButton finalize = new JButton("Finalize");
+		finalize.setForeground(Colors.yellow);
+		finalize.setBackground(Colors.blue);
+		//finalize.setBorder(BorderFactory.createLineBorder(Colors.red, 3));
 		finalize.addActionListener(new FinalizeListener());
 		finalizePanel.add(finalize);
 
@@ -433,6 +436,8 @@ public class AppContainer extends JPanel
 		playerPointsLabel = new JTextArea();
 		playerPointsLabel.setMinimumSize(new Dimension(120, 100));
 		playerPointsLabel.setPreferredSize(new Dimension(120, 100));
+		playerPointsLabel.setBackground(Colors.yellow);
+		//playerPointsLabel.setForeground(Colors.blue);
 		playerPointsLabel.setEditable(false);
 		setPlayerPoints();
 		playerPoints.add(currentPlayer);

@@ -64,7 +64,7 @@ public class SelectPlayersMenuPanel extends MenuPanel {
     @param parentFrame The JFrame that will contain the SelectGameModePanel
   */
   public SelectPlayersMenuPanel(JFrame parentFrame) {
-    super("Scrabble", 34);
+    super("Players", 34);
 
     //Set up labels for Text Fields
     for(int i=0;i<4;++i){
@@ -90,6 +90,8 @@ public class SelectPlayersMenuPanel extends MenuPanel {
     //next.addActionListener(new NavigationListener());
     next.addActionListener(new nextListener());
     next.setMinimumSize(new Dimension(140, 30));
+    next.setPreferredSize(new Dimension(140, 30));
+	next.setBorder(BorderFactory.createLineBorder(Colors.blue, 2));
 
     //Set up for menuContents
     menuContents = new JPanel();
@@ -102,6 +104,7 @@ public class SelectPlayersMenuPanel extends MenuPanel {
       playersNames[i].setAlignmentX(Component.CENTER_ALIGNMENT);
       menuContents.add(labels[i]);
       menuContents.add(playersNames[i]);
+	  
     }
 
     //Set up main panel
@@ -114,6 +117,7 @@ public class SelectPlayersMenuPanel extends MenuPanel {
     mainPanel.add(menuContents);
     mainPanel.add(Box.createRigidArea(new Dimension(250, 15)));
     mainPanel.add(next);
+	mainPanel.add(Box.createRigidArea(new Dimension(350, 10)));
     mainPanel.add(back);
 
     this.setContents(mainPanel);

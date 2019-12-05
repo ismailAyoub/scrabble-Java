@@ -44,6 +44,8 @@ public class RulesPanel extends MenuPanel {
     textArea.append("Word score is automatically calculated end of turn.\n");
     textArea.append("Game ends when there is no more word tiles.\n");
     textArea.append("Game ends when there is not enough spots to place \na word.");
+	textArea.setBackground(Colors.blue);
+	textArea.setForeground(Colors.yellow);
 
     //Set up for the sub panel to go within Main Panel
     menuContents = new JPanel();
