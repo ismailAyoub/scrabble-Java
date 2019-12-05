@@ -87,12 +87,22 @@ public class SelectGameModePanel extends MenuPanel {
 
     //Set up for the sub panel to go within Main Panel
     menuContents = new JPanel();
-    menuContents.setLayout(new BoxLayout(menuContents, BoxLayout.Y_AXIS));
+	
+	menuContents.setLayout(new FlowLayout(FlowLayout.CENTER));
+	
+	singlePlayer.setBorder(BorderFactory.createLineBorder(Colors.red, 4));
+	multiPlayer.setBorder(BorderFactory.createLineBorder(Colors.red, 4));
+	
+    //menuContents.setLayout(new BoxLayout(menuContents, BoxLayout.Y_AXIS));
     menuContents.setPreferredSize(new Dimension(340, 350));
     menuContents.setMaximumSize(new Dimension(340, 350));
     menuContents.setBackground(Colors.blue);
+	
+	menuContents.add(Box.createRigidArea(new Dimension(300, 10)));
     menuContents.add(subTitle);
+	menuContents.add(Box.createRigidArea(new Dimension(300, 20)));
     menuContents.add(singlePlayer);
+	menuContents.add(Box.createRigidArea(new Dimension(300, 10)));
     menuContents.add(multiPlayer);
 
     //Set up for the big main panel
