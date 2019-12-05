@@ -80,6 +80,7 @@ public class SelectPlayersMenuPanel extends MenuPanel {
     back.setBorder(BorderFactory.createLineBorder(Colors.blue, 2));
     back.setForeground(Colors.red);
     back.setMaximumSize(new Dimension(140, 30));
+    back.setPreferredSize(new Dimension(140, 30));
 
     //Set up for the next buttons
     next = new JButton("Next");
@@ -91,8 +92,11 @@ public class SelectPlayersMenuPanel extends MenuPanel {
     next.addActionListener(new nextListener());
     next.setMinimumSize(new Dimension(140, 30));
     next.setPreferredSize(new Dimension(140, 30));
+    next.setMaximumSize(new Dimension(140, 30));
 	next.setBorder(BorderFactory.createLineBorder(Colors.blue, 2));
-
+	  next.setMinimumSize(new Dimension(140, 30));
+    next.setPreferredSize(new Dimension(140, 30));
+    next.setMaximumSize(new Dimension(140, 30));
     //Set up for menuContents
     menuContents = new JPanel();
     menuContents.setLayout(new BoxLayout(menuContents,BoxLayout.Y_AXIS));

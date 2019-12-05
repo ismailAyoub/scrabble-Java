@@ -115,12 +115,19 @@ public class GameState
 		}
 		if (players.get(currentPlayer) instanceof AI)
 		{
-			trueAI = new AI(board, difficulty);
+			//trueAI.scanBoard(board);
+			trueAI = (AI)players.get(currentPlayer);
+			trueAI.scanBoard(board);
 			System.out.println("Adding AI Word:");
 			System.out.println("\n\nBeginning of Turn:");
 			board.printBoard();
+			//trueAI.addWord(board);
+			do 
+			{
+				trueAI.addWord(board);
+			} 
+			while (trueAI.placedWord == false);
 			trueAI.scanBoard(board);
-			trueAI.addWord(board);
 			//((AI)players.get(currentPlayer)).scanBoard(board);
 			//((AI)players.get(currentPlayer)).addWord(board);
 			//((AI)players.get(currentPlayer)).scanBoard(board);
@@ -141,9 +148,15 @@ public class GameState
 				while (words.size() == 0)
 				{
 					System.out.println("Adding AI Word:");
-					trueAI = new AI(board, difficulty);
+					trueAI = (AI)players.get(currentPlayer);//new AI(board, difficulty);
 					trueAI.scanBoard(board);
-					trueAI.addWord(board);
+					//trueAI.addWord(board);
+					do 
+					{
+						trueAI.addWord(board);
+					} 
+					while (trueAI.placedWord == false);
+					trueAI.scanBoard(board);
 					//((AI)players.get(currentPlayer)).scanBoard(board);
 					//((AI)players.get(currentPlayer)).addWord(board);
 					//((AI)players.get(currentPlayer)).scanBoard(board);

@@ -297,6 +297,19 @@ public class AppContainer extends JPanel
 				tileRackPanel.removeAll();
 				view.getGameState().nextTurn();
 				setPlayerPoints();
+				for (int i = 0; i < 15; i++)
+				{
+					for (int j = 0; j < 15; j++)
+					{
+						try {
+							tileButton[i][j].setText("" + view.getGameState().getTilePlacedAt(i, j).getLetter());
+						}
+						catch (Exception ie)
+						{
+
+						}
+					}
+				}
 				JOptionPane.showMessageDialog(null, "Please give the computer to " + view.getGameState().getCurrentPlayer().getName());
 				tileRackArr = new Tile[7];
 				rackButtons = new JButton[7];
@@ -403,7 +416,7 @@ public class AppContainer extends JPanel
 				{
 					tileButton[i][j].setBackground(new Color(250, 190, 190));
 				}
-				tileButton[i][j].setMinimumSize(new Dimension(30, 30));
+				tileButton[i][j].setMinimumSize(new Dimension(40, 40));
 				tileButton[i][j].setBorder(BorderFactory.createLineBorder(Colors.blue, 2));
 				tileButton[i][j].addActionListener(new BoardListener());
 				boardPanel.add(tileButton[i][j]);
