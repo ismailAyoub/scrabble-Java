@@ -107,20 +107,20 @@ public class AI extends Player{
                 return p;
             }
 
-            public void setDown(boolean down) {
-            this.down = down;
+            public void setDown(boolean down1) {
+            down = down1;
             }
 
-            public void setLeft(boolean left) {
-                this.left = left;
+            public void setLeft(boolean left1) {
+                left = left1;
             }
 
-            public void setRight(boolean right) {
-                this.right = right;
+            public void setRight(boolean right1) {
+                right = right1;
             }
 
-            public void setUp(boolean up) {
-                this.up = up;
+            public void setUp(boolean up1) {
+                up = up1;
             }
 
             public boolean isDown() {
@@ -356,6 +356,8 @@ public class AI extends Player{
 
     }
     public List<occupiedNodes> o_nodes;
+    private int visted =0;
+    public boolean placedWord;
 
     /**
      This is the AI constructor and it initializes all the valuables on the class and creates the dummy board..
@@ -397,7 +399,7 @@ public class AI extends Player{
         }
 
         setBonus(AIBoard);
-        AIBoardScan();
+        AIBoardScan(board);
         AIBoardScan2();
         if(d == Difficulty.HARD) {
             createHardWords();
@@ -414,14 +416,19 @@ public class AI extends Player{
     public void scanBoard(GameBoard board){
         o_nodes = new ArrayList<occupiedNodes>();
 
-        AIBoardScan();
+        //AIBoardScan(board);
+        int dummy_i =0, dummy_j=0;
         for(int i=0; i < 15;i++){
             for(int j=0; j<15;j++){
                 AIBoard[i][j] = new AINode();
+                AIBoard[i][j].setTile(board.getTile(i,j));
                 AIBoard[i][j].setEmpty(board.getNode(i,j).isEmpty());
                 AIBoard[i][j].setTile(board.getTile(i,j));
                 if(board.getNode(i,j).getTile() == null){
                     AIBoard[i][j].setEmpty(true);
+                }
+                else {
+                    AIBoard[i][j].setEmpty(false);
                 }
                 AIBoard[i][j].setPosition(i,j);
                 if(i == 0){
@@ -439,6 +446,31 @@ public class AI extends Player{
                 if(AIBoard[i][j].isEmpty() == false){
                     o_nodes.add(new occupiedNodes(i,j));
                 }
+
+                dummy_i = i; dummy_j = j;
+                if(AIBoard[i][j].isLeft() ){
+                    if(AIBoard[i][dummy_j-1].isEmpty() == false || AIBoard[i][dummy_j-1].getTile() != null){
+                        AIBoard[i][j].setLeft(false);
+                    }
+                }
+                dummy_i = i; dummy_j = j;
+                if(AIBoard[i][j].isRight()){
+                    if(AIBoard[i][ dummy_j+1].isEmpty() == false || AIBoard[i][ dummy_j+1].getTile() != null){
+                        AIBoard[i][j].setRight(false);
+                    }
+                }
+                dummy_i = i; dummy_j = j;
+                if(AIBoard[i][j].isUp()){
+                    if(AIBoard[ dummy_i-1][j].isEmpty() == false || AIBoard[ dummy_i-1][j].getTile() != null){
+                        AIBoard[i][j].setUp(false);
+                    }
+                }
+                dummy_i = i; dummy_j = j;
+                if(AIBoard[i][j].isDown()){
+                    if(AIBoard[ dummy_i+1][j].isEmpty() == false || AIBoard[ dummy_i+1][j].getTile() != null){
+                        AIBoard[i][j].setDown(false);
+                    }
+                }
             }
         }
 
@@ -448,33 +480,36 @@ public class AI extends Player{
     /**
      AIBoardScan scans the ordinal board and copies it into the dummy board.
      */
-    public void AIBoardScan(){
+    public void AIBoardScan(GameBoard board2){
 
         int dummy_i =0, dummy_j=0;
+
         for(int i=0; i<15; i++){
             for(int j=0; j<15; j++){
 
+                AIBoard[i][j].setTile(board2.getTile(i,j));
+
                 dummy_i = i; dummy_j = j;
                 if(AIBoard[i][j].isLeft() ){
-                    if(AIBoard[i][dummy_j-1].isEmpty() == false){
+                    if(AIBoard[i][dummy_j-1].isEmpty() == false || AIBoard[i][dummy_j-1].getTile() != null){
                         AIBoard[i][j].setLeft(false);
                     }
                 }
                 dummy_i = i; dummy_j = j;
                 if(AIBoard[i][j].isRight()){
-                    if(AIBoard[i][ dummy_j+1].isEmpty() == false){
+                    if(AIBoard[i][ dummy_j+1].isEmpty() == false || AIBoard[i][ dummy_j+1].getTile() != null){
                         AIBoard[i][j].setRight(false);
                     }
                 }
                 dummy_i = i; dummy_j = j;
                 if(AIBoard[i][j].isUp()){
-                    if(AIBoard[ dummy_i-1][j].isEmpty() == false){
+                    if(AIBoard[ dummy_i-1][j].isEmpty() == false || AIBoard[ dummy_i-1][j].getTile() != null){
                         AIBoard[i][j].setUp(false);
                     }
                 }
                 dummy_i = i; dummy_j = j;
                 if(AIBoard[i][j].isDown()){
-                    if(AIBoard[ dummy_i+1][j].isEmpty() == false){
+                    if(AIBoard[ dummy_i+1][j].isEmpty() == false || AIBoard[ dummy_i+1][j].getTile() != null){
                         AIBoard[i][j].setDown(false);
                     }
                 }
@@ -689,14 +724,25 @@ public class AI extends Player{
      */
     public void addWord(GameBoard Board){
 
+        visted++;
+        placedWord = false;
 
         Random random = new Random();
         int index = random.nextInt(o_nodes.size());
-        //index = 0;
 
         int i =o_nodes.get(index).getI();
         int j =o_nodes.get(index).getJ();
         int dummy_i, dummy_j, dummy_i2, dummy_j2;
+        int counter = 0;
+            while ((AIBoard[i][j].isDown() == false && AIBoard[i][j].isUp() == false && AIBoard[i][j].isRight() == false && AIBoard[i][j].isLeft() == false) || (counter < 200)) {
+                index = random.nextInt(o_nodes.size());
+
+                i = o_nodes.get(index).getI();
+                j = o_nodes.get(index).getJ();
+                counter++;
+            }
+
+
 
         int maxRight = AIBoard[i][j].pwp.getMaxRight();
         int maxLeft = AIBoard[i][j].pwp.getMaxLeft();
@@ -705,121 +751,42 @@ public class AI extends Player{
 
 
 
+        //System.out.println("can place: " + canPlace);
+        //if(AIBoard[i][j].getTile().getLetter() != null) {
+            System.out.println(AIBoard[i][j].getTile().getLetter());
+        //}
+
+
+
         int direction = random.nextInt(4);
-        direction = 3;
+        System.out.println("D " + direction);
+        if(direction == 0 && AIBoard[i][j].isRight() == false){
+            direction = random.nextInt(4-1)+1;
+        }
+        else if(direction == 1 && AIBoard[i][j].isLeft() == false){
+            while (direction == 1) {
+                direction = random.nextInt(4);
+            }
+        }
+        else if(direction == 2 && AIBoard[i][j].isUp() == false){
+            while (direction == 2) {
+                direction = random.nextInt(4);
+            }
+        }
+        else if(direction == 3 && AIBoard[i][j].isDown() == false){
+            while (direction == 3) {
+                direction = random.nextInt(4);
+            }
+        }
 
         int wordList_loop=0;
 
         if(direction == 0) {
+            int x;
             Random random1 = new Random();
-            int x = random.nextInt(maxRight)+1;
-            x=4;
-            switch (x) {
-                case 1:
-                    wordList = wordList2;
-                    break;
-                case 2:
-                    wordList = wordList3;
-                    break;
-                case 3:
-                    wordList = wordList4;
-                    break;
-                case 4:
-                    wordList = wordList5;
-                    break;
-                case 5:
-                    wordList = wordList6;
-                    break;
-                case 6:
-                    wordList = wordList7;
-                    break;
-                case 7:
-                    wordList = wordList8;
-                    break;
-                case 8:
-                    wordList = wordList9;
-                    break;
-                case 9:
-                    wordList = wordList10;
-                    break;
-                case 10:
-                    wordList = wordList11;
-                    break;
-                case 11:
-                    wordList = wordList12;
-                    break;
-                case 12:
-                    wordList = wordList13;
-                    break;
-                case 13:
-                    wordList = wordList14;
-                    break;
-                case 14:
-                    wordList = wordList15;
-                    break;
+            if(maxRight > 0) {
+                x = random.nextInt(maxRight) + 1;
 
-            }
-
-
-            wordList_loop=0;
-            Random random2 = new Random();
-
-            while (wordList_loop < wordList.size()) {
-                dummy_i = i;
-                dummy_j = j;
-                dummy_i2 = i;
-                dummy_j2 = j;
-                int x2 = random.nextInt(wordList.size());
-
-                if (wordList.get(x2).length() <= maxRight+1) {
-                    if(Character.toUpperCase(wordList.get(x2).charAt(0)) == AIBoard[i][j].getTile().getLetter()){
-                        for (int k = 1; k < wordList.get(x2).length(); k++) {
-                            Tile tile = new Tile(0,Character.toUpperCase(wordList.get(x2).charAt(k)));
-                            AIBoard[i][++dummy_j].setTile(tile);
-
-
-                            boolean found = false;
-                            char c = Character.toUpperCase(wordList.get(x2).charAt(k));
-                            Scanner sc = null;
-                            try {
-                                sc = new Scanner(new File("AI_tile_distribution.txt"));
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            }
-                            while (sc.hasNextLine()) {
-                                Scanner s2 = new Scanner(sc.nextLine());
-                                char l = '-';
-                                int p = 0;
-                                while (s2.hasNext()) {
-                                    if(c == s2.next().charAt(0)) {
-                                        l = c;
-                                        p = Integer.parseInt(s2.next());
-                                        found = true;
-                                    }
-                                }
-
-                                if(found){
-                                    Tile t = new Tile(p,l);
-                                    Board.setTile(i,++dummy_j2,t);
-                                    break;
-                                }
-
-                            }
-                            sc.close();
-
-
-                        }
-                        break;
-                    }
-                }
-                wordList_loop++;
-
-            }
-        }
-
-        if(direction == 1) {
-                Random random1 = new Random();
-                int x = random.nextInt(maxLeft)+1;
 
                 switch (x) {
                     case 1:
@@ -867,340 +834,414 @@ public class AI extends Player{
 
                 }
 
-            wordList_loop=0;
-            Random random2 = new Random();
-                /*while (wordList_loop < wordList.size()) {
-                dummy_i = i;
-                dummy_j = j;
 
-                int x2 = random.nextInt(wordList.size());
-                if (wordList.get(x2).length() <= maxLeft+1) {
-                    int wordLength = wordList.get(x2).length();
-                    if(wordList.get(x2).charAt(wordLength-1) == AIBoard[i][j].getLetter()){
-                    dummy_j -= wordList.get(x2).length()-1;
-                    for (int k = 1; k < wordList.get(x2).length()-1; k++) {
-                        AIBoard[i][dummy_j++].setLetter(wordList.get(x2).charAt(k));
-                    }
-                    break;
-                }
-                    }
-                wordList_loop++;
+                wordList_loop = 0;
+                Random random2 = new Random();
 
-            }*/
-            while (wordList_loop < wordList.size()) {
-                dummy_i = i;
-                dummy_j = j;
-                dummy_i2 = i;
-                dummy_j2 = j;
+                while (wordList_loop < wordList.size()) {
+                    dummy_i = i;
+                    dummy_j = j;
+                    dummy_i2 = i;
+                    dummy_j2 = j;
+                    int x2 = random.nextInt(wordList.size());
 
-                int x2 = random.nextInt(wordList.size());
-
-                if (wordList.get(x2).length() <= maxLeft+1) {
-                    int wordLength = wordList.get(x2).length();
-                    if(Character.toUpperCase(wordList.get(x2).charAt(wordLength-1)) == AIBoard[i][j].getTile().getLetter()){
-                        dummy_j -= wordList.get(x2).length()-1;
-                        dummy_j2 -= wordList.get(x2).length()-1;
-                        for (int k = 0; k < wordList.get(x2).length(); k++) {
-                            Tile tile = new Tile(0,Character.toUpperCase(wordList.get(x2).charAt(k)));
-                            AIBoard[i][dummy_j++].setTile(tile);
+                    if (wordList.get(x2).length() <= maxRight + 1) {
+                        if (Character.toUpperCase(wordList.get(x2).charAt(0)) == AIBoard[i][j].getTile().getLetter()) {
+                            for (int k = 1; k < wordList.get(x2).length(); k++) {
+                                Tile tile = new Tile(0, Character.toUpperCase(wordList.get(x2).charAt(k)));
+                                AIBoard[i][++dummy_j].setTile(tile);
 
 
-                            boolean found = false;
-                            char c = Character.toUpperCase(wordList.get(x2).charAt(k));
-                            Scanner sc = null;
-                            try {
-                                sc = new Scanner(new File("AI_tile_distribution.txt"));
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            }
-                            while (sc.hasNextLine()) {
-
-                                Scanner s2 = new Scanner(sc.nextLine());
-                                char l = '-';
-                                int p = 0;
-                                while (s2.hasNext()) {
-                                    if(c == s2.next().charAt(0)) {
-                                        l = c;
-                                        p = Integer.parseInt(s2.next());
-                                        found = true;
+                                boolean found = false;
+                                char c = Character.toUpperCase(wordList.get(x2).charAt(k));
+                                Scanner sc = null;
+                                try {
+                                    sc = new Scanner(new File("AI_tile_distribution.txt"));
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                }
+                                while (sc.hasNextLine()) {
+                                    Scanner s2 = new Scanner(sc.nextLine());
+                                    char l = '-';
+                                    int p = 0;
+                                    while (s2.hasNext()) {
+                                        if (c == s2.next().charAt(0)) {
+                                            l = c;
+                                            p = Integer.parseInt(s2.next());
+                                            found = true;
+                                        }
                                     }
-                                }
 
-                                if(found){
-                                    Tile t = new Tile(p,l);
-                                    Board.setTile(i,dummy_j2++,t);
-                                    break;
+                                    if (found) {
+                                        Tile t = new Tile(p, l);
+                                        Board.setTile(i, ++dummy_j2, t);
+                                        break;
+                                    }
+
                                 }
+                                sc.close();
+
 
                             }
-                            sc.close();
-
-
+                            placedWord = true;
+                            break;
                         }
-                        break;
+                    }
+                    wordList_loop++;
+
+                }
+            }
+        }
+
+        if(direction == 1) {
+            int x;
+            Random random1 = new Random();
+                if(maxLeft > 0) {
+                    x = random.nextInt(maxLeft) + 1;
+
+
+                    switch (x) {
+                        case 1:
+                            wordList = wordList2;
+                            break;
+                        case 2:
+                            wordList = wordList3;
+                            break;
+                        case 3:
+                            wordList = wordList4;
+                            break;
+                        case 4:
+                            wordList = wordList5;
+                            break;
+                        case 5:
+                            wordList = wordList6;
+                            break;
+                        case 6:
+                            wordList = wordList7;
+                            break;
+                        case 7:
+                            wordList = wordList8;
+                            break;
+                        case 8:
+                            wordList = wordList9;
+                            break;
+                        case 9:
+                            wordList = wordList10;
+                            break;
+                        case 10:
+                            wordList = wordList11;
+                            break;
+                        case 11:
+                            wordList = wordList12;
+                            break;
+                        case 12:
+                            wordList = wordList13;
+                            break;
+                        case 13:
+                            wordList = wordList14;
+                            break;
+                        case 14:
+                            wordList = wordList15;
+                            break;
+
+                    }
+
+                    wordList_loop = 0;
+                    Random random2 = new Random();
+
+                    while (wordList_loop < wordList.size()) {
+                        dummy_i = i;
+                        dummy_j = j;
+                        dummy_i2 = i;
+                        dummy_j2 = j;
+
+                        int x2 = random.nextInt(wordList.size());
+
+                        if (wordList.get(x2).length() <= maxLeft + 1) {
+                            int wordLength = wordList.get(x2).length();
+                            if (Character.toUpperCase(wordList.get(x2).charAt(wordLength - 1)) == AIBoard[i][j].getTile().getLetter()) {
+                                dummy_j -= wordList.get(x2).length() - 1;
+                                dummy_j2 -= wordList.get(x2).length() - 1;
+                                for (int k = 0; k < wordList.get(x2).length()-1; k++) {
+                                    Tile tile = new Tile(0, Character.toUpperCase(wordList.get(x2).charAt(k)));
+                                    AIBoard[i][++dummy_j].setTile(tile);
+
+
+                                    boolean found = false;
+                                    char c = Character.toUpperCase(wordList.get(x2).charAt(k));
+                                    Scanner sc = null;
+                                    try {
+                                        sc = new Scanner(new File("AI_tile_distribution.txt"));
+                                    } catch (FileNotFoundException e) {
+                                        e.printStackTrace();
+                                    }
+                                    while (sc.hasNextLine()) {
+
+                                        Scanner s2 = new Scanner(sc.nextLine());
+                                        char l = '-';
+                                        int p = 0;
+                                        while (s2.hasNext()) {
+                                            if (c == s2.next().charAt(0)) {
+                                                l = c;
+                                                p = Integer.parseInt(s2.next());
+                                                found = true;
+                                            }
+                                        }
+
+                                        if (found) {
+                                            Tile t = new Tile(p, l);
+                                            Board.setTile(i, dummy_j2++, t);
+                                            break;
+                                        }
+
+                                    }
+                                    sc.close();
+
+
+                                }
+                                placedWord = true;
+                                break;
+                            }
+                        }
+                        wordList_loop++;
+
                     }
                 }
-                wordList_loop++;
-
-            }
         }
 
         if(direction == 2) {
 
+            int x;
             Random random1 = new Random();
-            int x = random.nextInt(maxUp)+1;
-            switch (x) {
-                case 1:
-                    wordList = wordList2;
-                    break;
-                case 2:
-                    wordList = wordList3;
-                    break;
-                case 3:
-                    wordList = wordList4;
-                    break;
-                case 4:
-                    wordList = wordList5;
-                    break;
-                case 5:
-                    wordList = wordList6;
-                    break;
-                case 6:
-                    wordList = wordList7;
-                    break;
-                case 7:
-                    wordList = wordList8;
-                    break;
-                case 8:
-                    wordList = wordList9;
-                    break;
-                case 9:
-                    wordList = wordList10;
-                    break;
-                case 10:
-                    wordList = wordList11;
-                    break;
-                case 11:
-                    wordList = wordList12;
-                    break;
-                case 12:
-                    wordList = wordList13;
-                    break;
-                case 13:
-                    wordList = wordList14;
-                    break;
-                case 14:
-                    wordList = wordList15;
-                    break;
+            if(maxUp > 0) {
+                x = random.nextInt(maxUp) + 1;
 
-            }
-
-
-            wordList_loop=0;
-            Random random2 = new Random();
-
-           /* while (wordList_loop < wordList.size()) {
-
-                int x2 = random.nextInt(wordList.size());
-                dummy_i = i;
-                dummy_j = j;
-                if (wordList.get(x2).length() <= maxUp+1) {
-                    int wordLength = wordList.get(x2).length();
-                    if(wordList.get(x2).charAt(wordLength-1) == AIBoard[i][j].getLetter()){
-                        dummy_i -= wordList.get(x2).length()-1;
-                        for (int k = 0; k < wordList.get(x2).length()-1; k++) {
-                            AIBoard[dummy_i++][j].setLetter(wordList.get(x2).charAt(k));
-
-                        }
+                switch (x) {
+                    case 1:
+                        wordList = wordList2;
                         break;
-                    }
+                    case 2:
+                        wordList = wordList3;
+                        break;
+                    case 3:
+                        wordList = wordList4;
+                        break;
+                    case 4:
+                        wordList = wordList5;
+                        break;
+                    case 5:
+                        wordList = wordList6;
+                        break;
+                    case 6:
+                        wordList = wordList7;
+                        break;
+                    case 7:
+                        wordList = wordList8;
+                        break;
+                    case 8:
+                        wordList = wordList9;
+                        break;
+                    case 9:
+                        wordList = wordList10;
+                        break;
+                    case 10:
+                        wordList = wordList11;
+                        break;
+                    case 11:
+                        wordList = wordList12;
+                        break;
+                    case 12:
+                        wordList = wordList13;
+                        break;
+                    case 13:
+                        wordList = wordList14;
+                        break;
+                    case 14:
+                        wordList = wordList15;
+                        break;
+
                 }
-                wordList_loop++;
-
-            }*/
-            while (wordList_loop < wordList.size()) {
-                dummy_i = i;
-                dummy_j = j;
-                dummy_i2 = i;
-                dummy_j2 = j;
-
-                int x2 = random.nextInt(wordList.size());
-
-                if (wordList.get(x2).length() <= maxUp+1) {
-                    int wordLength = wordList.get(x2).length();
-                    if(Character.toUpperCase(wordList.get(x2).charAt(wordLength-1)) == AIBoard[i][j].getTile().getLetter()){
-                        dummy_i -= wordList.get(x2).length()-1;
-                        dummy_i2 -= wordList.get(x2).length()-1;
-                        for (int k = 0; k < wordList.get(x2).length()-1; k++) {
-                            Tile tile = new Tile(0,Character.toUpperCase(wordList.get(x2).charAt(k)));
-                            AIBoard[dummy_i++][j].setTile(tile);
 
 
-                            boolean found = false;
-                            char c = Character.toUpperCase(wordList.get(x2).charAt(k));
-                            Scanner sc = null;
-                            try {
-                                sc = new Scanner(new File("AI_tile_distribution.txt"));
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            }
-                            while (sc.hasNextLine()) {
+                wordList_loop = 0;
+                Random random2 = new Random();
 
-                                Scanner s2 = new Scanner(sc.nextLine());
-                                char l = '-';
-                                int p = 0;
-                                while (s2.hasNext()) {
-                                    if(c == s2.next().charAt(0)) {
-                                        l = c;
-                                        p = Integer.parseInt(s2.next());
-                                        found = true;
+
+                while (wordList_loop < wordList.size()) {
+                    dummy_i = i;
+                    dummy_j = j;
+                    dummy_i2 = i;
+                    dummy_j2 = j;
+
+                    int x2 = random.nextInt(wordList.size());
+
+                    if (wordList.get(x2).length() <= maxUp + 1) {
+                        int wordLength = wordList.get(x2).length();
+                        if (Character.toUpperCase(wordList.get(x2).charAt(wordLength - 1)) == AIBoard[i][j].getTile().getLetter()) {
+                            dummy_i -= wordList.get(x2).length() - 1;
+                            dummy_i2 -= wordList.get(x2).length() - 1;
+                            for (int k = 0; k < wordList.get(x2).length() - 1; k++) {
+                                Tile tile = new Tile(0, Character.toUpperCase(wordList.get(x2).charAt(k)));
+                                AIBoard[++dummy_i][j].setTile(tile);
+
+
+                                boolean found = false;
+                                char c = Character.toUpperCase(wordList.get(x2).charAt(k));
+                                Scanner sc = null;
+                                try {
+                                    sc = new Scanner(new File("AI_tile_distribution.txt"));
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                }
+                                while (sc.hasNextLine()) {
+
+                                    Scanner s2 = new Scanner(sc.nextLine());
+                                    char l = '-';
+                                    int p = 0;
+                                    while (s2.hasNext()) {
+                                        if (c == s2.next().charAt(0)) {
+                                            l = c;
+                                            p = Integer.parseInt(s2.next());
+                                            found = true;
+                                        }
                                     }
-                                }
 
-                                if(found){
-                                    Tile t = new Tile(p,l);
-                                    Board.setTile(dummy_i2++,j,t);
-                                    break;
+                                    if (found) {
+                                        Tile t = new Tile(p, l);
+                                        Board.setTile(dummy_i2++, j, t);
+                                        break;
+                                    }
+
                                 }
+                                sc.close();
+
 
                             }
-                            sc.close();
-
-
+                            placedWord = true;
+                            break;
                         }
-                        break;
-                    }
-                }
-                wordList_loop++;
 
+                    }
+                    wordList_loop++;
+
+                }
             }
 
 
         }
 
         if(direction == 3) {
-
+            int x;
             Random random1 = new Random();
-            int x = random.nextInt(maxDown)+1;
-            switch (x) {
-                case 1:
-                    wordList = wordList2;
-                    break;
-                case 2:
-                    wordList = wordList3;
-                    break;
-                case 3:
-                    wordList = wordList4;
-                    break;
-                case 4:
-                    wordList = wordList5;
-                    break;
-                case 5:
-                    wordList = wordList6;
-                    break;
-                case 6:
-                    wordList = wordList7;
-                    break;
-                case 7:
-                    wordList = wordList8;
-                    break;
-                case 8:
-                    wordList = wordList9;
-                    break;
-                case 9:
-                    wordList = wordList10;
-                    break;
-                case 10:
-                    wordList = wordList11;
-                    break;
-                case 11:
-                    wordList = wordList12;
-                    break;
-                case 12:
-                    wordList = wordList13;
-                    break;
-                case 13:
-                    wordList = wordList14;
-                    break;
-                case 14:
-                    wordList = wordList15;
-                    break;
+            if (maxDown > 0) {
+                x = random.nextInt(maxDown) + 1;
 
-            }
-
-
-            wordList_loop=0;
-            Random random2 = new Random();
-           /* while (wordList_loop < wordList.size()) {
-
-                int x2 = random.nextInt(wordList.size());
-                dummy_i = i;
-                dummy_j = j;
-                if (wordList.get(x2).length() <= maxDown+1) {
-                    int wordLength = wordList.get(x2).length();
-                    if(wordList.get(x2).charAt(0) == AIBoard[i][j].getLetter()){
-                        for (int k = 1; k < wordList.get(x2).length(); k++) {
-                            AIBoard[++dummy_i][j].setLetter(wordList.get(x2).charAt(k));
-                        }
+                switch (x) {
+                    case 1:
+                        wordList = wordList2;
                         break;
-                    }
+                    case 2:
+                        wordList = wordList3;
+                        break;
+                    case 3:
+                        wordList = wordList4;
+                        break;
+                    case 4:
+                        wordList = wordList5;
+                        break;
+                    case 5:
+                        wordList = wordList6;
+                        break;
+                    case 6:
+                        wordList = wordList7;
+                        break;
+                    case 7:
+                        wordList = wordList8;
+                        break;
+                    case 8:
+                        wordList = wordList9;
+                        break;
+                    case 9:
+                        wordList = wordList10;
+                        break;
+                    case 10:
+                        wordList = wordList11;
+                        break;
+                    case 11:
+                        wordList = wordList12;
+                        break;
+                    case 12:
+                        wordList = wordList13;
+                        break;
+                    case 13:
+                        wordList = wordList14;
+                        break;
+                    case 14:
+                        wordList = wordList15;
+                        break;
+
                 }
-                wordList_loop++;
-
-            }*/
-            while (wordList_loop < wordList.size()) {
-                dummy_i = i;
-                dummy_j = j;
-                dummy_i2 = i;
-                dummy_j2 = j;
-
-                int x2 = random.nextInt(wordList.size());
-
-                if (wordList.get(x2).length() <= maxDown+1) {
-                    if(Character.toUpperCase(wordList.get(x2).charAt(0)) == AIBoard[i][j].getTile().getLetter()){
-                        for (int k = 0; k < wordList.get(x2).length(); k++) {
-                            Tile tile = new Tile(0,Character.toUpperCase(wordList.get(x2).charAt(k)));
-                            AIBoard[dummy_i++][j].setTile(tile);
 
 
-                            boolean found = false;
-                            char c = Character.toUpperCase(wordList.get(x2).charAt(k));
-                            Scanner sc = null;
-                            try {
-                                sc = new Scanner(new File("AI_tile_distribution.txt"));
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            }
-                            while (sc.hasNextLine()) {
-                                Scanner s2 = new Scanner(sc.nextLine());
-                                char l = '-';
-                                int p = 0;
-                                while (s2.hasNext()) {
-                                    if(c == s2.next().charAt(0)) {
-                                        l = c;
-                                        p = Integer.parseInt(s2.next());
-                                        found = true;
+                wordList_loop = 0;
+                Random random2 = new Random();
+
+                while (wordList_loop < wordList.size()) {
+                    dummy_i = i;
+                    dummy_j = j;
+                    dummy_i2 = i;
+                    dummy_j2 = j;
+
+                    int x2 = random.nextInt(wordList.size());
+
+                    if (wordList.get(x2).length() <= maxDown + 1) {
+                        if (Character.toUpperCase(wordList.get(x2).charAt(0)) == AIBoard[i][j].getTile().getLetter()) {
+                            for (int k = 1; k < wordList.get(x2).length(); k++) {
+                                Tile tile = new Tile(0, Character.toUpperCase(wordList.get(x2).charAt(k)));
+                                AIBoard[++dummy_i][j].setTile(tile);
+
+
+                                boolean found = false;
+                                char c = Character.toUpperCase(wordList.get(x2).charAt(k));
+                                Scanner sc = null;
+                                try {
+                                    sc = new Scanner(new File("AI_tile_distribution.txt"));
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                }
+                                while (sc.hasNextLine()) {
+                                    Scanner s2 = new Scanner(sc.nextLine());
+                                    char l = '-';
+                                    int p = 0;
+                                    while (s2.hasNext()) {
+                                        if (c == s2.next().charAt(0)) {
+                                            l = c;
+                                            p = Integer.parseInt(s2.next());
+                                            found = true;
+                                        }
                                     }
-                                }
 
-                                if(found){
-                                    Tile t = new Tile(p,l);
-                                    Board.setTile(dummy_i2++,j,t);
-                                    break;
+                                    if (found) {
+                                        Tile t = new Tile(p, l);
+                                        Board.setTile(++dummy_i2, j, t);
+                                        break;
+                                    }
+
                                 }
+                                sc.close();
+
 
                             }
-                            sc.close();
-
-
+                            placedWord = true;
+                            break;
                         }
-                        break;
                     }
-                }
-                wordList_loop++;
+                    wordList_loop++;
 
+                }
             }
         }
+    System.out.println( "did place " + placedWord);
     }
 
 
