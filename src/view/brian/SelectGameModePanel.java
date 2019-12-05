@@ -28,10 +28,13 @@ public class SelectGameModePanel extends MenuPanel {
   public class SinglePLayerListener implements ActionListener {
       public void actionPerformed(ActionEvent ae) {
       MainView parent = (MainView)SwingUtilities.getWindowAncestor((JButton)ae.getSource());
+	  try {
+	        parent.newGameState();
+	  } catch (Exception e) {}
       GameState state = parent.getGameState();
       state.addPlayer("Player 1", 0);
       state.addAIPlayer();
-      parent.newGameState();
+
       parent.loadMenu(ae.getActionCommand());
     }
   }

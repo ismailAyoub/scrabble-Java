@@ -140,7 +140,7 @@ public class MainView extends JFrame
 		new MainView(new GameState(new GameBoard()));
 	}
 	
-	public void newGameState()
+	public void newGameState() throws IOException
 	{
 		gameState = new GameState(new GameBoard());
 	}

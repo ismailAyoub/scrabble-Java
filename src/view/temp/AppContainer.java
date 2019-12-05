@@ -495,6 +495,8 @@ public class AppContainer extends JPanel
 			str += (players.get(i).getName() + ": " + players.get(i).getPoints() + "\n");
 		}
 		playerPointsLabel.setText(str);
+		tileRackPanel.revalidate();
+		tileRackPanel.repaint();
 	}
 
 	/**
